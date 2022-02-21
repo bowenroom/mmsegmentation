@@ -38,7 +38,7 @@ def clip_big_image(image_path, clip_save_dir, args, to_label=False):
     # For example, given one 5120 x 5120 original image, the clip size is
     # 512 and stride size is 256, thus it would generate 20x20 = 400 images
     # whose size are all 512x512.
-    image = mmcv.imread(image_path)
+    image = mmcv.imread(image_path, channel_order='rgb')
 
     h, w, c = image.shape
     clip_size = args.clip_size

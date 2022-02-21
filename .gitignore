@@ -117,3 +117,9 @@ mmseg/.mim
 
 # Pytorch
 *.pth
+
+# temp Dataset 
+data/
+tempDataTest/
+swpTestImage/
+swpTest.py

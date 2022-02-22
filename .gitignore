@@ -120,6 +120,4 @@ mmseg/.mim
 
 # temp Dataset 
 data/
-tempDataTest/
-swpTestImage/
-swpTest.py
+swpTest/

@@ -89,12 +89,13 @@ my_cmap = colormap()
 for i in range(8):
     temp = gtFiles[random.randint(0, 100)]
     # temp = gtFiles[0]
+    print(temp)
     gtImage = mmcv.imread(temp, flag='grayscale', channel_order='rgb')
-    fig_size = (5, 5)
-    plt.figure(figsize=fig_size)
-    plt.imshow(gtImage, cmap=my_cmap)
+    # fig_size = (5, 5)
+    # plt.figure(figsize=fig_size)
+    # plt.imshow(gtImage, cmap=my_cmap)
 
-    # show_image(gtImage, cmap=my_cmap)
+    show_image(gtImage, cmap=my_cmap)
     # if len(np.unique(gtImage))<8:
     #     print(temp)
     #     show_image(gtImage, cmap=my_cmap)
@@ -129,3 +130,8 @@ show_image(testImage, cmap=my_cmap, figsize=(15, 15))
 # %%
 # pick up some images for the testset
 
+test = rgbFiles[random.randint(0, 100)]
+testImage= mmcv.imread(test)
+show_image(testImage)
+# %%
+# remove the corrupted image

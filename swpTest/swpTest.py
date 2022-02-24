@@ -69,7 +69,8 @@ def colormap():
              '#FFFF00',  '#00FF00', '#00FFFF', '#0000FF']
     # 按照上面定义的colordict，将数据分成对应的部分，indexed：代表顺序
     return colors.ListedColormap(cdict, 'from_list')
-
+# define my own pixel color paletter in the matplotlib
+my_cmap = colormap()
 
 # palette for vaihingen dataset
 palette = {
@@ -84,8 +85,7 @@ palette = {
 invert_palette = {v: k for k, v in palette.items()}
 paletteValue = list(palette.values())
 
-# define my own pixel color paletter in the matplotlib
-my_cmap = colormap()
+
 for i in range(8):
     temp = gtFiles[random.randint(0, 100)]
     # temp = gtFiles[0]

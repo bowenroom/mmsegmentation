@@ -124,3 +124,4 @@ swpTest/tempDataTest/
 swpTest/swpTestImage/
 tempData/
 swpTest/*.zip
+*.zip

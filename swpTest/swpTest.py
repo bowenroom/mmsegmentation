@@ -85,7 +85,6 @@ palette = {
 invert_palette = {v: k for k, v in palette.items()}
 paletteValue = list(palette.values())
 
-
 for i in range(8):
     temp = gtFiles[random.randint(0, 100)]
     # temp = gtFiles[0]

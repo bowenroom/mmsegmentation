@@ -178,7 +178,7 @@ def main():
                     clip_big_image(src_path, dst_dir, to_label=True)
                 elif 'matching' in src_path:
                     dst_dir = osp.join(out_dir, 'dsm_dir', data_type)
-                    # if to save the dsm files, wee need to read the image using flag '-1' and write the image using tiff files 
+                    # if to save the dsm files, we need to read the image using flag '-1' and write the image using tiff files 
                     clip_big_image(src_path, dst_dir,dsm=True)
                 else:
                     dst_dir = osp.join(out_dir, 'img_dir', data_type)

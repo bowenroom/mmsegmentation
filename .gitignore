@@ -125,3 +125,4 @@ swpTest/swpTestImage/
 tempData/
 swpTest/*.zip
 *.zip
+wandb/

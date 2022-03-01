@@ -206,10 +206,13 @@ dsmImage = mmcv.imread(dsmFiles[0],flag=-1)
 # test_eq(np.unique(dsmImage2),np.unique(dsmImage))
 show_image(dsmImage,cmap='gray')
 # %%
-img_path = Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/img_dir')
+img_path = Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/img_dir/train')
+gt_path = Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/ann_dir/train')
 imgFiles= get_image_files(img_path)
+gtFiles= get_image_files(gt_path)
 imgFiles[5]
 imgImage = mmcv.imread(imgFiles[0])
+gtImage = mmcv.imread(gtFiles[0],flag=-1)
 def colormap():
     #  #FFFFFF #0000FF #00FFFF #00FF00 #FFFF00 #FF0000
     # cdict = ['#FFFFFF', '#0000FF', '#00FFFF', '#00FF00', '#FFFF00']
@@ -219,6 +222,13 @@ def colormap():
     return colors.ListedColormap(cdict, 'from_list')
 # define my own pixel color paletter in the matplotlib
 my_cmap = colormap()
-show_image(imgImage)
 
+# %%
+def show_test(n):
+    for i in range(n):
+        imgImage = mmcv.imread(imgFiles[i])
+        gtImage = mmcv.imread(gtFiles[i],flag=-1)
+        show_image(imgImage)
+        show_image(gtImage,cmap=my_cmap)
+show_test(10)
 # %%

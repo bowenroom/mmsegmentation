@@ -133,4 +133,30 @@ test = rgbFiles[random.randint(0, 100)]
 testImage= mmcv.imread(test)
 show_image(testImage)
 # %%
-# remove the corrupted image
+#%%
+# calculate the error between two dict
+temp1 = {"aAcc": 0.8848, "mIoU": 0.7515, "mAcc": 0.8345, "IoU.impervious_surface": 0.8313, "IoU.building": 0.4054, "IoU.low_vegetation": 0.8851, "IoU.tree": 0.7545, "IoU.car": 0.7349, "IoU.clutter": 0.8975, "Acc.impervious_surface": 0.9431, "Acc.building": 0.5157, "Acc.low_vegetation": 0.9349, "Acc.tree": 0.8116, "Acc.car": 0.857, "Acc.clutter": 0.9451}
+temp2 = {"aAcc": 0.8931, "mIoU": 0.7588, "mAcc": 0.8372, "IoU.impervious_surface": 0.8513, "IoU.building": 0.9123, "IoU.low_vegetation": 0.7379, "IoU.tree": 0.7774, "IoU.car": 0.8939, "IoU.clutter": 0.3801, "Acc.impervious_surface": 0.9093, "Acc.building": 0.964, "Acc.low_vegetation": 0.9086, "Acc.tree": 0.8509, "Acc.car": 0.9547, "Acc.clutter": 0.4356}
+
+temp3 = {"aAcc": 0.9011, "mIoU": 0.7257, "mAcc": 0.8006, "IoU.impervious_surface": 0.8577, "IoU.building": 0.9163, "IoU.low_vegetation": 0.711, "IoU.tree": 0.7992, "IoU.car": 0.7424, "IoU.clutter": 0.3278, "Acc.impervious_surface": 0.9275, "Acc.building": 0.958, "Acc.low_vegetation": 0.8128, "Acc.tree": 0.9121, "Acc.car": 0.8608, "Acc.clutter": 0.3323}
+temp4 ={"aAcc": 0.8863, "mIoU": 0.7022, "mAcc": 0.7797, "IoU.impervious_surface": 0.8307, "IoU.building": 0.9007, "IoU.low_vegetation": 0.6784, "IoU.tree": 0.7775, "IoU.car": 0.7278, "IoU.clutter": 0.2979, "Acc.impervious_surface": 0.9416, "Acc.building": 0.9347, "Acc.low_vegetation": 0.7873, "Acc.tree": 0.8831, "Acc.car": 0.8261, "Acc.clutter": 0.3055}
+#%%
+def calulate_error(gt_dict,pred_dict):
+    error_dict = {}
+    for key in gt_dict.keys():
+        # calculate the error for each key
+        error_dict[key] = abs(gt_dict[key]-pred_dict[key])
+        # error_dict[key] = np.sum(np.abs(gt_dict[key]-pred_dict[key]))
+    return error_dict
+value = calulate_error(temp3,temp4)
+# sort the dict,reverse
+value = sorted(value.items(),key=lambda x:x[1],reverse=True)
+value
+
+# %%
+aa = [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
+               [0, 255, 255], [0, 0, 255]]
+bb = [[255, 255, 255], [255, 0, 0],
+                              [255, 255, 0], [0, 255, 0], [0, 255, 255],
+                              [0, 0, 255]]
+test_eq(aa,bb)                              

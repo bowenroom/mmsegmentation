@@ -656,12 +656,12 @@ fileLists = get_image_files(temp_path)
 class fogAugmented(data.Dataset):
     def __init__(self, root, method, severity, transform=None, target_transform=None,
                  loader=default_loader):
-        fileLists = get_image_files(root)
+        # root: e.g. '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/' 
+        fileLists = get_image_files(Path(root+'val/'))
         if len(fileLists) == 0:
             raise (RuntimeError("Found 0 images in subfolders of: " + root + "\n"
                                                                              "Supported image extensions are: " + ",".join(
                                                                                  IMG_EXTENSIONS)))
-
         self.root = root
         self.method = method
         self.severity = severity
@@ -679,9 +679,7 @@ class fogAugmented(data.Dataset):
         if self.transform is not None:
             img = self.transform(img)
             img = self.method(img, self.severity)
-        mmcv.mkdir_or_exist('tempDataTest/img_dir/testFog/')
-        replacedName = 'tempDataTest/img_dir/testFog/' + \
-            prefix_name+'_fog_'+str(self.severity)+suffix_name
+        replacedName = self.root + 'testFog/'+ prefix_name+'_fog_'+str(self.severity)+suffix_name
         print(replacedName)
 
         # replacedName += path[path.rindex('/'):]
@@ -696,11 +694,11 @@ class fogAugmented(data.Dataset):
 # %%
 
 
-def save_fog(method=fog):
+def save_fog(path,method=fog):
     for severity in range(1, 6):
         print(method.__name__, severity)
         distorted_dataset = fogAugmented(
-            root="tempDataTest/img_dir/test/",
+            root=path+'/img_dir/',
             method=method, severity=severity, transform=trn.Compose(
                 [trn.RandomCrop(512)])
         )
@@ -712,42 +710,36 @@ def save_fog(method=fog):
 
 
 # %%
-save_fog(fog)
+# save_fog(fog)
 
-# %%
-
-img = mmcv.imread(
-    '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/img_dir/testFog/area11_0_0_512_512_fog_1.png')
-lbl = mmcv.imread('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/ann_dir/test/area11_0_0_512_512.png',
-                  flag='grayscale', channel_order='rgb')
-
-
-def colormap():
-    #  #FFFFFF #0000FF #00FFFF #00FF00 #FFFF00 #FF0000
-    # cdict = ['#FFFFFF', '#0000FF', '#00FFFF', '#00FF00', '#FFFF00']
-    cdict = ['#000000', '#FFFFFF', '#FF0000',
-             '#FFFF00',  '#00FF00', '#00FFFF', '#0000FF']
-    # 按照上面定义的colordict，将数据分成对应的部分，indexed：代表顺序
-    return colors.ListedColormap(cdict, 'from_list')
-
-
-# define my own pixel color paletter in the matplotlib
-my_cmap = colormap()
-show_image(img, title='image')
-show_image(lbl, cmap=my_cmap)
-# %%
+#%%
 # create the corresponding label in ann_dir
-
-
 def copyAndRename(path):
     # copy the files in ann_dir/testFog five times and rename
-    fileLists = get_image_files(path)
+    fileLists = get_image_files(Path(path+'val/'))
     for file in fileLists:
-        prefix_name = os.path.splitext(file)[0]
-        suffix_name = os.path.splitext(file)[1]
+        pathName, fileName = os.path.split(file)
+        prefix_name = os.path.splitext(fileName)[0]
+        suffix_name = os.path.splitext(fileName)[1]
         for i in range(5):
-            newName = prefix_name+'_fog_'+str(i+1)+suffix_name
+            newName = path+'testFog/'+prefix_name+'_fog_'+str(i+1)+suffix_name
             print(newName)
             shutil.copy(file, newName)
-        os.remove(file)
-# copyAndRename('tempDataTest/ann_dir/testFog/')
+        # os.remove(file)
+def makeFogCorruptedDataset(path):
+    # copy  img_dir/val to img_dir/testFog
+    # path = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/'
+    mmcv.mkdir_or_exist(path+'/img_dir/testFog/')
+    mmcv.mkdir_or_exist(path+'/ann_dir/testFog/')
+    # save_fog(path)
+    # annotations copy
+    copyAndRename(path+'/ann_dir/')
+#%%
+makeFogCorruptedDataset('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen')
+    
+# %%
+
+# have a test
+testPath = get_image_files(Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/ann_dir/val/'))
+temp = testPath[0]
+# %%

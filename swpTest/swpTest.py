@@ -18,8 +18,6 @@ from fastai.vision.all import *
 
 # %%
 # understand the parser
-
-
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Convert potsdam dataset to mmsegmentation format')
@@ -47,7 +45,6 @@ def main():
     import gc
     gc.collect()
 
-
 # if __name__ == '__main__':
 #     main()
 # %%
@@ -57,14 +54,10 @@ train_img_path = Path('../data/vaihingen/img_dir/train')
 train_gt_path = Path('../data/vaihingen/ann_dir/train')
 rgbFiles = get_image_files(train_img_path)
 gtFiles = get_image_files(train_gt_path)
-# %%
-# read the label image
-# gtImage = mmcv.imread(gtFiles[random.randint(0,100)],flag='grayscale',channel_order='rgb')
-
-
 def colormap():
     #  #FFFFFF #0000FF #00FFFF #00FF00 #FFFF00 #FF0000
     # cdict = ['#FFFFFF', '#0000FF', '#00FFFF', '#00FF00', '#FFFF00']
+    # 
     cdict = ['#000000', '#FFFFFF', '#FF0000',
              '#FFFF00',  '#00FF00', '#00FFFF', '#0000FF']
     # 按照上面定义的colordict，将数据分成对应的部分，indexed：代表顺序
@@ -82,6 +75,7 @@ palette = {
     5: (0, 255, 255),   # Low vegetation (cyan)
     6: (0, 0, 255)     # Buildings (blue)
 }
+
 invert_palette = {v: k for k, v in palette.items()}
 paletteValue = list(palette.values())
 
@@ -122,13 +116,8 @@ image = out.reshape(h, w)
 # mmcv.imwrite(
 #     image.astype(np.uint8),
 #     '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTestImage/test.png')
-testImage = mmcv.imread('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/test.png',flag='grayscale')
-# label is right now
-show_image(testImage, cmap=my_cmap, figsize=(15, 15))
 
-# %%
 # pick up some images for the testset
-
 test = rgbFiles[random.randint(0, 100)]
 testImage= mmcv.imread(test)
 show_image(testImage)
@@ -140,7 +129,6 @@ temp2 = {"aAcc": 0.8931, "mIoU": 0.7588, "mAcc": 0.8372, "IoU.impervious_surface
 
 temp3 = {"aAcc": 0.9011, "mIoU": 0.7257, "mAcc": 0.8006, "IoU.impervious_surface": 0.8577, "IoU.building": 0.9163, "IoU.low_vegetation": 0.711, "IoU.tree": 0.7992, "IoU.car": 0.7424, "IoU.clutter": 0.3278, "Acc.impervious_surface": 0.9275, "Acc.building": 0.958, "Acc.low_vegetation": 0.8128, "Acc.tree": 0.9121, "Acc.car": 0.8608, "Acc.clutter": 0.3323}
 temp4 ={"aAcc": 0.8863, "mIoU": 0.7022, "mAcc": 0.7797, "IoU.impervious_surface": 0.8307, "IoU.building": 0.9007, "IoU.low_vegetation": 0.6784, "IoU.tree": 0.7775, "IoU.car": 0.7278, "IoU.clutter": 0.2979, "Acc.impervious_surface": 0.9416, "Acc.building": 0.9347, "Acc.low_vegetation": 0.7873, "Acc.tree": 0.8831, "Acc.car": 0.8261, "Acc.clutter": 0.3055}
-#%%
 def calulate_error(gt_dict,pred_dict):
     error_dict = {}
     for key in gt_dict.keys():
@@ -152,11 +140,27 @@ value = calulate_error(temp3,temp4)
 # sort the dict,reverse
 value = sorted(value.items(),key=lambda x:x[1],reverse=True)
 value
+#%%
+# using wandb for log the value in the experiment
+import wandb
+config = dict (
+  learning_rate = 0.01,
+  momentum = 0.2,
+  architecture = "CNN",
+  dataset_id = "peds-0192",
+  infra = "AWS",
+)
+# wandb.init(project="newTest",config=config)
+#%%
+def test(path):
+     
+    temp = get_image_files(path)
+    testImage = mmcv.imread( temp[random.randint(1,100)],flag='grayscale')
+    # label is right now
+    show_image(testImage, cmap=my_cmap, figsize=(15, 15))
+test(Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/ann_dir/train'))
+# %%
+rgbP = get_image_files(Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/train'))
+dsmP = get_image_files(Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/train'))
 
 # %%
-aa = [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
-               [0, 255, 255], [0, 0, 255]]
-bb = [[255, 255, 255], [255, 0, 0],
-                              [255, 255, 0], [0, 255, 0], [0, 255, 255],
-                              [0, 0, 255]]
-test_eq(aa,bb)                              

@@ -10,7 +10,7 @@ import zipfile
 
 import mmcv
 import numpy as np
-
+import re
 import matplotlib.colors as colors
 import mmcv
 import numpy as np
@@ -184,9 +184,9 @@ def clip_big_image_pot(image_path, clip_save_dir, to_label=False,dsm=False):
                                     start_y:end_y, start_x:end_x, :]
         idx_i, idx_j = osp.basename(image_path).split('_')[2:4]
         if 'dsm' in image_path:
-            idx_i = idx_i.strip("0")
+            idx_i = re.sub('^0*', '', idx_i)
             idx_j = idx_j.strip(".tif")
-        
+            idx_j = re.sub('^0*', '', idx_j)
         if dsm:
              mmcv.imwrite(
                 clipped_image,
@@ -271,9 +271,14 @@ def main():
             if '1_DSM' or '5_Labels' in zipp:
                 sub_tmp_dir = os.path.join(tmp_dir, os.listdir(tmp_dir)[0])
                 src_path_list = glob.glob(os.path.join(sub_tmp_dir, '*.tif'))
+                for area_ann in src_path_list:
+                    if '4_12' in area_ann:
+                        src_path_list.remove(area_ann)
             if '2_Ortho_RGB' in zipp:
                 src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
-
+                for area_ann in src_path_list:
+                    if '4_12' in area_ann:
+                        src_path_list.remove(area_ann)
             prog_bar = mmcv.ProgressBar(len(src_path_list))
             if 'vaihingen' in out_dir:
                 for i, src_path in enumerate(src_path_list):
@@ -297,8 +302,9 @@ def main():
                 for i, src_path in enumerate(src_path_list):
                     idx_i, idx_j = osp.basename(src_path).split('_')[2:4]
                     if 'dsm' in src_path:
-                        idx_i = idx_i.strip("0")
+                        idx_i = re.sub('^0*', '', idx_i)
                         idx_j = idx_j.strip(".tif")
+                        idx_j = re.sub('^0*', '', idx_j)
                     data_type = 'train' if f'{idx_i}_{idx_j}' in splits[
                         'train'] else 'val'
                     if 'label' in src_path:

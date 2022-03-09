@@ -126,6 +126,7 @@ tempData/
 swpTest/*.zip
 swpTest/plotMetrics/
 swpTest/*.png
+swpTest/exp/
 *.zip
 wandb/
 vaihingenVisual/

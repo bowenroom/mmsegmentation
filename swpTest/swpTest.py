@@ -1,5 +1,6 @@
 # test for different modules
 # %%
+# import packages
 import argparse
 import glob
 import imp
@@ -37,8 +38,6 @@ def parse_args():
     # set the default break point
     args = parser.parse_args()
     return args
-
-
 def main():
     args = parse_args()
     print(args)
@@ -48,7 +47,7 @@ def main():
 # if __name__ == '__main__':
 #     main()
 # %%
-# read an original label image
+# understand the mmcv read and the palette
 set_seed(888)
 train_img_path = Path('../data/vaihingen/img_dir/train')
 train_gt_path = Path('../data/vaihingen/ann_dir/train')
@@ -152,15 +151,4 @@ config = dict (
 )
 # wandb.init(project="newTest",config=config)
 #%%
-def test(path):
-     
-    temp = get_image_files(path)
-    testImage = mmcv.imread( temp[random.randint(1,100)],flag='grayscale')
-    # label is right now
-    show_image(testImage, cmap=my_cmap, figsize=(15, 15))
-test(Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/ann_dir/train'))
-# %%
-rgbP = get_image_files(Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/train'))
-dsmP = get_image_files(Path('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/train'))
-
-# %%
+# depth-wise convolution 

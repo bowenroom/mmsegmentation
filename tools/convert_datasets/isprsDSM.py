@@ -211,8 +211,8 @@ def main():
     #         'area35', 'area16', 'area14', 'area22','area10', 'area4',
     #     ],
     #     'val': [
-    #          'area2', 'area20', 'area8', 'area31', 'area33',
-    #         'area27', 'area38', 'area12', 'area29'
+            #  'area2', 'area20', 'area8', 'area31', 'area33',
+            # 'area27', 'area38', 'area12', 'area29'
     #     ],
     # }
     # Potsdam

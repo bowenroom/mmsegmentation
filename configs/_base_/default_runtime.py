@@ -3,8 +3,7 @@ log_config = dict(
     interval=50,
     hooks=[
         dict(type='TextLoggerHook', by_epoch=False),
-        # dict(type='TensorboardLoggerHook')
-        dict(type='WandbLoggerHook', init_kwargs=dict(project='IGRL'))
+        dict(type='TensorboardLoggerHook')
     ])
 # yapf:enable
 dist_params = dict(backend='nccl')

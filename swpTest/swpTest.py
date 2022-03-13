@@ -151,4 +151,3 @@ config = dict (
 )
 # wandb.init(project="newTest",config=config)
 #%%
-# depth-wise convolution 

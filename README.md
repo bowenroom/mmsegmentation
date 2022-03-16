@@ -66,7 +66,7 @@ This project is released under the [Apache 2.0 license](LICENSE).
 
 ## Changelog
 
-v0.22.0 was released in 3/4/2022.
+v0.22.1 was released in 3/9/2022.
 Please refer to [changelog.md](docs/en/changelog.md) for details and release history.
 
 ## Benchmark and model zoo
@@ -121,6 +121,7 @@ Supported methods:
 - [x] [DPT (ArXiv'2021)](configs/dpt)
 - [x] [Segmenter (ICCV'2021)](configs/segmenter)
 - [x] [SegFormer (NeurIPS'2021)](configs/segformer)
+- [x] [K-Net (NeurIPS'2021)](configs/knet)
 
 Supported datasets:
 

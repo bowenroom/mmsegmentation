@@ -130,3 +130,5 @@ swpTest/exp/
 *.zip
 wandb/
 vaihingenVisual/
+potsdamVisual/
+potsdamVisual2/

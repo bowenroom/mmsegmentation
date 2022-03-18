@@ -151,3 +151,8 @@ config = dict (
 )
 # wandb.init(project="newTest",config=config)
 #%%
+tempPath = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/ann_dir/val/area2_1916_2048_2428_2560.png'
+tempImage = mmcv.imread(tempPath, flag='grayscale', channel_order='rgb')
+# tempImage = mmcv.imread(tempPath)
+show_image(tempImage, cmap=my_cmap) 
+# %%

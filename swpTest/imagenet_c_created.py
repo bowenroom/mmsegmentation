@@ -731,11 +731,11 @@ def makeFogCorruptedDataset(path):
     # path = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/'
     mmcv.mkdir_or_exist(path+'/img_dir/testFog/')
     mmcv.mkdir_or_exist(path+'/ann_dir/testFog/')
-    # save_fog(path)
+    save_fog(path)
     # annotations copy
     copyAndRename(path+'/ann_dir/')
 #%%
-makeFogCorruptedDataset('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen')
+makeFogCorruptedDataset('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam')
     
 # %%
 

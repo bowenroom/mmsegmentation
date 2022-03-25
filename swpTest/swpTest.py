@@ -151,8 +151,74 @@ config = dict (
 )
 # wandb.init(project="newTest",config=config)
 #%%
-tempPath = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/ann_dir/val/area2_1916_2048_2428_2560.png'
-tempImage = mmcv.imread(tempPath, flag='grayscale', channel_order='rgb')
-# tempImage = mmcv.imread(tempPath)
-show_image(tempImage, cmap=my_cmap) 
+tempPath = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/val/area2_1916_2048_2428_2560.png'
+# tempImage = mmcv.imread(tempPath, flag='grayscale', channel_order='rgb')
+tempImage = mmcv.imread(tempPath)
+show_image(tempImage, cmap=my_cmap,figsize = (10, 10)) 
+# %%
+def show_list_image():
+    for i in range(5):
+        tempPath = f'/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_1916_2048_2428_2560_fog_{i+1}.png'
+        tempImage = mmcv.imread(tempPath)
+        show_image(tempImage, cmap=my_cmap,figsize = (10, 10)) 
+# show_list_image()
+#%%
+# show the dsm image 
+dsmPath = get_image_files('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/val')
+dsmImage = dsmPath[random.randint(0,100)]
+path = dsmImage
+def show_dsm_image(temppath):
+    tempImage = mmcv.imread(temppath,flag=-1)
+    show_image(tempImage, cmap = 'gray', figsize = (10, 10))
+show_dsm_image(path)
+# %%
+# %%
+#/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/val/4_15_1024_1024_1536_1536.tiff
+# show the image and the inference
+from mmseg.apis import init_segmentor, inference_segmentor, show_result_pyplot
+from mmseg.core.evaluation import get_palette
+imagePath = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/val/4_15_1024_1024_1536_1536.png'
+config_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
+# checkpoint_file ='/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
+# checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
+checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_512x512_80k_potsdam/iter_8000.pth'
+fogPath = osp.splitext(imagePath.replace('val','testFog'))[0]+'_fog_1'+'.png'
+# fogPath = osp.splitext(imagePath.replace('val','testFog'))[0]+'_fog_3'+'.png'
+def show_result(imagePath,config_file,checkpoint_file):
+    axs = get_grid(5,1,5,figsize = (50, 10))
+    image = mmcv.imread(imagePath)
+    gtImage = mmcv.imread(imagePath.replace('img_dir','ann_dir'),flag='grayscale', channel_order='rgb')
+    dsmImage = mmcv.imread(imagePath.replace('img_dir','dsm_dir').replace('.png','.tiff'),flag=-1)
+    model = init_segmentor(config_file, checkpoint_file, device='cuda:0')
+    result = inference_segmentor(model, imagePath)
+    result2 = inference_segmentor(model, fogPath)
+    # fogImage = mmcv.imread(fogPath)
+    inferImage =  model.show_result(
+    imagePath, result, palette=get_palette('potsdam'), show=False, opacity=1)
+    inferImage2 =  model.show_result(
+        fogPath, result2, palette=get_palette('potsdam'), show=False, opacity=1)
+    [i.set_axis_off() for i in axs]
+    axs[0].imshow(image)
+    axs[2].imshow(gtImage,cmap = my_cmap)
+    axs[1].imshow(dsmImage,cmap = 'gray')
+    axs[3].imshow(mmcv.bgr2rgb(inferImage))
+    axs[4].imshow(mmcv.bgr2rgb(inferImage2))
+show_result(imagePath,config_file,checkpoint_file)
+#%%
+
+config_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
+# checkpoint_file ='/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
+checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
+model = init_segmentor(config_file, checkpoint_file, device='cuda:0')
+result = inference_segmentor(model, imagePath)
+
+# show_result_pyplot(model, imagePath, result, get_palette('potsdam'))
+
+img = model.show_result(
+    imagePath, result, palette=get_palette('potsdam'), show=False, opacity=1)
+plt.figure(figsize=(10,10))
+plt.imshow(mmcv.bgr2rgb(img))
+# plt.title(title)
+plt.tight_layout()
+# plt.show(block=block)
 # %%

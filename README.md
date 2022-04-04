@@ -66,7 +66,7 @@ This project is released under the [Apache 2.0 license](LICENSE).
 
 ## Changelog
 
-v0.22.1 was released in 3/9/2022.
+v0.23.0 was released in 4/1/2022.
 Please refer to [changelog.md](docs/en/changelog.md) for details and release history.
 
 ## Benchmark and model zoo
@@ -85,6 +85,7 @@ Supported backbones:
 - [x] [Swin Transformer (ICCV'2021)](configs/swin)
 - [x] [Twins (NeurIPS'2021)](configs/twins)
 - [x] [ConvNeXt (CVPR'2022)](configs/convnext)
+- [x] [BEiT (ICLR'2022)](configs/beit)
 
 Supported methods:
 
@@ -153,6 +154,8 @@ There are also tutorials for [customizing dataset](docs/en/tutorials/customize_d
 We also provide many [training tricks](docs/en/tutorials/training_tricks.md) for better training and [useful tools](docs/en/useful_tools.md) for deployment.
 
 A Colab tutorial is also provided. You may preview the notebook [here](demo/MMSegmentation_Tutorial.ipynb) or directly [run](https://colab.research.google.com/github/open-mmlab/mmsegmentation/blob/master/demo/MMSegmentation_Tutorial.ipynb) on Colab.
+
+Please refer to [FAQ](docs/en/faq.md) for frequently asked questions.
 
 ## Citation
 

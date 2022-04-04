@@ -97,17 +97,24 @@ def loveda_classes():
 
 def potsdam_classes():
     """Potsdam class names for external use."""
+    # return [
+    #     'impervious_surface', 'building', 'low_vegetation', 'tree', 'car',
+    #     'clutter'
+    # ]
     return [
-        'impervious_surface', 'building', 'low_vegetation', 'tree', 'car',
-        'clutter'
+        'impervious_surface', 'clutter', 'car', 'tree', 'low_vegetation',
+        'building'
     ]
-
 
 def vaihingen_classes():
     """Vaihingen class names for external use."""
+    # return [
+    #     'impervious_surface', 'building', 'low_vegetation', 'tree', 'car',
+    #     'clutter'
+    # ]
     return [
-        'impervious_surface', 'building', 'low_vegetation', 'tree', 'car',
-        'clutter'
+        'impervious_surface', 'clutter', 'car', 'tree', 'low_vegetation',
+        'building'
     ]
 
 
@@ -241,14 +248,17 @@ def loveda_palette():
 
 def potsdam_palette():
     """Potsdam palette for external use."""
-    return [[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
-            [255, 255, 0], [255, 0, 0]]
-
+    # return [[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
+    #         [255, 255, 0], [255, 0, 0]]
+    return [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
+               [0, 255, 255], [0, 0, 255]]
 
 def vaihingen_palette():
     """Vaihingen palette for external use."""
-    return [[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
-            [255, 255, 0], [255, 0, 0]]
+    # return [[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
+    #         [255, 255, 0], [255, 0, 0]]
+    return [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
+               [0, 255, 255], [0, 0, 255]]
 
 
 def isaid_palette():

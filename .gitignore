@@ -120,4 +120,16 @@ mmseg/.mim
 
 # temp Dataset 
 data/
-swpTest/
+
+swpTest/tempDataTest/
+swpTest/swpTestImage/
+tempData/
+swpTest/*.zip
+swpTest/plotMetrics/
+swpTest/*.png
+swpTest/exp/
+*.zip
+wandb/
+vaihingenVisual/
+potsdamVisual/
+potsdamVisual2/

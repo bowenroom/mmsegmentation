@@ -120,6 +120,7 @@ mmseg/.mim
 
 # temp Dataset 
 data/
+
 swpTest/tempDataTest/
 swpTest/swpTestImage/
 tempData/

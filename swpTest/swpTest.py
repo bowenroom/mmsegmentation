@@ -15,6 +15,7 @@ import numpy as np
 # import  fastai related modules
 from fastai.basics import *
 from fastai.vision.all import *
+# from pyrsistent import T
 
 
 # %%
@@ -205,20 +206,46 @@ def show_result(imagePath,config_file,checkpoint_file):
     axs[4].imshow(mmcv.bgr2rgb(inferImage2))
 show_result(imagePath,config_file,checkpoint_file)
 #%%
+def  inference_image():
+    
+    config_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
+    # checkpoint_file ='/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
+    checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
+    model = init_segmentor(config_file, checkpoint_file, device='cuda:0')
+    result = inference_segmentor(model, imagePath)
 
-config_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
-# checkpoint_file ='/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
-checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
-model = init_segmentor(config_file, checkpoint_file, device='cuda:0')
-result = inference_segmentor(model, imagePath)
+    # show_result_pyplot(model, imagePath, result, get_palette('potsdam'))
 
-# show_result_pyplot(model, imagePath, result, get_palette('potsdam'))
-
-img = model.show_result(
+    img = model.show_result(
     imagePath, result, palette=get_palette('potsdam'), show=False, opacity=1)
-plt.figure(figsize=(10,10))
-plt.imshow(mmcv.bgr2rgb(img))
-# plt.title(title)
-plt.tight_layout()
-# plt.show(block=block)
+    plt.figure(figsize=(10,10))
+    plt.imshow(mmcv.bgr2rgb(img))
+    # plt.title(title)
+    plt.tight_layout()
+    # plt.show(block=block)
+
+# inference_image()
 # %%
+# show different levels of fog in potsdam
+def showFogLevels():
+    fig,axs = get_grid(5,1,5,figsize = (50, 10),return_fig=True)
+    for i in range(5):
+        tempPath = f'/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/testFog/2_13_1536_4096_2048_4608_fog_{i+1}.png'
+        tempImage = mmcv.imread(tempPath)
+        [i.set_axis_off() for i in axs]
+        axs[i].imshow(tempImage)
+    fig.tight_layout()
+    plt.savefig('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/fogLevels.png',dpi=400)
+# showFogLevels()
+def showFogLevels2():
+    fig,axs = get_grid(5,1,5,figsize = (50, 10),return_fig=True)
+    # original = mmcv.imread('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_0_2048_512_2560.png')
+    
+    for i in range(5):
+        tempPath = f'/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_0_2048_512_2560_fog_{i+1}.png'
+        tempImage = mmcv.imread(tempPath)
+        [i.set_axis_off() for i in axs]
+        axs[i].imshow(tempImage)
+    fig.tight_layout()
+    plt.savefig('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/fogLevels3.png',dpi=400)
+showFogLevels2()

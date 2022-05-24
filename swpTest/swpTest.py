@@ -50,8 +50,8 @@ def main():
 # %%
 # understand the mmcv read and the palette
 set_seed(888)
-train_img_path = Path('../data/vaihingen/img_dir/train')
-train_gt_path = Path('../data/vaihingen/ann_dir/train')
+train_img_path = Path('/home/swp/paperCode/IJAGCode/swpTest/tempDataTest/vaihingen/img_dir/train')
+train_gt_path = Path('/home/swp/paperCode/IJAGCode/swpTest/tempDataTest/vaihingen/ann_dir/train')
 rgbFiles = get_image_files(train_img_path)
 gtFiles = get_image_files(train_gt_path)
 def colormap():
@@ -96,10 +96,8 @@ for i in range(8):
 # %%
 # 原始代码中channel顺序没有一一对应，需要修改channel顺序，重新进行crop
 # try to crop the original image manually and show the image result
-originalFiles = get_image_files(Path(
-    '/home/ubuntu/rsData/kaggleOriginal/Vaihingen/gts_eroded_for_participants/'))
 
-image = mmcv.imread(originalFiles[0], channel_order='rgb')
+image = mmcv.imread(rgbFiles[0], channel_order='rgb')
 h, w, c = image.shape
 color_map = np.array([[0, 0, 0], [255, 255, 255], [255, 0, 0],
                       [255, 255, 0], [0, 255, 0], [0, 255, 255],
@@ -115,7 +113,7 @@ for idx, class_color in enumerate(color_map):
 image = out.reshape(h, w)
 # mmcv.imwrite(
 #     image.astype(np.uint8),
-#     '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTestImage/test.png')
+#     '/home/swp/paperCode/codeLib/mmsegmentation/swpTestImage/test.png')
 
 # pick up some images for the testset
 test = rgbFiles[random.randint(0, 100)]
@@ -152,20 +150,20 @@ config = dict (
 )
 # wandb.init(project="newTest",config=config)
 #%%
-tempPath = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/val/area2_1916_2048_2428_2560.png'
+tempPath = '/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/val/area2_1916_2048_2428_2560.png'
 # tempImage = mmcv.imread(tempPath, flag='grayscale', channel_order='rgb')
 tempImage = mmcv.imread(tempPath)
 show_image(tempImage, cmap=my_cmap,figsize = (10, 10)) 
 # %%
 def show_list_image():
     for i in range(5):
-        tempPath = f'/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_1916_2048_2428_2560_fog_{i+1}.png'
+        tempPath = f'/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_1916_2048_2428_2560_fog_{i+1}.png'
         tempImage = mmcv.imread(tempPath)
         show_image(tempImage, cmap=my_cmap,figsize = (10, 10)) 
 # show_list_image()
 #%%
 # show the dsm image 
-dsmPath = get_image_files('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/val')
+dsmPath = get_image_files('/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/val')
 dsmImage = dsmPath[random.randint(0,100)]
 path = dsmImage
 def show_dsm_image(temppath):
@@ -174,15 +172,15 @@ def show_dsm_image(temppath):
 show_dsm_image(path)
 # %%
 # %%
-#/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/val/4_15_1024_1024_1536_1536.tiff
+#/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/dsm_dir/val/4_15_1024_1024_1536_1536.tiff
 # show the image and the inference
 from mmseg.apis import init_segmentor, inference_segmentor, show_result_pyplot
 from mmseg.core.evaluation import get_palette
-imagePath = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/val/4_15_1024_1024_1536_1536.png'
-config_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
-# checkpoint_file ='/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
-# checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
-checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_512x512_80k_potsdam/iter_8000.pth'
+imagePath = '/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/val/4_15_1024_1024_1536_1536.png'
+config_file = '/home/swp/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
+# checkpoint_file ='/home/swp/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
+# checkpoint_file = '/home/swp/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
+checkpoint_file = '/home/swp/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_512x512_80k_potsdam/iter_8000.pth'
 fogPath = osp.splitext(imagePath.replace('val','testFog'))[0]+'_fog_1'+'.png'
 # fogPath = osp.splitext(imagePath.replace('val','testFog'))[0]+'_fog_3'+'.png'
 def show_result(imagePath,config_file,checkpoint_file):
@@ -204,13 +202,13 @@ def show_result(imagePath,config_file,checkpoint_file):
     axs[1].imshow(dsmImage,cmap = 'gray')
     axs[3].imshow(mmcv.bgr2rgb(inferImage))
     axs[4].imshow(mmcv.bgr2rgb(inferImage2))
-show_result(imagePath,config_file,checkpoint_file)
+# show_result(imagePath,config_file,checkpoint_file)
 #%%
 def  inference_image():
     
-    config_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
-    # checkpoint_file ='/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
-    checkpoint_file = '/home/ubuntu/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
+    config_file = '/home/swp/paperCode/codeLib/mmsegmentation/configs/swpModels/fcn_hr18_4x4_512x512_40k_potsdam.py'
+    # checkpoint_file ='/home/swp/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/best_mIoU_iter_39168_1.pth'
+    checkpoint_file = '/home/swp/paperCode/codeLib/mmsegmentation/work_dirs/fcn_hr18_4x4_512x512_40k_potsdam/iter_300.pth'
     model = init_segmentor(config_file, checkpoint_file, device='cuda:0')
     result = inference_segmentor(model, imagePath)
 
@@ -230,22 +228,75 @@ def  inference_image():
 def showFogLevels():
     fig,axs = get_grid(5,1,5,figsize = (50, 10),return_fig=True)
     for i in range(5):
-        tempPath = f'/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/testFog/2_13_1536_4096_2048_4608_fog_{i+1}.png'
+        tempPath = f'/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/potsdam/img_dir/testFog/2_13_1536_4096_2048_4608_fog_{i+1}.png'
         tempImage = mmcv.imread(tempPath)
         [i.set_axis_off() for i in axs]
         axs[i].imshow(tempImage)
     fig.tight_layout()
-    plt.savefig('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/fogLevels.png',dpi=400)
+    plt.savefig('/home/swp/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/fogLevels.png',dpi=400)
 # showFogLevels()
 def showFogLevels2():
     fig,axs = get_grid(5,1,5,figsize = (50, 10),return_fig=True)
-    # original = mmcv.imread('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_0_2048_512_2560.png')
+    # original = mmcv.imread('/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_0_2048_512_2560.png')
     
     for i in range(5):
-        tempPath = f'/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_0_2048_512_2560_fog_{i+1}.png'
+        tempPath = f'/home/swp/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/img_dir/testFog/area2_0_2048_512_2560_fog_{i+1}.png'
         tempImage = mmcv.imread(tempPath)
         [i.set_axis_off() for i in axs]
         axs[i].imshow(tempImage)
     fig.tight_layout()
-    plt.savefig('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/fogLevels3.png',dpi=400)
-showFogLevels2()
+    plt.savefig('/home/swp/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/fogLevels3.png',dpi=400)
+# showFogLevels2()
+
+#%%
+# copy the one channel grayscale image to three channels
+
+def toThreeChannels(image_path):
+    image = mmcv.imread(image_path,flag=-1)
+    print(image)
+    print(image.shape)
+    stackedImage = np.dstack((image,)*3)
+    print(stackedImage.shape)
+    return image,stackedImage
+
+# convert files in DSM to three channel ones
+    
+    
+
+# %%
+# copy to five copies
+def copyAndRename(path):
+    # copy the files in ann_dir/testFog five times and rename
+    mmcv.mkdir_or_exist(path+'testFog/')
+    fileLists = get_image_files(Path(path+'val/'))
+    for file in fileLists:
+        pathName, fileName = os.path.split(file)
+        prefix_name = os.path.splitext(fileName)[0]
+        suffix_name = os.path.splitext(fileName)[1]
+        for i in range(5):
+            newName = path+'testFog/'+prefix_name+'_fog_'+str(i+1)+suffix_name
+            print(newName)
+            shutil.copy(file, newName)
+        # os.remove(file)
+# copyAndRename('/home/swp/paperCode/IJAGCode/swpTest/tempDataTest/vaihingen/dsm_dir/')
+
+# %%
+# convert one channel dsm to duplicated 3 channels ones
+def duplicateChannels(dsm_path):
+    fileLists = get_image_files(Path(dsm_path+'/dsm_dir/'))
+    for file in fileLists:
+        image = mmcv.imread(file,flag=-1)
+        print(image)
+        print(image.shape)
+        stackedImage = np.dstack((image,)*3)
+        print(stackedImage.shape)
+        temp1 = str(file).replace('dsm_dir','dsm_dir_3ch')
+        # temp2 = temp1.replace('.tiff','.png') 
+        print(temp1)
+        mmcv.imwrite(stackedImage,temp1)
+
+# duplicateChannels('/home/swp/paperCode/IJAGCode/swpTest/tempDataTest/vaihingen')
+# %%
+    
+    
+

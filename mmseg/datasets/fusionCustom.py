@@ -1,4 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+#%%
 import os.path as osp
 import warnings
 from collections import OrderedDict
@@ -72,9 +73,11 @@ class FusionCustomDataset(Dataset):
             Defaults to ``dict(backend='disk')``.
     """
 
-    CLASSES = None
+    CLASSES = ('impervious_surface', 'clutter', 'car', 'tree',
+               'low_vegetation', 'building')
 
-    PALETTE = None
+    PALETTE = [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
+               [0, 255, 255], [0, 0, 255]]
 
     def __init__(self,
                  pipeline,
@@ -91,7 +94,9 @@ class FusionCustomDataset(Dataset):
                  palette=None,
                  gt_seg_map_loader_cfg=None,
                  file_client_args=dict(backend='disk'),
-                 multi_modality=False
+                 multi_modality=False,
+                 dsm_suffix='tiff',
+                 dsm_dir = None
                  ):
         self.pipeline = Compose(pipeline)
         self.img_dir = img_dir
@@ -106,6 +111,9 @@ class FusionCustomDataset(Dataset):
         self.label_map = None
         self.CLASSES, self.PALETTE = self.get_classes_and_palette(
             classes, palette)
+        self.multi_modality = multi_modality,
+        self.dsm_suffix = dsm_suffix
+        self.dsm_dir = dsm_dir
         self.gt_seg_map_loader = LoadAnnotations(
         ) if gt_seg_map_loader_cfg is None else LoadAnnotations(
             **gt_seg_map_loader_cfg)
@@ -121,22 +129,26 @@ class FusionCustomDataset(Dataset):
         if self.data_root is not None:
             if not osp.isabs(self.img_dir):
                 self.img_dir = osp.join(self.data_root, self.img_dir)
+            if not osp.isabs(self.dsm_dir):
+                self.dsm_dir = osp.join(self.data_root, self.dsm_dir)
             if not (self.ann_dir is None or osp.isabs(self.ann_dir)):
                 self.ann_dir = osp.join(self.data_root, self.ann_dir)
             if not (self.split is None or osp.isabs(self.split)):
                 self.split = osp.join(self.data_root, self.split)
+            
 
         # load annotations
         self.img_infos = self.load_annotations(self.img_dir, self.img_suffix,
                                                self.ann_dir,
-                                               self.seg_map_suffix, self.split)
+                                               self.seg_map_suffix, self.split, self.dsm_suffix,self.dsm_dir )
+        # self.dsm_infos=self.
 
     def __len__(self):
         """Total number of samples of data."""
         return len(self.img_infos)
 
     def load_annotations(self, img_dir, img_suffix, ann_dir, seg_map_suffix,
-                         split):
+                         split, dsm_suffix,dsm_dir = None):
         """Load annotation from directory.
 
         Args:
@@ -150,18 +162,22 @@ class FusionCustomDataset(Dataset):
 
         Returns:
             list[dict]: All image info of dataset.
+            list[dict]: All dsm info of dataset.
         """
 
         img_infos = []
+        dsm_infos = []
         if split is not None:
             lines = mmcv.list_from_file(
                 split, file_client_args=self.file_client_args)
             for line in lines:
                 img_name = line.strip()
                 img_info = dict(filename=img_name + img_suffix)
+                dsm_info = dict(filename=img_name + dsm_suffix)
                 if ann_dir is not None:
                     seg_map = img_name + seg_map_suffix
                     img_info['ann'] = dict(seg_map=seg_map)
+
                 img_infos.append(img_info)
         else:
             for img in self.file_client.list_dir_or_file(
@@ -174,9 +190,20 @@ class FusionCustomDataset(Dataset):
                     seg_map = img.replace(img_suffix, seg_map_suffix)
                     img_info['ann'] = dict(seg_map=seg_map)
                 img_infos.append(img_info)
+            for dsm in self.file_client.list_dir_or_file(dir_path=dsm_dir,list_dir=False,suffix=dsm_suffix,recursive=True):
+                dsm_info = dict(filename=dsm)
+                if ann_dir is not None:
+                    dsm_seg_map = dsm.replace(dsm_suffix, seg_map_suffix)
+                    dsm_info['ann'] = dict(seg_map=dsm_seg_map)
+                dsm_infos.append(dsm_info)
+
             img_infos = sorted(img_infos, key=lambda x: x['filename'])
+            dsm_infos = sorted(dsm_infos, key=lambda x: x['filename'])
 
         print_log(f'Loaded {len(img_infos)} images', logger=get_root_logger())
+        if self.multi_modality:
+            print_log(f'Loaded {len(dsm_infos)} dsm images', logger=get_root_logger())
+
         return img_infos
 
     def get_ann_info(self, idx):
@@ -486,3 +513,4 @@ class FusionCustomDataset(Dataset):
             })
 
         return eval_results
+#%%

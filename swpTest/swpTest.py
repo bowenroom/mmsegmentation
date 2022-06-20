@@ -297,6 +297,21 @@ def duplicateChannels(dsm_path):
 
 # duplicateChannels('/home/swp/paperCode/IJAGCode/swpTest/tempDataTest/vaihingen')
 # %%
-    
-    
 
+from mmseg.models.backbones import MobileNetV2 
+from mmseg.models.backbones import ResNeXt 
+from mmseg.models.backbones import ResNet 
+from mmseg.models.backbones import MixVisionTransformer 
+from mmseg.models.backbones import HRNet 
+temp = torch.randn(1,3,512,512)
+model  = ResNet(101)
+# model  = ResNeXt(depth=101, groups=32, base_width=4)
+# model  = MobileNetV2()
+# model  = MixVisionTransformer()
+out = model(temp)
+def print_modelBase(model):
+    for i in range(len(out)):
+        print(out[i].shape)
+print_modelBase(model)
+        
+# %%

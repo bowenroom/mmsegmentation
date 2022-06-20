@@ -51,12 +51,10 @@ def clip_big_image(image_path, clip_save_dir, to_label=False,dsm=False):
         h, w = image.shape
     else:
         # channel order is required to be correspondent with the palette order
-        image = mmcv.imread(image_path, channel_order='rgb')
+        image = mmcv.imread(image_path, channel_order='rgb',flag='unchanged')
         h, w, c = image.shape
+        assert c==4
         
-    
-    
-
     
     cs = args.clip_size
     ss = args.stride_size
@@ -109,12 +107,12 @@ def clip_big_image(image_path, clip_save_dir, to_label=False,dsm=False):
             mmcv.imwrite(
                 clipped_image,
                 osp.join(clip_save_dir,
-                        f'{area_idx}_{start_x}_{start_y}_{end_x}_{end_y}.tiff'))
+                        f'{area_idx}_{start_x}_{start_y}_{end_x}_{end_y}.png'))
         else:
             mmcv.imwrite(
                 clipped_image.astype(np.uint8),
                 osp.join(clip_save_dir,
-                        f'{area_idx}_{start_x}_{start_y}_{end_x}_{end_y}.png'))
+                        f'{area_idx}_{start_x}_{start_y}_{end_x}_{end_y}.tif'))
 
 def clip_big_image_pot(image_path, clip_save_dir, to_label=False,dsm=False):
     # Original image of Potsdam dataset is very large, thus pre-processing
@@ -203,33 +201,33 @@ def clip_big_image_pot(image_path, clip_save_dir, to_label=False,dsm=False):
 
 def main():
     # Vaihingen
-    # splits = {
-    #     'train': [
-    #         'area1', 'area11', 'area13', 'area15', 'area17', 'area21',
-    #         'area23', 'area26', 'area28', 'area3', 'area30', 'area32',
-    #         'area34', 'area37', 'area5', 'area7','area6', 'area24',
-    #         'area35', 'area16', 'area14', 'area22','area10', 'area4',
-    #         'area2', 'area20', 'area8', 'area31', 'area33', 'area29'
-    
-    #     ],
-    #     'val': [
-            
-            # 'area27', 'area38', 'area12'
-    #     ],
-    # }
-    # Potsdam
     splits = {
         'train': [
-            '2_10', '2_11', '2_12', '3_10', '3_11', '3_12', '4_10', '4_11',
-             '5_10', '5_11', '5_12', '6_10', '6_11', '6_12', '6_7',
-            '6_8', '6_9', '7_10', '7_11', '7_12', '7_7', '7_8', '7_9',
-            '5_15', '6_15', '6_13','3_13','4_14', '6_14', '5_14', '2_13','3_14', '7_13','4_13'
+            'area1', 'area11', 'area13', 'area15', 'area17', 'area21',
+            'area23', 'area26', 'area28', 'area3', 'area30', 'area32',
+            'area34', 'area37', 'area5', 'area7','area6', 'area24',
+            'area35', 'area16', 'area14', 'area22','area10', 'area4',
+            'area2', 'area20', 'area8', 'area31', 'area33', 'area29'
+    
         ],
         'val': [
             
-            '4_15', '2_14', '5_13' 
-        ]
+            'area27', 'area38', 'area12'
+        ],
     }
+    # Potsdam
+    # splits = {
+    #     'train': [
+    #         '2_10', '2_11', '2_12', '3_10', '3_11', '3_12', '4_10', '4_11',
+    #          '5_10', '5_11', '5_12', '6_10', '6_11', '6_12', '6_7',
+    #         '6_8', '6_9', '7_10', '7_11', '7_12', '7_7', '7_8', '7_9',
+    #         '5_15', '6_15', '6_13','3_13','4_14', '6_14', '5_14', '2_13','3_14', '7_13','4_13'
+    #     ],
+    #     'val': [
+            
+    #         '4_15', '2_14', '5_13' 
+    #     ]
+    # }
 
     dataset_path = args.dataset_path
     if args.out_dir is None:
@@ -240,10 +238,10 @@ def main():
     print('Making directories...')
     mmcv.mkdir_or_exist(osp.join(out_dir, 'img_dir', 'train'))
     mmcv.mkdir_or_exist(osp.join(out_dir, 'img_dir', 'val'))
+    mmcv.mkdir_or_exist(osp.join(out_dir, 'img_dir', 'test'))
     mmcv.mkdir_or_exist(osp.join(out_dir, 'ann_dir', 'train'))
     mmcv.mkdir_or_exist(osp.join(out_dir, 'ann_dir', 'val'))
-    mmcv.mkdir_or_exist(osp.join(out_dir, 'dsm_dir', 'train'))
-    mmcv.mkdir_or_exist(osp.join(out_dir, 'dsm_dir', 'val'))
+    mmcv.mkdir_or_exist(osp.join(out_dir, 'ann_dir', 'test'))
 
 
     zipp_list = glob.glob(os.path.join(dataset_path, '*.zip'))
@@ -253,28 +251,18 @@ def main():
         for zipp in zipp_list:
             zip_file = zipfile.ZipFile(zipp)
             zip_file.extractall(tmp_dir)
-            src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
+            # src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
                 # delete unused area9 ground truth
-            if 'ISPRS_semantic_labeling_Vaihingen' in zipp:
-                src_path_list = glob.glob(
-                    os.path.join(os.path.join(tmp_dir, 'top'), '*.tif'))
-                tempList = glob.glob(
-                    os.path.join(os.path.join(tmp_dir, 'dsm'), '*.tif'))
-                src_path_list.extend(tempList)
+            if 'vaihingenImage' in zipp:
+                src_path_list =  glob.glob(os.path.join(os.path.join(tmp_dir, '**'),'*.tif'))
                 for area_ann in src_path_list:
                     if 'area9' in area_ann:
                         src_path_list.remove(area_ann)
-            if 'ISPRS_semantic_labeling_Vaihingen_ground_truth_eroded_COMPLETE' in zipp:  # noqa
-                src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
+            if 'vaihingenAnn' in zipp:  # noqa
+                src_path_list = glob.glob(os.path.join(os.path.join(tmp_dir, '**'),'*.png'))
                 # delete unused area9 ground truth
                 for area_ann in src_path_list:
                     if 'area9' in area_ann:
-                        src_path_list.remove(area_ann)
-            if '1_DSM' or '5_Labels' in zipp:
-                sub_tmp_dir = os.path.join(tmp_dir, os.listdir(tmp_dir)[0])
-                src_path_list = glob.glob(os.path.join(sub_tmp_dir, '*.tif'))
-                for area_ann in src_path_list:
-                    if '4_12' in area_ann:
                         src_path_list.remove(area_ann)
             if '2_Ortho_RGB' in zipp:
                 src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
@@ -291,11 +279,7 @@ def main():
                         data_type = 'val'
                     if 'noBoundary' in src_path:
                         dst_dir = osp.join(out_dir, 'ann_dir', data_type)
-                        clip_big_image(src_path, dst_dir, to_label=True)
-                    elif 'matching' in src_path:
-                        dst_dir = osp.join(out_dir, 'dsm_dir', data_type)
-                        # if to save the dsm files, we need to read the image using flag '-1' and write the image using tiff files 
-                        clip_big_image(src_path, dst_dir,dsm=True)
+                        clip_big_image(src_path, dst_dir, dsm=True)
                     else:
                         dst_dir = osp.join(out_dir, 'img_dir', data_type)
                         clip_big_image(src_path, dst_dir, to_label=False)
@@ -327,7 +311,7 @@ def main():
 
 if __name__ == '__main__':
     args = parse_args()
-    # main()
+    main()
 # %%
 '''
 # validatae the image
@@ -369,25 +353,3 @@ def show_test(n):
 # show_test(10)
 # %%
 '''
-
-#%%
-PALETTE = [[255, 255, 255], [0, 0, 255], 
-[0, 255, 255],[0, 255, 0], [255, 255, 0], [255, 0, 0]]
-def colormap():
-    #  #FFFFFF #0000FF #00FFFF #00FF00 #FFFF00 #FF0000
-    # cdict = ['#FFFFFF', '#0000FF', '#00FFFF', '#00FF00', '#FFFF00']
-    # 
-    cdict = ['#000000','#FFFFFF', '#0000FF', '#00FFFF','#00FF00', '#FFFF00','#FF0000' ]
-    # 按照上面定义的colordict，将数据分成对应的部分，indexed：代表顺序
-    return colors.ListedColormap(cdict, 'from_list')
-# define my own pixel color paletter in the matplotlib
-my_cmap = colormap()
-src = get_image_files('/home/swp/paperCode/IJAGCode/multimodality/out/vaihingen/ann_dir')
-name = src[random.randint(1,99)]
-temp = mmcv.imread(name,flag=-1)
-show_image(temp,cmap=my_cmap)
-print(name)
-print(np.unique(temp))
-# %%
-
-# %%

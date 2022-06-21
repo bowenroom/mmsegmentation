@@ -19,6 +19,7 @@ from .potsdam import PotsdamDataset
 from .stare import STAREDataset
 from .voc import PascalVOCDataset
 from .fusionCustom import FusionCustomDataset
+from .isprsMultiModality import ISPRSMultimodDataset
 
 __all__ = [
     'CustomDataset', 'build_dataloader', 'ConcatDataset', 'RepeatDataset',
@@ -27,5 +28,5 @@ __all__ = [
     'PascalContextDataset59', 'ChaseDB1Dataset', 'DRIVEDataset', 'HRFDataset',
     'STAREDataset', 'DarkZurichDataset', 'NightDrivingDataset',
     'COCOStuffDataset', 'LoveDADataset', 'MultiImageMixDataset',
-    'iSAIDDataset', 'ISPRSDataset', 'PotsdamDataset','FusionCustomDataset'
+    'iSAIDDataset', 'ISPRSDataset', 'PotsdamDataset','FusionCustomDataset','ISPRSMultimodDataset'
 ]

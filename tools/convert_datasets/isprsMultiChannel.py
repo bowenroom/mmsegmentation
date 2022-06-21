@@ -253,7 +253,7 @@ def main():
             zip_file.extractall(tmp_dir)
             # src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
                 # delete unused area9 ground truth
-            if 'vaihingenImage' in zipp:
+            if 'vaihingenMultimod' in zipp:
                 src_path_list =  glob.glob(os.path.join(os.path.join(tmp_dir, '**'),'*.tif'))
                 for area_ann in src_path_list:
                     if 'area9' in area_ann:

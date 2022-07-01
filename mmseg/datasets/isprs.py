@@ -1,7 +1,15 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from .builder import DATASETS
 from .custom import CustomDataset
+from collections import OrderedDict
+from functools import reduce
 
+import mmcv
+import numpy as np
+from mmcv.utils import print_log
+from prettytable import PrettyTable
+
+from mmseg.core import eval_metrics, pre_eval_to_metrics
 
 @DATASETS.register_module()
 class ISPRSDataset(CustomDataset):
@@ -19,14 +27,14 @@ class ISPRSDataset(CustomDataset):
 
     # PALETTE = [[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
     #            [255, 255, 0], [255, 0, 0]]
-    PALETTE = [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
-               [0, 255, 255], [0, 0, 255]]
+    PALETTE = [[255, 255, 255], [255, 0, 0], [255, 255, 0],
+               [0, 255, 0], [0, 255, 255], [0, 0, 255]]
 
     def __init__(self, **kwargs):
         super(ISPRSDataset, self).__init__(
             img_suffix='.png',
             seg_map_suffix='.png',
             reduce_zero_label=True,
+            # ignore_index=1,
             **kwargs)
-
 

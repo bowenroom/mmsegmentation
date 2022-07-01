@@ -248,4 +248,37 @@ def showFogLevels2():
         axs[i].imshow(tempImage)
     fig.tight_layout()
     plt.savefig('/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/swpTestImage/fogLevels3.png',dpi=400)
-showFogLevels2()
+# showFogLevels2()
+#%%
+# img与dsm进行融合
+import cv2
+img_dir = '/home/swp/paperCode/IGRLCode/mmf/optical/vaihingen/img_dir/val'
+dsm_dir = '/home/swp/paperCode/IGRLCode/mmf/optical/vaihingen/dsm_dir/val'
+
+
+def convert2RGBA(img_dir,dsm_dir):
+    imgs = get_image_files(img_dir)
+    imgs.sort()
+    dsms = get_image_files(dsm_dir)
+    dsms.sort()
+    for i in range(len(imgs)):
+        pathName, fileName = os.path.split(imgs[i])
+        prefix_name = os.path.splitext(fileName)[0]
+        suffix_name = os.path.splitext(fileName)[1]
+                # read the rgb fog file, 原先的rgb图像，其实保存的时候是bgr格式
+        img = mmcv.imread(imgs[i],flag='unchanged')
+                # convert it to rgba format
+        rgba = cv2.cvtColor(img,cv2.COLOR_RGB2BGRA)
+        # extract the alpha channel from file in the val dataset
+        dsm = mmcv.imread(dsms[i],flag='unchanged')
+        rgba[:,:,3] = dsm
+        mmcv.imwrite(rgba,'/home/swp/paperCode/IGRLCode/mmf/optical/vaihingen/img_dsm_dir/val/'+fileName)
+
+# convert2RGBA(img_dir,dsm_dir)       
+#%%
+import cv2
+temp = mmcv.imread('/home/swp/paperCode/IGRLCode/mmf/swpTest/sampleOut.png',flag='unchanged')
+temp = cv2.cvtColor(temp,cv2.COLOR_RGB2BGRA)
+out = mmcv.imwrite(temp,'/home/swp/paperCode/IGRLCode/mmf/swpTest/sampleOut2.png')
+
+# %%

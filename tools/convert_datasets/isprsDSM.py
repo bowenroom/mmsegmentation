@@ -128,7 +128,8 @@ def clip_big_image_pot(image_path, clip_save_dir, to_label=False,dsm=False):
         h, w = image.shape
     else:
         # channel order is required to be correspondent with the palette order
-        image = mmcv.imread(image_path, channel_order='rgb')
+        # image = mmcv.imread(image_path, channel_order='rgb')
+        image = mmcv.imread(image_path)
         h, w, c = image.shape
 
     clip_size = args.clip_size
@@ -203,31 +204,31 @@ def clip_big_image_pot(image_path, clip_save_dir, to_label=False,dsm=False):
 
 def main():
     # Vaihingen
-    # splits = {
-    #     'train': [
-    #         'area1', 'area11', 'area13', 'area15', 'area17', 'area21',
-    #         'area23', 'area26', 'area28', 'area3', 'area30', 'area32',
-    #         'area34', 'area37', 'area5', 'area7','area6', 'area24',
-    #         'area35', 'area16', 'area14', 'area22','area10', 'area4',
-    #     ],
-    #     'val': [
-            #  'area2', 'area20', 'area8', 'area31', 'area33',
-            # 'area27', 'area38', 'area12', 'area29'
-    #     ],
-    # }
-    # Potsdam
     splits = {
         'train': [
-            '2_10', '2_11', '2_12', '3_10', '3_11', '3_12', '4_10', '4_11',
-             '5_10', '5_11', '5_12', '6_10', '6_11', '6_12', '6_7',
-            '6_8', '6_9', '7_10', '7_11', '7_12', '7_7', '7_8', '7_9',
-            '5_15', '6_15', '6_13','3_13'
+            'area1', 'area11', 'area13', 'area15', 'area17', 'area21',
+            'area23', 'area26', 'area28', 'area3', 'area30', 'area32',
+            'area34', 'area37', 'area5', 'area7','area6', 'area24',
+            'area35', 'area16', 'area14', 'area22','area10', 'area4',
         ],
         'val': [
-            '4_14', '6_14', '5_14', '2_13',
-            '4_15', '2_14', '5_13', '4_13', '3_14', '7_13'
-        ]
+             'area2', 'area20', 'area8', 'area31', 'area33',
+            'area27', 'area38', 'area12', 'area29'
+        ],
     }
+    # Potsdam
+    # splits = {
+    #     'train': [
+    #         '2_10', '2_11', '2_12', '3_10', '3_11', '3_12', '4_10', '4_11',
+    #          '5_10', '5_11', '5_12', '6_10', '6_11', '6_12', '6_7',
+    #         '6_8', '6_9', '7_10', '7_11', '7_12', '7_7', '7_8', '7_9',
+    #         '5_15', '6_15', '6_13','3_13'
+    #     ],
+    #     'val': [
+    #         '4_14', '6_14', '5_14', '2_13',
+    #         '4_15', '2_14', '5_13', '4_13', '3_14', '7_13'
+    #     ]
+    # }
 
     dataset_path = args.dataset_path
     if args.out_dir is None:
@@ -268,17 +269,19 @@ def main():
                 for area_ann in src_path_list:
                     if 'area9' in area_ann:
                         src_path_list.remove(area_ann)
-            if '1_DSM' or '5_Labels' in zipp:
-                sub_tmp_dir = os.path.join(tmp_dir, os.listdir(tmp_dir)[0])
-                src_path_list = glob.glob(os.path.join(sub_tmp_dir, '*.tif'))
-                for area_ann in src_path_list:
-                    if '4_12' in area_ann:
-                        src_path_list.remove(area_ann)
-            if '2_Ortho_RGB' in zipp:
-                src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
-                for area_ann in src_path_list:
-                    if '4_12' in area_ann:
-                        src_path_list.remove(area_ann)
+            if 'vaihingenNdsm' in zipp:
+                src_path_list = glob.glob(os.path.join(os.path.join(tmp_dir, '**'),'*.jpg'))
+            # if '1_DSM' or '5_Labels' in zipp:
+            #     sub_tmp_dir = os.path.join(tmp_dir, os.listdir(tmp_dir)[0])
+            #     src_path_list = glob.glob(os.path.join(sub_tmp_dir, '*.tif'))
+            #     for area_ann in src_path_list:
+            #         if '4_12' in area_ann:
+            #             src_path_list.remove(area_ann)
+            # if '2_Ortho_RGB' in zipp:
+            #     src_path_list = glob.glob(os.path.join(tmp_dir, '*.tif'))
+            #     for area_ann in src_path_list:
+            #         if '4_12' in area_ann:
+            #             src_path_list.remove(area_ann)
             prog_bar = mmcv.ProgressBar(len(src_path_list))
             if 'vaihingen' in out_dir:
                 for i, src_path in enumerate(src_path_list):
@@ -288,9 +291,11 @@ def main():
                     elif area_idx in splits['val']:
                         data_type = 'val'
                     if 'noBoundary' in src_path:
+                        # denote the annotation files
                         dst_dir = osp.join(out_dir, 'ann_dir', data_type)
                         clip_big_image(src_path, dst_dir, to_label=True)
                     elif 'matching' in src_path:
+                        # denote the dsm files
                         dst_dir = osp.join(out_dir, 'dsm_dir', data_type)
                         # if to save the dsm files, we need to read the image using flag '-1' and write the image using tiff files 
                         clip_big_image(src_path, dst_dir,dsm=True)

@@ -943,6 +943,11 @@ class PhotoMetricDistortion(object):
         """
 
         img = results['img']
+        if img.shape[-1] == 4:
+            temp = img
+            alpha = img[:,:,-1]
+            img = img[:,:,:3]
+
         # random brightness
         img = self.brightness(img)
 
@@ -961,6 +966,11 @@ class PhotoMetricDistortion(object):
         # random contrast
         if mode == 0:
             img = self.contrast(img)
+        
+        if temp.shape[-1] == 4:
+            temp[:,:,:3] = img
+            temp[:,:,-1] = alpha
+            img = temp
 
         results['img'] = img
         return results

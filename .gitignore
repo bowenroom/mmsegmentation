@@ -122,7 +122,7 @@ mmseg/.mim
 # temp Dataset 
 data/
 
-swpTest/tempDataTest/
+optical/
 swpTest/swpTestImage/
 tempData/
 swpTest/*.zip

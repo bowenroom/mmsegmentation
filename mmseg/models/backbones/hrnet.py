@@ -189,6 +189,7 @@ class HRModule(BaseModule):
         return nn.ModuleList(fuse_layers)
 
     def forward(self, x):
+        
         """Forward function."""
         if self.num_branches == 1:
             return [self.branches[0](x[0])]
@@ -595,6 +596,7 @@ class HRNet(BaseModule):
 
     def forward(self, x):
         """Forward function."""
+        x = x[:,:3]
 
         x = self.conv1(x)
         x = self.norm1(x)

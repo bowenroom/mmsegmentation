@@ -8,10 +8,11 @@ log_config = dict(
     hooks=[
         dict(type='TextLoggerHook', by_epoch=False),
         # dict(type='TensorboardLoggerHook')
-        dict(type='WandbLoggerHook', init_kwargs=dict(project='Vaihingen'))
+        dict(type='WandbLoggerHook', init_kwargs=dict(project='MultiModality'))
     ])
-data = dict(samples_per_gpu=10, workers_per_gpu=10)
-checkpoint_config = dict(interval=300, save_optimizer=True, max_keep_ckpts=3)
+data = dict(samples_per_gpu=2, workers_per_gpu=0)
+# data = dict(samples_per_gpu=2, workers_per_gpu=2)
+checkpoint_config = dict(interval=300, save_optimizer=True, max_keep_ckpts=2)
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(decode_head=dict(num_classes=6))
 # model = dict(decode_head=dict(

@@ -308,7 +308,8 @@ class HRNet(BaseModule):
                  zero_init_residual=False,
                  multiscale_output=True,
                  pretrained=None,
-                 init_cfg=None):
+                 init_cfg=None,
+                 **kwargs):
         super(HRNet, self).__init__(init_cfg)
 
         self.pretrained = pretrained
@@ -421,6 +422,28 @@ class HRNet(BaseModule):
             self.stage4_cfg, num_channels, multiscale_output=multiscale_output)
 
         self._freeze_stages()
+        self.embed_dims = kwargs["embed_dims"]
+        self.num_heads = kwargs["num_heads"]
+        self.num_stages = 4
+        self.overlap =  kwargs["overlap"]
+        self.weight = kwargs["weight"]
+        self.Dsm = DsmDownsample(
+            1,
+            embed_dims=self.embed_dims,
+            num_heads=self.num_heads,
+            overlap=self.overlap,
+            pretrained=kwargs["pretrained"]
+            if "pretrained" in kwargs.keys() else None)
+        self.attention_type = kwargs["attention"] if "attention" in kwargs.keys() else None
+        self.dfms = ModuleList()
+        for i in range(self.num_stages):
+            embed_dims_i = self.embed_dims * self.num_heads[i]
+            if self.attention_type == 'LKA':
+                self.dfms.append(
+                    DsmFusionModule(embed_dims_i, self.num_heads[i], weight=self.weight))
+            else:
+                pass  # self.attention_type == 'none'  just add
+
 
     @property
     def norm1(self):
@@ -596,7 +619,9 @@ class HRNet(BaseModule):
 
     def forward(self, x):
         """Forward function."""
+        temp = x
         x = x[:,:3]
+        d = temp[:,3:]
 
         x = self.conv1(x)
         x = self.norm1(x)
@@ -629,6 +654,16 @@ class HRNet(BaseModule):
             else:
                 x_list.append(y_list[i])
         y_list = self.stage4(x_list)
+        c_outs = y_list
+        d_outs = self.Dsm(d)
+        outs = []
+        for i in range(self.num_stages):
+            c, d = c_outs[i], d_outs[i]
+            if (len(self.dfms) != 0):
+                out = self.dfms[i](c, d)
+                outs.append(out)
+            else:
+                outs.append(c_outs[i] + d_outs[i])        
 
         return y_list
 
@@ -642,3 +677,100 @@ class HRNet(BaseModule):
                 # trick: eval have effect on BatchNorm only
                 if isinstance(m, _BatchNorm):
                     m.eval()
+
+from ...utils import get_root_logger
+from ..utils import PatchEmbedOld as PatchEmbed
+from ..utils import nchw_to_nlc, nlc_to_nchw, SelfAttentionBlock
+from mmcv.runner import BaseModule, ModuleList, Sequential, _load_checkpoint
+from mmcv.cnn import (Conv2d, Scale, build_activation_layer, build_norm_layer,
+                      constant_init, normal_init, trunc_normal_init)
+class DsmDownsample(BaseModule):
+
+    def __init__(self,
+                 in_channels,
+                 embed_dims=64,
+                 num_stages=4,
+                 num_heads=[1, 2, 4, 8],
+                 strides=[4, 2, 2, 2],
+                 overlap=True,
+                 norm_cfg=dict(type='LN', eps=1e-6),
+                 pretrained=None):
+        super(DsmDownsample, self).__init__()
+        assert (in_channels == 1)
+
+        patch_sizes = [7, 3, 3, 3] if overlap else [4, 2, 2, 2]
+        self.pretrained = pretrained
+        self.num_heads = num_heads
+        self.layers = ModuleList()
+        for i in range(num_stages):
+            embed_dims_i = embed_dims * self.num_heads[i]
+            self.layers.append(
+                PatchEmbed(
+                    in_channels=in_channels,
+                    embed_dims=embed_dims_i,
+                    kernel_size=patch_sizes[i],
+                    stride=strides[i],
+                    padding=patch_sizes[i] // 2 if overlap else 0,
+                    pad_to_patch_size=False,
+                    norm_cfg=norm_cfg,
+                    # concat=True
+                ))
+            in_channels = embed_dims_i
+
+    def init_weights(self):
+        if isinstance(self.pretrained, str):
+            logger = get_root_logger()
+            checkpoint = _load_checkpoint(
+                self.pretrained, logger=logger, map_location='cpu')
+            if 'state_dict' in checkpoint:
+                state_dict = checkpoint['state_dict']
+            else:
+                state_dict = checkpoint
+
+            self.load_state_dict(state_dict, False)
+
+    def forward(self, x):
+        outs = []
+        for downsample in self.layers:
+            x, hw_shape = downsample(x)
+            x = nlc_to_nchw(x, hw_shape)
+            outs.append(x)
+        return outs
+
+
+class DsmFusionModule(SelfAttentionBlock):
+
+    def __init__(self,
+                 embed_dims,
+                 num_heads,
+                 norm_cfg=dict(type='BN'),
+                 weight=1.0):
+        super(DsmFusionModule, self).__init__(
+            key_in_channels=embed_dims,
+            query_in_channels=embed_dims,
+            channels=embed_dims,
+            out_channels=embed_dims,
+            share_key_query=False,
+            query_downsample=None,
+            key_downsample=None,
+            key_query_num_convs=1,
+            key_query_norm=False,
+            value_out_num_convs=1,
+            value_out_norm=False,
+            matmul_norm=True,
+            with_out=False,
+            conv_cfg=None,
+            norm_cfg=None,
+            act_cfg=None)
+        self.gamma = Scale(0)
+        self.norm = build_norm_layer(norm_cfg, embed_dims)[1]
+        self.spatial_gap = nn.Conv2d(embed_dims, 1, kernel_size=1, bias=True)
+        self.weight = weight
+
+    def forward(self, x, d):
+        """Forward function."""
+        d = self.spatial_gap(d)
+        out = super(DsmFusionModule, self).forward(x, x, d, self.weight)
+
+        out = self.gamma(out) + x
+        return self.norm(out)

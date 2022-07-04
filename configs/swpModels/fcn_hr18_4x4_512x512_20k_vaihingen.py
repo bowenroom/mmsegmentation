@@ -17,7 +17,7 @@ checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     backbone=dict(
-        multi = False,
+        multi = True,
         attention='LKA',
         weight=0.5,
         embed_dims=18, overlap=True, num_heads=[1, 2, 4, 8]),

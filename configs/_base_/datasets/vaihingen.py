@@ -11,16 +11,16 @@ data_root = 'tempDataset/vaihingen'
 
 
 # EDFT Norm
-# img_norm_cfg = dict(
-#     mean=[120.476, 81.7993, 81.1927, 30.672],
-#     std=[54.8465, 39.3214, 37.9183, 38.0866],
-#     to_rgb=False)
+img_norm_cfg = dict(
+    mean=[120.476, 81.7993, 81.1927, 30.672],
+    std=[54.8465, 39.3214, 37.9183, 38.0866],
+    to_rgb=False)
 
 
 # ImgeNet Norm
 # (17568.pth,using the following norm cfg)
-img_norm_cfg = dict(mean=[123.675, 116.28, 103.53, 30.672], std=[
-                    58.395, 57.12, 57.375, 38.0866], to_rgb=True)
+# img_norm_cfg = dict(mean=[123.675, 116.28, 103.53, 30.672], std=[
+#                     58.395, 57.12, 57.375, 38.0866], to_rgb=True)
 
 
 crop_size = (512, 512)

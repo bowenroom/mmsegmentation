@@ -422,11 +422,13 @@ class HRNet(BaseModule):
             self.stage4_cfg, num_channels, multiscale_output=multiscale_output)
 
         self._freeze_stages()
+
         self.embed_dims = kwargs["embed_dims"]
         self.num_heads = kwargs["num_heads"]
         self.num_stages = 4
         self.overlap =  kwargs["overlap"]
         self.weight = kwargs["weight"]
+        self.multi = kwargs["multi"]
         self.Dsm = DsmDownsample(
             1,
             embed_dims=self.embed_dims,
@@ -621,7 +623,6 @@ class HRNet(BaseModule):
         """Forward function."""
         temp = x
         x = x[:,:3]
-        d = temp[:,3:]
 
         x = self.conv1(x)
         x = self.norm1(x)
@@ -654,18 +655,23 @@ class HRNet(BaseModule):
             else:
                 x_list.append(y_list[i])
         y_list = self.stage4(x_list)
-        c_outs = y_list
-        d_outs = self.Dsm(d)
-        outs = []
-        for i in range(self.num_stages):
-            c, d = c_outs[i], d_outs[i]
-            if (len(self.dfms) != 0):
-                out = self.dfms[i](c, d)
-                outs.append(out)
-            else:
-                outs.append(c_outs[i] + d_outs[i])        
+        outs = y_list
 
-        return y_list
+        if self.multi:
+            d = temp[:,3:]
+            c_outs = y_list
+            d_outs = self.Dsm(d)
+            outs = []
+            for i in range(self.num_stages):
+                c, d = c_outs[i], d_outs[i]
+                if (len(self.dfms) != 0):
+                    out = self.dfms[i](c, d)
+                    outs.append(out)
+                else:
+                    outs.append(c_outs[i] + d_outs[i])        
+
+        # return y_list
+        return outs
 
     def train(self, mode=True):
         """Convert the model into training mode will keeping the normalization

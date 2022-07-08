@@ -11,6 +11,7 @@ data_root = 'tempDataset/vaihingen'
 
 
 # EDFT Norm
+# (39284.pth,using the following norm cfg)
 img_norm_cfg = dict(
     mean=[120.476, 81.7993, 81.1927, 30.672],
     std=[54.8465, 39.3214, 37.9183, 38.0866],

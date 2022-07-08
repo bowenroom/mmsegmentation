@@ -11,19 +11,20 @@ log_config = dict(
         # dict(type='TensorboardLoggerHook')
         dict(type='WandbLoggerHook', init_kwargs=dict(project='MultiModality'))
     ])
-# data = dict(samples_per_gpu=3, workers_per_gpu=2)
-data = dict(samples_per_gpu=3, workers_per_gpu=0)
+# data = dict(samples_per_gpu=2, workers_per_gpu=2)
+data = dict(samples_per_gpu=2, workers_per_gpu=0)
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     backbone=dict(
-        multi = True,
-        attention='LKA',
+        multi = False,
+        # multi = True,
+        # attention='LKA',
         weight=0.5,
         embed_dims=18, overlap=True, num_heads=[1, 2, 4, 8]),
     decode_head=dict(num_classes=6))
 
-load_from = 'work_dirs/fcn_hr18_4x4_512x512_20k_vaihingen/iter_40000.pth'
+load_from = 'work_dirs/fcn_hr18_4x4_512x512_20k_vaihingen/best_mIoU_iter_39928.pth'
 # model = dict(decode_head=dict(
 #     _delete_ = True,
 #         type='SegformerHead',

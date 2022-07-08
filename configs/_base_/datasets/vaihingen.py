@@ -24,6 +24,7 @@ img_norm_cfg = dict(
 
 
 crop_size = (512, 512)
+# crop_size = (256, 256)
 train_pipeline = [
     dict(type='LoadImageFromFile', color_type='unchanged'),
     dict(type='LoadAnnotations', reduce_zero_label=True),
@@ -41,6 +42,7 @@ test_pipeline = [
     dict(
         type='MultiScaleFlipAug',
         img_scale=(512, 512),
+        # img_scale=(256, 256),
         # img_ratios=[0.5, 0.75, 1.0, 1.25, 1.5, 1.75],
         flip=False,
         transforms=[

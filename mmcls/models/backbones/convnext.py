@@ -302,6 +302,8 @@ class ConvNeXt(BaseBackbone):
         self._freeze_stages()
 
     def forward(self, x):
+        original = x
+        x = x[:,:3]
         outs = []
         for i, stage in enumerate(self.stages):
             x = self.downsample_layers[i](x)

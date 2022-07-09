@@ -56,7 +56,7 @@ log_config = dict(
     hooks=[
         dict(type='TextLoggerHook', by_epoch=False),
         # dict(type='TensorboardLoggerHook')
-        # dict(type='WandbLoggerHook', init_kwargs=dict(project='IJAG'))
+        dict(type='WandbLoggerHook', init_kwargs=dict(project='IJAG'))
     ])
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 

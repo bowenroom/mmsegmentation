@@ -13,7 +13,7 @@ log_config = dict(
     ])
 # data = dict(samples_per_gpu=2, workers_per_gpu=2)
 data = dict(samples_per_gpu=2, workers_per_gpu=0)
-checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
+checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=1)
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     backbone=dict(

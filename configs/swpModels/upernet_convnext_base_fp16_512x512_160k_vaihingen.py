@@ -10,8 +10,10 @@ data = dict(samples_per_gpu=2, workers_per_gpu=0)
 
 ## model
 model = dict(
-    decode_head=dict(in_channels=[128, 256, 512, 1024], num_classes=150),
-    auxiliary_head=dict(in_channels=512, num_classes=6),
+    decode_head=dict(in_channels=[96, 192, 384, 768], num_classes=6),
+    # decode_head=dict(in_channels=[128, 256, 512, 1024], num_classes=6),
+    auxiliary_head=dict(in_channels=384, num_classes=6),
+    # auxiliary_head=dict(in_channels=512, num_classes=6),
     test_cfg=dict(mode='slide', crop_size=crop_size, stride=(341, 341)),
 )
 

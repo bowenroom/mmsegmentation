@@ -6,15 +6,17 @@ model = dict(
     pretrained=None,
     backbone=dict(
         type='mmcls.ConvNeXt',
-        # arch='base',
-        arch='tiny',
+        # type='CMF',
+        arch='base',
         out_indices=[0, 1, 2, 3],
         drop_path_rate=0.4,
         layer_scale_init_value=1.0,
         gap_before_final_norm=False,
         init_cfg=dict(
             type='Pretrained', checkpoint=checkpoint_file,
-            prefix='backbone.')),
+            prefix='backbone.'),
+        
+            ),
     decode_head=dict(
         type='UPerHead',
         in_channels=[128, 256, 512, 1024],
@@ -29,7 +31,7 @@ model = dict(
             type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0)),
     auxiliary_head=dict(
         type='FCNHead',
-        in_channels=384,
+        in_channels=512,
         in_index=2,
         channels=256,
         num_convs=1,

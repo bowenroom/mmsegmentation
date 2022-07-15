@@ -2,14 +2,21 @@ _base_ = [
     '../_base_/models/upernet_convnext.py', '../_base_/datasets/vaihingen.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_40k.py'
 ]
-## data
+# data
 crop_size = (512, 512)
 # data = dict(samples_per_gpu=2, workers_per_gpu=2)
 data = dict(samples_per_gpu=2, workers_per_gpu=0)
 
 
-## model
+# model
 model = dict(
+    backbone=dict(
+        # type='CMF',
+        arch='tiny',
+        # in_channels=4,
+        # embed_dims=32,
+        # num_heads=[1, 2, 5, 8]
+    ),
     decode_head=dict(in_channels=[96, 192, 384, 768], num_classes=6),
     # decode_head=dict(in_channels=[128, 256, 512, 1024], num_classes=6),
     auxiliary_head=dict(in_channels=384, num_classes=6),
@@ -18,7 +25,7 @@ model = dict(
 )
 
 
-## training
+# training
 
 optimizer = dict(
     constructor='LearningRateDecayOptimizerConstructor',
@@ -43,10 +50,10 @@ lr_config = dict(
     min_lr=0.0,
     by_epoch=False)
 
-# fp16 settings
-optimizer_config = dict(type='Fp16OptimizerHook', loss_scale='dynamic')
-# fp16 placeholder
-fp16 = dict()
+# # fp16 settings
+# optimizer_config = dict(type='Fp16OptimizerHook', loss_scale='dynamic')
+# # fp16 placeholder
+# fp16 = dict()
 
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 
@@ -58,7 +65,7 @@ log_config = dict(
     hooks=[
         dict(type='TextLoggerHook', by_epoch=False),
         # dict(type='TensorboardLoggerHook')
-        # dict(type='WandbLoggerHook', init_kwargs=dict(project='IJAG'))
+        dict(type='WandbLoggerHook', init_kwargs=dict(project='IJAG'))
     ])
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 

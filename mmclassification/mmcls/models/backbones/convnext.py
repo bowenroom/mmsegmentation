@@ -13,8 +13,11 @@ from mmcv.runner.base_module import ModuleList, Sequential
 
 from ..builder import BACKBONES
 from .base_backbone import BaseBackbone
+from timm.models.layers import create_act_layer,create_attn
+from timm.models.layers.helpers import make_divisible
+from mmcv.cnn.utils.weight_init import trunc_normal_
 
-
+import math
 @NORM_LAYERS.register_module('LN2d')
 class LayerNorm2d(nn.LayerNorm):
     """LayerNorm on channels for 2d images.
@@ -301,13 +304,23 @@ class ConvNeXt(BaseBackbone):
 
         self._freeze_stages()
 
+        # create eca attention
+        self.ecaAttn = EcaModule(3)
+
     def forward(self, x):
         original = x
         x = x[:,:3]
+        d = x[:,-1]
+        # stack the dsm data along dim 1
+        d = torch.stack((d,d,d),dim=1)
         outs = []
         for i, stage in enumerate(self.stages):
             x = self.downsample_layers[i](x)
             x = stage(x)
+            d = self.downsample_layers[i](d)
+            d = stage(d)
+            d_att = self.ecaAttn(d)
+            x = x + d_att
             if i in self.out_indices:
                 norm_layer = getattr(self, f'norm{i}')
                 if self.gap_before_final_norm:
@@ -317,6 +330,7 @@ class ConvNeXt(BaseBackbone):
                     # The output of LayerNorm2d may be discontiguous, which
                     # may cause some problem in the downstream tasks
                     outs.append(norm_layer(x).contiguous())
+            
 
         return tuple(outs)
 
@@ -333,3 +347,69 @@ class ConvNeXt(BaseBackbone):
     def train(self, mode=True):
         super(ConvNeXt, self).train(mode)
         self._freeze_stages()
+
+class EcaModule(BaseModule):
+    """Constructs an ECA module.
+
+    Args:
+        channels: Number of channels of the input feature map for use in adaptive kernel sizes
+            for actual calculations according to channel.
+            gamma, beta: when channel is given parameters of mapping function
+            refer to original paper https://arxiv.org/pdf/1910.03151.pdf
+            (default=None. if channel size not given, use k_size given for kernel size.)
+        kernel_size: Adaptive selection of kernel size (default=3)
+        gamm: used in kernel_size calc, see above
+        beta: used in kernel_size calc, see above
+        act_layer: optional non-linearity after conv, enables conv bias, this is an experiment
+        gate_layer: gating non-linearity to use
+    """
+    def __init__(
+            self, channels=None, kernel_size=3, gamma=2, beta=1, act_layer=None, gate_layer='sigmoid',
+            rd_ratio=1/8, rd_channels=None, rd_divisor=8, use_mlp=False):
+        super(EcaModule, self).__init__()
+        if channels is not None:
+            t = int(abs(math.log(channels, 2) + beta) / gamma)
+            kernel_size = max(t if t % 2 else t + 1, 3)
+        assert kernel_size % 2 == 1
+        padding = (kernel_size - 1) // 2
+        if use_mlp:
+            # NOTE 'mlp' mode is a timm experiment, not in paper
+            assert channels is not None
+            if rd_channels is None:
+                rd_channels = make_divisible(channels * rd_ratio, divisor=rd_divisor)
+            act_layer = act_layer or nn.ReLU
+            self.conv = nn.Conv1d(1, rd_channels, kernel_size=1, padding=0, bias=True)
+            self.act = create_act_layer(act_layer)
+            self.conv2 = nn.Conv1d(rd_channels, 1, kernel_size=kernel_size, padding=padding, bias=True)
+        else:
+            self.conv = nn.Conv1d(1, 1, kernel_size=kernel_size, padding=padding, bias=False)
+            self.act = None
+            self.conv2 = None
+        self.gate = create_act_layer(gate_layer)
+    def _init_weights(self, m):
+        if isinstance(m, nn.Linear):
+            trunc_normal_(m.weight, std=.02)
+            if isinstance(m, nn.Linear) and m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+        elif isinstance(m, nn.LayerNorm):
+            nn.init.constant_(m.bias, 0)
+            nn.init.constant_(m.weight, 1.0)
+        elif isinstance(m, nn.Conv2d):
+            nn.init.kaiming_normal_(
+                m.weight, mode='fan_out', nonlinearity='relu')
+        elif isinstance(m, nn.BatchNorm2d):
+            nn.init.constant_(m.weight, 1.)
+            nn.init.constant_(m.bias, 0.)
+
+        if hasattr(m, 'zero_init_last_bn'):
+            m.zero_init_last_bn()
+
+
+    def forward(self, x):
+        y = x.mean((2, 3)).view(x.shape[0], 1, -1)  # view for 1d conv
+        y = self.conv(y)
+        if self.conv2 is not None:
+            y = self.act(y)
+            y = self.conv2(y)
+        y = self.gate(y).view(x.shape[0], -1, 1, 1)
+        return x * y.expand_as(x)

@@ -35,6 +35,6 @@ class ISPRSDataset(CustomDataset):
             img_suffix='.png',
             seg_map_suffix='.png',
             reduce_zero_label=True,
-            # ignore_index=1,
+            ignore_index=1,
             **kwargs)
 

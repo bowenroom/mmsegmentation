@@ -22,11 +22,11 @@ model = dict(
     ),
     decode_head=dict(in_channels=[96, 192, 384, 768],
                      num_classes=6,
-                    #  loss_decode=dict(type='CrossEntropyLoss',
-                    #                   use_sigmoid=False,
-                    #                   class_weight=[
-                    #                       1, 1.06845, 1.34069, 1.20482, 23.0909, 40.8955],
-                    #                   loss_weight=1.0)
+                     loss_decode=dict(type='CrossEntropyLoss',
+                                      use_sigmoid=False,
+                                      class_weight=[
+                                          1, 1.06845, 1.34069, 1.20482, 23.0909, 40.8955],
+                                      loss_weight=1.0)
                      ),
 
     # decode_head=dict(in_channels=[128, 256, 512, 1024], num_classes=6),
@@ -76,7 +76,7 @@ log_config = dict(
     hooks=[
         dict(type='TextLoggerHook', by_epoch=False),
         # dict(type='TensorboardLoggerHook')
-        dict(type='WandbLoggerHook', init_kwargs=dict(project='IJAG'))
+        # dict(type='WandbLoggerHook', init_kwargs=dict(project='IJAG'))
     ])
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 

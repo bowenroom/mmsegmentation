@@ -13,11 +13,22 @@ model = dict(
     backbone=dict(
         # type='CMF',
         arch='tiny',
+        frozen_stages=2,
+        # using the weight from imagenet
+        init_cfg=dict(_delete_=True),
         # in_channels=4,
         # embed_dims=32,
         # num_heads=[1, 2, 5, 8]
     ),
-    decode_head=dict(in_channels=[96, 192, 384, 768], num_classes=6),
+    decode_head=dict(in_channels=[96, 192, 384, 768],
+                     num_classes=6,
+                    #  loss_decode=dict(type='CrossEntropyLoss',
+                    #                   use_sigmoid=False,
+                    #                   class_weight=[
+                    #                       1, 1.06845, 1.34069, 1.20482, 23.0909, 40.8955],
+                    #                   loss_weight=1.0)
+                     ),
+
     # decode_head=dict(in_channels=[128, 256, 512, 1024], num_classes=6),
     auxiliary_head=dict(in_channels=384, num_classes=6),
     # auxiliary_head=dict(in_channels=512, num_classes=6),
@@ -69,6 +80,6 @@ log_config = dict(
     ])
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 
-# load_from = "pretrain/best_mIoU_iter_39284.pth"
+load_from = "work_dirs/upernet_convnext_base_fp16_512x512_160k_vaihingen/save/20220714_234332.pth"
 
 # from mmclassification.mmcls.models import VAN

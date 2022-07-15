@@ -320,6 +320,7 @@ class ConvNeXt(BaseBackbone):
             d = self.downsample_layers[i](d)
             d = stage(d)
             d_att = self.ecaAttn(d)
+            # fusion
             x = x + d_att
             if i in self.out_indices:
                 norm_layer = getattr(self, f'norm{i}')

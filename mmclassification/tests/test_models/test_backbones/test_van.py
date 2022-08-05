@@ -1,4 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+#%%
 import math
 from copy import deepcopy
 from itertools import chain
@@ -19,7 +20,7 @@ def check_norm_state(modules, train_state):
                 return False
     return True
 
-
+#%%
 class TestVAN(TestCase):
 
     def setUp(self):

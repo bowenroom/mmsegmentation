@@ -1,12 +1,20 @@
 # dataset settings
 dataset_type = 'PotsdamDataset'
 # data_root = 'data/potsdam'
-data_root = 'optical/potsdam'
-img_norm_cfg = dict(
-    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+data_root = 'tempDataset/potsdam'
+
+# RGB norm cfg
+# img_norm_cfg = dict(
+#     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+
+# RGBD norm cfg
+img_norm_cfg = dict(mean=[123.675, 116.28, 103.53, 30.672], std=[
+                    58.395, 57.12, 57.375, 38.0866], to_rgb=False)
+
+
 crop_size = (512, 512)
 train_pipeline = [
-    dict(type='LoadImageFromFile'),
+    dict(type='LoadImageFromFile', color_type='unchanged'),
     dict(type='LoadAnnotations', reduce_zero_label=True),
     dict(type='Resize', img_scale=(512, 512), ratio_range=(0.5, 2.0)),
     dict(type='RandomCrop', crop_size=crop_size, cat_max_ratio=0.75),
@@ -18,7 +26,7 @@ train_pipeline = [
     dict(type='Collect', keys=['img', 'gt_semantic_seg']),
 ]
 test_pipeline = [
-    dict(type='LoadImageFromFile'),
+    dict(type='LoadImageFromFile', color_type='unchanged'),
     dict(
         type='MultiScaleFlipAug',
         img_scale=(512, 512),
@@ -38,13 +46,13 @@ data = dict(
     train=dict(
         type=dataset_type,
         data_root=data_root,
-        img_dir='img_dir/train',
+        img_dir='img_dsm_dir/train',
         ann_dir='ann_dir/train',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
         data_root=data_root,
-        img_dir='img_dir/val',
+        img_dir='img_dsm_dir/val',
         ann_dir='ann_dir/val',
         pipeline=test_pipeline),
     test=dict(
@@ -52,6 +60,6 @@ data = dict(
         data_root=data_root,
         # img_dir='img_dir/val',
         # ann_dir='ann_dir/val',
-        img_dir='img_dir/testFog',
+        img_dir='img_dsm_dir/testFog',
         ann_dir='ann_dir/testFog',
         pipeline=test_pipeline))

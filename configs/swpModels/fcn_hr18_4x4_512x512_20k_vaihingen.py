@@ -9,7 +9,7 @@ log_config = dict(
     hooks=[
         dict(type='TextLoggerHook', by_epoch=False),
         # dict(type='TensorboardLoggerHook')
-        dict(type='WandbLoggerHook', init_kwargs=dict(project='MultiModality'))
+        # dict(type='WandbLoggerHook', init_kwargs=dict(project='MultiModality'))
     ])
 # data = dict(samples_per_gpu=2, workers_per_gpu=2)
 data = dict(samples_per_gpu=2, workers_per_gpu=0)
@@ -25,6 +25,7 @@ model = dict(
     decode_head=dict(num_classes=6))
 
 load_from = "pretrain/best_mIoU_iter_39284.pth"
+# load_from = "pretrain/best_mIoU_iter_17568.pth"
 # model = dict(decode_head=dict(
 #     _delete_ = True,
 #         type='SegformerHead',

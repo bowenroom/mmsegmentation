@@ -309,19 +309,18 @@ class ConvNeXt(BaseBackbone):
 
     def forward(self, x):
         original = x
-        x = x[:,:3]
-        d = x[:,-1]
+        # x = x[:,:3]
+        # d = x[:,-1]
         # stack the dsm data along dim 1
-        d = torch.stack((d,d,d),dim=1)
+        # d = torch.stack((d,d,d),dim=1)
         outs = []
         for i, stage in enumerate(self.stages):
             x = self.downsample_layers[i](x)
             x = stage(x)
-            d = self.downsample_layers[i](d)
-            d = stage(d)
-            d_att = self.ecaAttn(d)
-            # fusion
-            x = x + d_att
+            # d = self.downsample_layers[i](d)
+            # d = stage(d)
+            # d_att = self.ecaAttn(d)
+            # x = x + d_att
             if i in self.out_indices:
                 norm_layer = getattr(self, f'norm{i}')
                 if self.gap_before_final_norm:

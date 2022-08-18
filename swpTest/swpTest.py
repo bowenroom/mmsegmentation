@@ -276,9 +276,18 @@ def convert2RGBA(img_dir,dsm_dir):
 
 # convert2RGBA(img_dir,dsm_dir)       
 #%%
-import cv2
-temp = mmcv.imread('/home/swp/paperCode/IGRLCode/mmf/swpTest/sampleOut.png',flag='unchanged')
-temp = cv2.cvtColor(temp,cv2.COLOR_RGB2BGRA)
-out = mmcv.imwrite(temp,'/home/swp/paperCode/IGRLCode/mmf/swpTest/sampleOut2.png')
+def convertBGR2RGB(img_dir):
+    imgs = get_image_files(img_dir)
+    for i in range(len(imgs)):
+        pathName, fileName = os.path.split(imgs[i])
+        prefix_name = os.path.splitext(fileName)[0]
+        suffix_name = os.path.splitext(fileName)[1]
+                # read the rgb fog file, 原先的rgb图像，其实保存的时候是bgr格式
+        img = mmcv.imread(imgs[i],channel_order='rgb')
+                # convert it to rgba format
+        # rgba = cv2.cvtColor(img,cv2.COLOR_RGB2BGRA)
+        mmcv.imwrite(img, pathName+'/convert/'+fileName)
+
+# convertBGR2RGB('/home/swp/dataFiles/zhangzhe/rsData/optical/vaihingen/img_dir')     
 
 # %%

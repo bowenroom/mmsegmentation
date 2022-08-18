@@ -11,14 +11,14 @@ data = dict(samples_per_gpu=2, workers_per_gpu=0)
 # model
 model = dict(
     backbone=dict(
-        # type='CMF',
+        type='CMF',
         arch='tiny',
         frozen_stages=2,
         # using the weight from imagenet
         init_cfg=dict(_delete_=True),
-        # in_channels=4,
-        # embed_dims=32,
-        # num_heads=[1, 2, 5, 8]
+        in_channels=3,
+        embed_dims=32,
+        num_heads=[1, 2, 5, 8]
     ),
     decode_head=dict(in_channels=[96, 192, 384, 768],
                      num_classes=6,
@@ -76,10 +76,10 @@ log_config = dict(
     hooks=[
         dict(type='TextLoggerHook', by_epoch=False),
         # dict(type='TensorboardLoggerHook')
-        # dict(type='WandbLoggerHook', init_kwargs=dict(project='IJAG'))
+        dict(type='WandbLoggerHook', init_kwargs=dict(project='IGRL2'))
     ])
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 
-load_from = "work_dirs/upernet_convnext_base_fp16_512x512_160k_vaihingen/save/20220714_234332.pth"
+load_from = "/home/swp/paperCode/IGRLCode/mmf/work_dirs/upernet_convnext_base_fp16_512x512_160k_vaihingen/save/20220815_220159.pth"
 
 # from mmclassification.mmcls.models import VAN

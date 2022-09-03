@@ -12,15 +12,18 @@ data = dict(samples_per_gpu=2, workers_per_gpu=0)
 model = dict(
     backbone=dict(
         type='CMF',
-        arch='tiny',
+        arch='base',
         frozen_stages=2,
         # using the weight from imagenet
         init_cfg=dict(_delete_=True),
         in_channels=3,
         embed_dims=32,
-        num_heads=[1, 2, 5, 8]
+        num_heads=[1, 2, 5, 8],
+        input_embeds = [128, 256, 512, 1024]
     ),
-    decode_head=dict(in_channels=[96, 192, 384, 768],
+    decode_head=dict(
+        # in_channels=[96, 192, 384, 768],
+        in_channels=[128, 256, 512, 1024],
                      num_classes=6,
                      loss_decode=dict(type='CrossEntropyLoss',
                                       use_sigmoid=False,
@@ -30,8 +33,8 @@ model = dict(
                      ),
 
     # decode_head=dict(in_channels=[128, 256, 512, 1024], num_classes=6),
-    auxiliary_head=dict(in_channels=384, num_classes=6),
-    # auxiliary_head=dict(in_channels=512, num_classes=6),
+    # auxiliary_head=dict(in_channels=384, num_classes=6),
+    auxiliary_head=dict(in_channels=512, num_classes=6),
     test_cfg=dict(mode='slide', crop_size=crop_size, stride=(341, 341)),
 )
 

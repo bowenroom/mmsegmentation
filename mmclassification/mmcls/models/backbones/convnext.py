@@ -309,8 +309,8 @@ class ConvNeXt(BaseBackbone):
 
     def forward(self, x):
         original = x
-        # x = x[:,:3]
-        # d = x[:,-1]
+        x = x[:,:3]
+        d = x[:,-1]
         # stack the dsm data along dim 1
         # d = torch.stack((d,d,d),dim=1)
         outs = []

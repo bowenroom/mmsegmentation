@@ -120,20 +120,24 @@ class CMF(BaseModule):
         d = torch.cat((d, d, d), dim=1)
 
         c_outs = self.color(c)
-        d_outs = self.dsm(d)
+        # d_outs = self.dsm(d)
 
         outs = []
         for i in range(self.num_stages):
-            c, d = c_outs[i], d_outs[i]
+            c = c_outs[i]
+            # d = d_outs[i]
+
             # enhance the representation
-            c2, d2 =self.crems[i](c,d)
+            # c2, d2 =self.crems[i](c,d)
+
             if (len(self.odfm) != 0):
                 out = self.odfm[i](c, d)
                 outs.append(out)
             else:
                 # outs.append(c_outs[i] + d_outs[i])
                 # multimodal fusion
-                outs.append(self.cmfs[i](c2,d2))
+                # outs.append(self.cmfs[i](c2,d2))
+                outs.append(c)
         return outs
 # %%
 

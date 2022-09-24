@@ -4,12 +4,10 @@ dataset_type = 'PotsdamDataset'
 data_root = 'tempDataset/potsdam'
 
 # RGB norm cfg
-# img_norm_cfg = dict(
-#     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+# img_norm_cfg = dict(mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
 # RGBD norm cfg
-img_norm_cfg = dict(mean=[123.675, 116.28, 103.53, 30.672], std=[
-                    58.395, 57.12, 57.375, 38.0866], to_rgb=False)
+img_norm_cfg = dict(mean=[123.675, 116.28, 103.53, 30.672], std=[58.395, 57.12, 57.375, 38.0866], to_rgb=False)
 
 
 crop_size = (512, 512)
@@ -58,7 +56,7 @@ data = dict(
     test=dict(
         type=dataset_type,
         data_root=data_root,
-        # img_dir='img_dir/val',
+        # img_dir='img_dsm_dir/val',
         # ann_dir='ann_dir/val',
         img_dir='img_dsm_dir/testFog',
         ann_dir='ann_dir/testFog',

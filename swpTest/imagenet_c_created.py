@@ -277,7 +277,7 @@ def copyAndRename(path):
             shutil.copy(file, newName)
         # os.remove(file)
 
-
+#%%
 def makeFogCorruptedDataset(path):
     # copy  img_dir/val to img_dir/testFog
     # path = '/home/ubuntu/paperCode/codeLib/mmsegmentation/swpTest/tempDataTest/vaihingen/'

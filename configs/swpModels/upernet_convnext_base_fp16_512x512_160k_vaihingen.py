@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/models/upernet_convnext.py', '../_base_/datasets/vaihingen.py',
+    '../_base_/models/upernet_convnext.py', '../_base_/datasets/potsdam.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_40k.py'
 ]
 # data
@@ -25,11 +25,11 @@ model = dict(
         # in_channels=[96, 192, 384, 768],
         in_channels=[128, 256, 512, 1024],
                      num_classes=6,
-                     loss_decode=dict(type='CrossEntropyLoss',
-                                      use_sigmoid=False,
-                                      class_weight=[
-                                          1, 1.06845, 1.34069, 1.20482, 23.0909, 40.8955],
-                                      loss_weight=1.0)
+                    #  loss_decode=dict(type='CrossEntropyLoss',
+                    #                   use_sigmoid=False,
+                    #                   class_weight=[
+                    #                       1, 1.06845, 1.34069, 1.20482, 23.0909, 40.8955],
+                    #                   loss_weight=1.0)
                      ),
 
     # decode_head=dict(in_channels=[128, 256, 512, 1024], num_classes=6),
@@ -72,8 +72,10 @@ lr_config = dict(
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 
 ## evaluation and log
-evaluation = dict(interval=1288, metric='mIoU',
-                  pre_eval=True, save_best='mIoU')
+evaluation = dict(interval=1288, metric=['mIoU','mFscore'],
+                  pre_eval=True,
+                #    save_best='mIoU'
+                   )
 log_config = dict(
     interval=50,
     hooks=[
@@ -83,6 +85,6 @@ log_config = dict(
     ])
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 
-load_from = "work_dirs/upernet_convnext_base_fp16_512x512_160k_vaihingen/save/20220709_160255.pth"
+load_from = "/home/swp/paperCode/IGRLCode/mmf/work_dirs/upernet_convnext_base_fp16_512x512_160k_vaihingen/save/20220922_214216.pth"
 
 # from mmclassification.mmcls.models import VAN

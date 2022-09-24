@@ -1,5 +1,5 @@
 # import packages
-#%%
+# %%
 import argparse
 import glob
 import imp
@@ -35,9 +35,10 @@ from fastai.vision.all import *
 #     axs[3].imshow(mmcv.bgr2rgb(inferImage))
 #     axs[4].imshow(mmcv.bgr2rgb(inferImage2))
 # show_result(imagePath,config_file,checkpoint_file)
-#%%
+# %%
 ann_path = '../tempDataset/potsdam/ann_dir/val/2_13_4608_0_5120_512.png'
 img_path = '../tempDataset/potsdam/dsm_dir/val/2_13_4608_0_5120_512.tiff'
+
 
 def colormap():
     #  #FFFFFF #0000FF #00FFFF #00FF00 #FFFF00 #FF0000
@@ -49,10 +50,23 @@ def colormap():
     return colors.ListedColormap(cdict, 'from_list')
 
 
+color_map = np.array([[0, 0, 0], [255, 255, 255], [255, 0, 0],
+                      [255, 255, 0], [0, 255, 0], [0, 255, 255],
+                      [0, 0, 255]])
+
 # define my own pixel color paletter in the matplotlib
 my_cmap = colormap()
-ann_img = mmcv.imread(ann_path, flag='grayscale')
-dsm_img = mmcv.imread(img_path, flag=-1)
-show_image(dsm_img,cmap='gray')
 
 # %%
+def show_random_result(ann_path):
+    axs = get_grid(2,1,2,figsize = (20, 10))
+    ann_path = get_image_files(ann_path)[random.randint(0, 199)]
+    ann_img = mmcv.imread(ann_path, flag='grayscale')
+    ori_img = mmcv.imread(str(ann_path).replace('ann_dir','img_dir'),channel_order='rgb')
+    print(f'unique color encoding of this image is {np.unique(ann_img)}')
+    [i.set_axis_off() for i in axs]
+    axs[0].imshow(ori_img)
+    axs[1].imshow(ann_img,cmap = my_cmap)
+show_random_result('/home/swp/paperCode/IGRLCode/mmf/tempDataset/potsdam/ann_dir')
+
+

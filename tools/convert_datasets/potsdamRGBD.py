@@ -134,8 +134,10 @@ def clip_big_image_pot(image_path, clip_save_dir, to_label=False, dsm=False):
         h, w = image.shape
     else:
         # channel order is required to be correspondent with the palette order
-        # image = mmcv.imread(image_path, channel_order='rgb')
-        image = mmcv.imread(image_path)
+        if to_label:
+            image = mmcv.imread(image_path, channel_order='rgb')
+        else:
+            image = mmcv.imread(image_path)
         h, w, c = image.shape
 
     clip_size = args.clip_size
@@ -261,7 +263,8 @@ def main():
             # src_path_list = glob.glob(os.path.join(tmp_dir, '*.jpg'))
             if '5_Labels' in zipp:
                 sub_tmp_dir = os.path.join(tmp_dir, os.listdir(tmp_dir)[0])
-                src_path_list = glob.glob(os.path.join(sub_tmp_dir, '*.jpg'))
+                # src_path_list = glob.glob(os.path.join(sub_tmp_dir, '*.jpg'))
+                src_path_list = glob.glob(os.path.join(sub_tmp_dir, '*.tif'))
                 for area_ann in src_path_list:
                     if '4_12' in area_ann:
                         src_path_list.remove(area_ann)

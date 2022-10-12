@@ -1,6 +1,9 @@
 _base_ = [
-    '../_base_/models/upernet_convnext.py', '../_base_/datasets/potsdam.py',
-    '../_base_/default_runtime.py', '../_base_/schedules/schedule_40k.py'
+    '../_base_/models/upernet_convnext.py',
+    #  '../_base_/datasets/potsdam.py',
+     '../_base_/datasets/vaihingen.py',
+    '../_base_/default_runtime.py', 
+    '../_base_/schedules/schedule_40k.py'
 ]
 # data
 crop_size = (512, 512)
@@ -85,6 +88,6 @@ log_config = dict(
     ])
 checkpoint_config = dict(interval=644, save_optimizer=True, max_keep_ckpts=2)
 
-load_from = "/home/swp/paperCode/IGRLCode/mmf/work_dirs/upernet_convnext_base_fp16_512x512_160k_vaihingen/save/20220922_214216.pth"
+load_from = "/home/swp/paperCode/IGRLCode/mmf/work_dirs/upernet_convnext_base_fp16_512x512_160k_vaihingen/iter_39928.pth"
 
 # from mmclassification.mmcls.models import VAN

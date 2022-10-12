@@ -241,7 +241,6 @@ class fogAugmented(data.Dataset):
         return len(self.filePath)
 # %%
 
-
 def save_fog(path, method=fog):
     for severity in range(1, 6):
         print(method.__name__, severity)

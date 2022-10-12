@@ -60,7 +60,8 @@ my_cmap = colormap()
 # %%
 def show_random_result(ann_path):
     axs = get_grid(2,1,2,figsize = (20, 10))
-    ann_path = get_image_files(ann_path)[random.randint(0, 199)]
+    # ann_path = get_image_files(ann_path)[random.randint(0, 199)]
+    ann_path = '/home/swp/paperCode/IGRLCode/mmf/tempDataset/potsdam/ann_dir/testFog/2_13_0_2560_512_3072_fog_1.png'
     ann_img = mmcv.imread(ann_path, flag='grayscale')
     ori_img = mmcv.imread(str(ann_path).replace('ann_dir','img_dir'),channel_order='rgb')
     print(f'unique color encoding of this image is {np.unique(ann_img)}')
@@ -69,4 +70,25 @@ def show_random_result(ann_path):
     axs[1].imshow(ann_img,cmap = my_cmap)
 show_random_result('/home/swp/paperCode/IGRLCode/mmf/tempDataset/potsdam/ann_dir')
 
+#%%
+
+
+#%%
+# print the computation
+model = nn.Sequential(
+    nn.Linear(512,1024),
+    # nn.BatchNorm2d(1024),
+    nn.ReLU(),
+    nn.Linear(1024,512)
+)
+# temp = torch.randn(2,3,512,512)
+# from thop import profile
+# macs, params = profile(model, inputs =temp)
+
+from torchvision.models import resnet50
+from thop import profile
+model = resnet50()
+input = torch.randn(1, 3, 1024, 1024)
+macs, params = profile(model, inputs=(input, ))
+print(macs,params)
 

@@ -106,6 +106,7 @@ def potsdam_classes():
         'building'
     ]
 
+
 def vaihingen_classes():
     """Vaihingen class names for external use."""
     # return [
@@ -115,6 +116,18 @@ def vaihingen_classes():
     return [
         'impervious_surface', 'clutter', 'car', 'tree', 'low_vegetation',
         'building'
+    ]
+
+
+def ddsb_classes():
+    """ddsb class names for external use."""
+    # return [
+    #     'impervious_surface', 'building', 'low_vegetation', 'tree', 'car',
+    #     'clutter'
+    # ]
+    return [
+        'BUILDING', 'CLUTTER', 'VEGETATION', 'WATER',
+        'GROUND', 'CAR'
     ]
 
 
@@ -251,14 +264,15 @@ def potsdam_palette():
     # return [[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
     #         [255, 255, 0], [255, 0, 0]]
     return [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
-               [0, 255, 255], [0, 0, 255]]
+            [0, 255, 255], [0, 0, 255]]
+
 
 def vaihingen_palette():
     """Vaihingen palette for external use."""
     # return [[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
     #         [255, 255, 0], [255, 0, 0]]
     return [[255, 255, 255], [255, 0, 0], [255, 255, 0], [0, 255, 0],
-               [0, 255, 255], [0, 0, 255]]
+            [0, 255, 255], [0, 0, 255]]
 
 
 def isaid_palette():
@@ -275,6 +289,18 @@ def stare_palette():
     return [[120, 120, 120], [6, 230, 230]]
 
 
+def ddsb_palette():
+    """DDSB palette for external use."""
+    return [
+        [230, 25, 75],
+        [145, 30, 180],
+        [60, 180, 75],
+        [245, 130, 48],
+        [255, 255, 255],
+        [0, 130, 200]
+    ]
+
+
 dataset_aliases = {
     'cityscapes': ['cityscapes'],
     'ade': ['ade', 'ade20k'],
@@ -288,7 +314,8 @@ dataset_aliases = {
         'coco_stuff164k'
     ],
     'isaid': ['isaid', 'iSAID'],
-    'stare': ['stare', 'STARE']
+    'stare': ['stare', 'STARE'],
+    'ddsb': ['DDSB', 'ddsb']
 }
 
 

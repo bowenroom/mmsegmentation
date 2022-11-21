@@ -1,5 +1,7 @@
 # import packages
 # %%
+from thop import profile
+from torchvision.models import resnet50
 import argparse
 import glob
 import imp
@@ -59,36 +61,80 @@ my_cmap = colormap()
 
 # %%
 def show_random_result(ann_path):
-    axs = get_grid(2,1,2,figsize = (20, 10))
-    # ann_path = get_image_files(ann_path)[random.randint(0, 199)]
-    ann_path = '/home/swp/paperCode/IGRLCode/mmf/tempDataset/potsdam/ann_dir/testFog/2_13_0_2560_512_3072_fog_1.png'
+    axs = get_grid(2, 1, 2, figsize=(20, 10))
+    ann_path = get_image_files(ann_path)[random.randint(0, 199)]
+    # ann_path = '/home/swp/paperCode/IGRLCode/mmf/tempDataset/potsdam/ann_dir/testFog/2_13_0_2560_512_3072_fog_1.png'
     ann_img = mmcv.imread(ann_path, flag='grayscale')
-    ori_img = mmcv.imread(str(ann_path).replace('ann_dir','img_dir'),channel_order='rgb')
+    ori_img = mmcv.imread(str(ann_path).replace(
+        'ann_dir', 'img_dir'), channel_order='rgb')
     print(f'unique color encoding of this image is {np.unique(ann_img)}')
     [i.set_axis_off() for i in axs]
     axs[0].imshow(ori_img)
-    axs[1].imshow(ann_img,cmap = my_cmap)
-show_random_result('/home/swp/paperCode/IGRLCode/mmf/tempDataset/potsdam/ann_dir')
-
-#%%
+    axs[1].imshow(ann_img, cmap=my_cmap)
 
 
-#%%
+show_random_result(
+    '/home/swp/paperCode/IGRLCode/mmf/tempDataset/potsdam/ann_dir')
+
+# %%
 # print the computation
 model = nn.Sequential(
-    nn.Linear(512,1024),
+    nn.Linear(512, 1024),
     # nn.BatchNorm2d(1024),
     nn.ReLU(),
-    nn.Linear(1024,512)
+    nn.Linear(1024, 512)
 )
 # temp = torch.randn(2,3,512,512)
 # from thop import profile
 # macs, params = profile(model, inputs =temp)
 
-from torchvision.models import resnet50
-from thop import profile
 model = resnet50()
 input = torch.randn(1, 3, 1024, 1024)
 macs, params = profile(model, inputs=(input, ))
-print(macs,params)
+print(macs, params)
+# %%
+# palette of DDSB
+ 
+def colormapDDSB():
+    cdict = [
+        # '#FF00FF',
+        '#E6194B', 
+        '#911EB4',
+        '#3CB44B',  
+        '#F58230', 
+        '#FFFFFF',
+        '#0082C8'
+        ]
+    # 按照上面定义的colordict，将数据分成对应的部分，indexed：代表顺序
+    return colors.ListedColormap(cdict, 'from_list')
 
+my_cmap2 = colormapDDSB()
+def show_random_result_ddsb(ann_path):
+    axs = get_grid(2, 1, 2, figsize=(20, 10))
+    # ann_path = get_image_files(ann_path)[random.randint(0, 199)]
+    all_ann_path = get_image_files(ann_path)
+    ann_path = all_ann_path[random.randint(1, 589)]
+    print(ann_path)
+    ann_img = mmcv.imread(ann_path, flag='grayscale')
+    ori_img = mmcv.imread(str(ann_path).replace(
+        'ann_dir', 'img_dir'), channel_order='rgb')
+
+    print(f'unique color encoding of this image is {np.unique(ann_img)}')
+    [i.set_axis_off() for i in axs]
+    axs[0].imshow(ori_img)
+    axs[1].imshow(ann_img)
+
+
+LABELMAP = {
+    # 0 : (255,   0, 255),# 粉色 #FF00FF
+    0: (75,   25, 230),  # 红色 BUILDING  #E6194B
+    1: (180,  30, 145),  # 紫色 CLUTTER #911EB4
+    2: (75,  180,  60),  # 绿色 VEGETATION #3CB44B
+    3: (48,  130, 245),  # 橘黄 WATER #F58230
+    4: (255, 255, 255),  # 白色 GROUND #FFFFFF
+    5: (200, 130,   0),  # 蓝色 CAR #0082C8
+}
+
+[show_random_result_ddsb(Path('/home/swp/paperCode/IGRLCode/mmf/tempDataset/ddsb2/ann_dir')) for i in range(2)]
+
+# %%

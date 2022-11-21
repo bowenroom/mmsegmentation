@@ -967,7 +967,8 @@ class PhotoMetricDistortion(object):
         if mode == 0:
             img = self.contrast(img)
         
-        if temp.shape[-1] == 4:
+        # if temp.shape[-1] == 4:
+        if img.shape[-1] == 4:
             temp[:,:,:3] = img
             temp[:,:,-1] = alpha
             img = temp

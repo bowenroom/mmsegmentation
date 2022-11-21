@@ -422,13 +422,18 @@ class HRNet(BaseModule):
             self.stage4_cfg, num_channels, multiscale_output=multiscale_output)
 
         self._freeze_stages()
-
-        self.embed_dims = kwargs["embed_dims"]
-        self.num_heads = kwargs["num_heads"]
+        if 'embed_dims' in kwargs:
+            self.embed_dims = kwargs["embed_dims"]
+        if 'num_heads' in kwargs:
+            self.num_heads = kwargs["num_heads"]
+        if 'overlap' in kwargs:
+            self.overlap = kwargs["overlap"]
+        if 'weight' in kwargs:
+            self.weight = kwargs["weight"]
+        self.multi = None
+        if 'multi' in kwargs:
+            self.multi = kwargs["multi"]
         self.num_stages = 4
-        self.overlap =  kwargs["overlap"]
-        self.weight = kwargs["weight"]
-        self.multi = kwargs["multi"]
         if self.multi:
             self.Dsm = DsmDownsample(
                 1,
@@ -446,7 +451,7 @@ class HRNet(BaseModule):
                         DsmFusionModule(embed_dims_i, self.num_heads[i], weight=self.weight))
                 else:
                     pass  # self.attention_type == 'none'  just add
-
+ 
 
     @property
     def norm1(self):

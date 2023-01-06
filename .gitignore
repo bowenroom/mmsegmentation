@@ -137,4 +137,6 @@ potsdamVisual2/
 tempDataset/
 visual/
 transfer/
+work_dirs/
 ddsbVisual/
+configs/swp

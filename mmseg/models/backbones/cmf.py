@@ -1,26 +1,18 @@
 from mmcv.cnn import Scale
 import math
-from turtle import forward
-import warnings
-from numpy import append
 
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from mmcv.cnn import (Conv2d, Scale, build_activation_layer, build_norm_layer,
-                      constant_init, normal_init, trunc_normal_init)
-from mmcv.cnn.bricks.drop import build_dropout
-from mmcv.cnn.bricks.transformer import MultiheadAttention
+# from mmcv.cnn import (Conv2d, Scale, build_activation_layer, build_norm_layer,
+#                       constant_init, normal_init, trunc_normal_init)
+
 from mmcv.runner import BaseModule, ModuleList, Sequential, _load_checkpoint
+
 from ..builder import BACKBONES
-from .mit import MixVisionTransformer
 from mmcls.models import ConvNeXt
-
-
 from mmseg.models.decode_heads.sep_aspp_head import DepthwiseSeparableASPPModule
-from mmseg.models.decode_heads import DAHead
 from mmcls.models.backbones.van import VANBlock
-from mmcv.cnn import ConvModule
 
 
 @BACKBONES.register_module()
@@ -28,7 +20,7 @@ class CMF(BaseModule):
 
     def __init__(self,
                  in_channels=3,
-                 arch='tiny',
+                 arch='base',
                  out_indices=[0, 1, 2, 3],
                  drop_path_rate=0.4,
                  layer_scale_init_value=1.0,
@@ -39,16 +31,19 @@ class CMF(BaseModule):
                  same_branch=True,
                  backbone='ConvNext',
                  input_embeds = [96, 192, 384, 768],
+                 frozen_stages=0,
                  **kwargs):
         super(CMF, self).__init__()
         # assert (in_channels == 4)
 
         self.num_heads = kwargs["num_heads"]
         self.num_stages = 4
+        self.frozen_stages = frozen_stages
         # self.overlap = overlap
         # self.weight = weight
         init_cfg = kwargs["init_cfg"]
         # enhance the representation
+
         self.crems = nn.ModuleList(
            [ CREM(input_embeds[0], 100),
             CREM(input_embeds[1], 100),
@@ -62,19 +57,19 @@ class CMF(BaseModule):
             Cotlayer(input_embeds[3],3)
         ])
 
-
         if (backbone == "ConvNext"):
             self.color = ConvNeXt(arch=arch, in_channels=in_channels, out_indices=out_indices, drop_path_rate=drop_path_rate,
-                                  layer_scale_init_value=layer_scale_init_value, gap_before_final_norm=gap_before_final_norm, init_cfg=init_cfg)
+                                  layer_scale_init_value=layer_scale_init_value,frozen_stages=frozen_stages, gap_before_final_norm=gap_before_final_norm, init_cfg=init_cfg)
             self.embed_dims = kwargs["embed_dims"]
         else:
             raise NotImplementedError("{} backbone is not supported".format(
                 self.backbone))
 
+    
         if same_branch:
             if (backbone == "ConvNext"):
                 self.dsm = ConvNeXt(arch=arch, in_channels=3, out_indices=out_indices, drop_path_rate=drop_path_rate,
-                                    layer_scale_init_value=layer_scale_init_value, gap_before_final_norm=gap_before_final_norm, init_cfg=init_cfg)
+                                    layer_scale_init_value=layer_scale_init_value,frozen_stages=frozen_stages, gap_before_final_norm=gap_before_final_norm, init_cfg=init_cfg)
             else:
                 raise NotImplementedError(
                     "{} backbone is not supported".format(self.backbone))
@@ -94,25 +89,6 @@ class CMF(BaseModule):
 
                 pass  # self.attention_type == 'none'  just add
 
-    def init_weights(self):
-        for m in self.modules():
-            if isinstance(m, nn.Linear):
-                trunc_normal_init(m.weight, std=.02)
-                if m.bias is not None:
-                    constant_init(m.bias, 0)
-            elif isinstance(m, nn.LayerNorm):
-                constant_init(m.bias, 0)
-                constant_init(m.weight, 1.0)
-            elif isinstance(m, nn.Conv2d):
-                fan_out = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                fan_out //= m.groups
-                normal_init(m.weight, 0, math.sqrt(2.0 / fan_out))
-                if m.bias is not None:
-                    constant_init(m.bias, 0)
-        # load pretrained model if exists
-        self.color.init_weights()
-        # self.dsm.init_weights()
-
     def forward(self, x):
         # detach RGB and DSM data
         c = x[:, :3]
@@ -120,15 +96,15 @@ class CMF(BaseModule):
         d = torch.cat((d, d, d), dim=1)
 
         c_outs = self.color(c)
-        # d_outs = self.dsm(d)
+        d_outs = self.dsm(d)
 
         outs = []
         for i in range(self.num_stages):
             c = c_outs[i]
-            # d = d_outs[i]
+            d = d_outs[i]
 
             # enhance the representation
-            # c2, d2 =self.crems[i](c,d)
+            c2, d2 =self.crems[i](c,d)
 
             if (len(self.odfm) != 0):
                 out = self.odfm[i](c, d)
@@ -136,8 +112,8 @@ class CMF(BaseModule):
             else:
                 # outs.append(c_outs[i] + d_outs[i])
                 # multimodal fusion
-                # outs.append(self.cmfs[i](c2,d2))
-                outs.append(c)
+                outs.append(self.cmfs[i](c2,d2))
+                # outs.append(c)
         return outs
 # %%
 

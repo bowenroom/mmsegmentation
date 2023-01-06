@@ -312,7 +312,7 @@ class ConvNeXt(BaseBackbone):
         x = x[:,:3]
         d = x[:,-1]
         # stack the dsm data along dim 1
-        # d = torch.stack((d,d,d),dim=1)
+        d = torch.stack((d,d,d),dim=1)
         outs = []
         for i, stage in enumerate(self.stages):
             x = self.downsample_layers[i](x)

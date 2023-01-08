@@ -29,12 +29,12 @@ class ISPRSDataset(CustomDataset):
     #            [255, 255, 0], [255, 0, 0]]
     PALETTE = [[255, 255, 255], [255, 0, 0], [255, 255, 0],
                [0, 255, 0], [0, 255, 255], [0, 0, 255]]
-
+# 当不采用ignore的时候，模型性能有大幅提升
     def __init__(self, **kwargs):
         super(ISPRSDataset, self).__init__(
             img_suffix='.png',
             seg_map_suffix='.png',
             reduce_zero_label=True,
-            ignore_index=1,
+            # ignore_index=1,
             **kwargs)
 

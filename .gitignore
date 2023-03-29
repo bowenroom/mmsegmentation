@@ -135,8 +135,9 @@ vaihingenVisual/
 potsdamVisual/
 potsdamVisual2/
 tempDataset/
-visual/
+.visual
 transfer/
-work_dirs/
+.work_dirs
+.learn
 ddsbVisual/
 configs/swp

@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..builder import LOSSES
+from mmseg.registry import MODELS
 from .utils import get_class_weight, weight_reduce_loss
 
 
@@ -193,7 +193,7 @@ def mask_cross_entropy(pred,
         pred_slice, target, weight=class_weight, reduction='mean')[None]
 
 
-@LOSSES.register_module()
+@MODELS.register_module()
 class CrossEntropyLoss(nn.Module):
     """CrossEntropyLoss.
 
@@ -223,7 +223,11 @@ class CrossEntropyLoss(nn.Module):
                  loss_weight=1.0,
                  loss_name='loss_ce',
                  avg_non_ignore=False):
+<<<<<<< HEAD
         super(CrossEntropyLoss, self).__init__()
+=======
+        super().__init__()
+>>>>>>> upstream/main
         assert (use_sigmoid is False) or (use_mask is False)
         self.use_sigmoid = use_sigmoid
         self.use_mask = use_mask

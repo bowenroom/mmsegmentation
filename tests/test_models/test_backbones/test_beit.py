@@ -140,8 +140,16 @@ def test_beit_init():
         }
     }
     model = BEiT(img_size=(512, 512))
+<<<<<<< HEAD
     with pytest.raises(AttributeError):
         model.resize_rel_pos_embed(ckpt)
+=======
+    # If scipy is installed, this AttributeError would not be raised.
+    from mmengine.utils import is_installed
+    if not is_installed('scipy'):
+        with pytest.raises(AttributeError):
+            model.resize_rel_pos_embed(ckpt)
+>>>>>>> upstream/main
 
     # pretrained=None
     # init_cfg=123, whose type is unsupported

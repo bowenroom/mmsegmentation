@@ -7,8 +7,10 @@ import os
 import os.path as osp
 import shutil
 
-import mmcv
 import torch
+from mmengine import Config
+from mmengine.fileio import dump
+from mmengine.utils import mkdir_or_exist, scandir
 
 # build schedule look-up table to automatically find the final model
 RESULTS_LUT = ['mIoU', 'mAcc', 'aAcc']
@@ -33,7 +35,7 @@ def process_checkpoint(in_file, out_file):
     # The hash code calculation and rename command differ on different system
     # platform.
     sha = calculate_file_sha256(out_file)
-    final_file = out_file.rstrip('.pth') + '-{}.pth'.format(sha[:8])
+    final_file = out_file.rstrip('.pth') + f'-{sha[:8]}.pth'
     os.rename(out_file, final_file)
 
     # Remove prefix and suffix
@@ -52,7 +54,7 @@ def get_final_iter(config):
 def get_final_results(log_json_path, iter_num):
     result_dict = dict()
     last_iter = 0
-    with open(log_json_path, 'r') as f:
+    with open(log_json_path) as f:
         for line in f.readlines():
             log_line = json.loads(line)
             if 'mode' not in log_line.keys():
@@ -100,10 +102,10 @@ def main():
     work_dir = args.work_dir
     collect_dir = args.collect_dir
     selected_config_name = args.config_name
-    mmcv.mkdir_or_exist(collect_dir)
+    mkdir_or_exist(collect_dir)
 
     # find all models in the root directory to be gathered
-    raw_configs = list(mmcv.scandir('./configs', '.py', recursive=True))
+    raw_configs = list(scandir('./configs', '.py', recursive=True))
 
     # filter configs that is not trained in the experiments dir
     used_configs = []
@@ -123,7 +125,7 @@ def main():
         exp_dir = osp.join(work_dir, config_name)
         # check whether the exps is finished
         final_iter = get_final_iter(used_config)
-        final_model = 'iter_{}.pth'.format(final_iter)
+        final_model = f'iter_{final_iter}.pth'
         model_path = osp.join(exp_dir, final_model)
 
         # skip if the model is still training
@@ -175,7 +177,7 @@ def main():
                 print(f'dir {model_publish_dir} exists, no model found')
 
         else:
-            mmcv.mkdir_or_exist(model_publish_dir)
+            mkdir_or_exist(model_publish_dir)
 
             # convert model
             final_model_path = process_checkpoint(trained_model_path,
@@ -198,13 +200,13 @@ def main():
         if args.all:
             # copy config to guarantee reproducibility
             raw_config = osp.join('./configs', f'{config_name}.py')
-            mmcv.Config.fromfile(raw_config).dump(
+            Config.fromfile(raw_config).dump(
                 osp.join(model_publish_dir, osp.basename(raw_config)))
 
         publish_model_infos.append(model)
 
     models = dict(models=publish_model_infos)
-    mmcv.dump(models, osp.join(collect_dir, 'model_infos.json'), indent=4)
+    dump(models, osp.join(collect_dir, 'model_infos.json'), indent=4)
 
 
 if __name__ == '__main__':

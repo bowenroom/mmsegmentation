@@ -1,8 +1,14 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+<<<<<<< HEAD
+=======
+from typing import List
+
+>>>>>>> upstream/main
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from mmcv.cnn import ConvModule, build_activation_layer, build_norm_layer
+<<<<<<< HEAD
 from mmcv.cnn.bricks.transformer import (FFN, TRANSFORMER_LAYER,
                                          MultiheadAttention,
                                          build_transformer_layer)
@@ -13,6 +19,19 @@ from mmseg.utils import get_root_logger
 
 
 @TRANSFORMER_LAYER.register_module()
+=======
+from mmcv.cnn.bricks.transformer import (FFN, MultiheadAttention,
+                                         build_transformer_layer)
+from mmengine.logging import print_log
+from torch import Tensor
+
+from mmseg.models.decode_heads.decode_head import BaseDecodeHead
+from mmseg.registry import MODELS
+from mmseg.utils import SampleList
+
+
+@MODELS.register_module()
+>>>>>>> upstream/main
 class KernelUpdator(nn.Module):
     """Dynamic Kernel Updator in Kernel Update Head.
 
@@ -45,7 +64,11 @@ class KernelUpdator(nn.Module):
             norm_cfg=dict(type='LN'),
             act_cfg=dict(type='ReLU', inplace=True),
     ):
+<<<<<<< HEAD
         super(KernelUpdator, self).__init__()
+=======
+        super().__init__()
+>>>>>>> upstream/main
         self.in_channels = in_channels
         self.feat_channels = feat_channels
         self.out_channels_raw = out_channels
@@ -139,7 +162,11 @@ class KernelUpdator(nn.Module):
         return features
 
 
+<<<<<<< HEAD
 @HEADS.register_module()
+=======
+@MODELS.register_module()
+>>>>>>> upstream/main
 class KernelUpdateHead(nn.Module):
     """Kernel Update Head in K-Net.
 
@@ -210,7 +237,11 @@ class KernelUpdateHead(nn.Module):
                      out_channels=256,
                      act_cfg=dict(type='ReLU', inplace=True),
                      norm_cfg=dict(type='LN'))):
+<<<<<<< HEAD
         super(KernelUpdateHead, self).__init__()
+=======
+        super().__init__()
+>>>>>>> upstream/main
         self.num_classes = num_classes
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -272,8 +303,12 @@ class KernelUpdateHead(nn.Module):
                 # the weight and bias of the layer norm
                 pass
         if self.kernel_init:
+<<<<<<< HEAD
             logger = get_root_logger()
             logger.info(
+=======
+            print_log(
+>>>>>>> upstream/main
                 'mask kernel in mask head is normal initialized by std 0.01')
             nn.init.normal_(self.fc_mask.weight, mean=0, std=0.01)
 
@@ -391,7 +426,11 @@ class KernelUpdateHead(nn.Module):
             self.conv_kernel_size)
 
 
+<<<<<<< HEAD
 @HEADS.register_module()
+=======
+@MODELS.register_module()
+>>>>>>> upstream/main
 class IterativeDecodeHead(BaseDecodeHead):
     """K-Net: Towards Unified Image Segmentation.
 
@@ -411,18 +450,35 @@ class IterativeDecodeHead(BaseDecodeHead):
 
     def __init__(self, num_stages, kernel_generate_head, kernel_update_head,
                  **kwargs):
+<<<<<<< HEAD
         super(BaseDecodeHead, self).__init__(**kwargs)
         assert num_stages == len(kernel_update_head)
         self.num_stages = num_stages
         self.kernel_generate_head = build_head(kernel_generate_head)
+=======
+        # ``IterativeDecodeHead`` would skip initialization of
+        # ``BaseDecodeHead`` which would be called when building
+        # ``self.kernel_generate_head``.
+        super(BaseDecodeHead, self).__init__(**kwargs)
+        assert num_stages == len(kernel_update_head)
+        self.num_stages = num_stages
+        self.kernel_generate_head = MODELS.build(kernel_generate_head)
+>>>>>>> upstream/main
         self.kernel_update_head = nn.ModuleList()
         self.align_corners = self.kernel_generate_head.align_corners
         self.num_classes = self.kernel_generate_head.num_classes
         self.input_transform = self.kernel_generate_head.input_transform
         self.ignore_index = self.kernel_generate_head.ignore_index
+<<<<<<< HEAD
 
         for head_cfg in kernel_update_head:
             self.kernel_update_head.append(build_head(head_cfg))
+=======
+        self.out_channels = self.num_classes
+
+        for head_cfg in kernel_update_head:
+            self.kernel_update_head.append(MODELS.build(head_cfg))
+>>>>>>> upstream/main
 
     def forward(self, inputs):
         """Forward function."""
@@ -443,10 +499,19 @@ class IterativeDecodeHead(BaseDecodeHead):
         # only return the prediction of the last stage during testing
         return stage_segs[-1]
 
+<<<<<<< HEAD
     def losses(self, seg_logit, seg_label):
         losses = dict()
         for i, logit in enumerate(seg_logit):
             loss = self.kernel_generate_head.losses(logit, seg_label)
+=======
+    def loss_by_feat(self, seg_logits: List[Tensor],
+                     batch_data_samples: SampleList, **kwargs) -> dict:
+        losses = dict()
+        for i, logit in enumerate(seg_logits):
+            loss = self.kernel_generate_head.loss_by_feat(
+                logit, batch_data_samples)
+>>>>>>> upstream/main
             for k, v in loss.items():
                 losses[f'{k}.s{i}'] = v
 

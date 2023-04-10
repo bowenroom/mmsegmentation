@@ -1,6 +1,10 @@
 ARG PYTORCH="1.11.0"
 ARG CUDA="11.3"
 ARG CUDNN="8"
+<<<<<<< HEAD
+=======
+ARG MMCV="2.0.0"
+>>>>>>> upstream/main
 
 FROM pytorch/pytorch:${PYTORCH}-cuda${CUDA}-cudnn${CUDNN}-devel
 
@@ -22,10 +26,16 @@ RUN conda clean --all
 ARG PYTORCH
 ARG CUDA
 ARG MMCV
+<<<<<<< HEAD
 RUN ["/bin/bash", "-c", "pip install --no-cache-dir mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu${CUDA//./}/torch${PYTORCH}/index.html"]
+=======
+RUN ["/bin/bash", "-c", "pip install openmim"]
+RUN ["/bin/bash", "-c", "mim install mmengine"]
+RUN ["/bin/bash", "-c", "mim install mmcv==${MMCV}"]
+>>>>>>> upstream/main
 
 # Install MMSegmentation
-RUN git clone https://github.com/open-mmlab/mmsegmentation.git /mmsegmentation
+RUN git clone -b main https://github.com/open-mmlab/mmsegmentation.git /mmsegmentation
 WORKDIR /mmsegmentation
 ENV FORCE_CUDA="1"
 RUN pip install -r requirements.txt

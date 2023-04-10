@@ -17,27 +17,53 @@
     </sup>
   </div>
   <div>&nbsp;</div>
-</div>
-<br />
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mmsegmentation)](https://pypi.org/project/mmsegmentation/)
 [![PyPI](https://img.shields.io/pypi/v/mmsegmentation)](https://pypi.org/project/mmsegmentation)
-[![docs](https://img.shields.io/badge/docs-latest-blue)](https://mmsegmentation.readthedocs.io/zh_CN/latest/)
+[![docs](https://img.shields.io/badge/docs-latest-blue)](https://mmsegmentation.readthedocs.io/zh_CN/main/)
 [![badge](https://github.com/open-mmlab/mmsegmentation/workflows/build/badge.svg)](https://github.com/open-mmlab/mmsegmentation/actions)
 [![codecov](https://codecov.io/gh/open-mmlab/mmsegmentation/branch/master/graph/badge.svg)](https://codecov.io/gh/open-mmlab/mmsegmentation)
-[![license](https://img.shields.io/github/license/open-mmlab/mmsegmentation.svg)](https://github.com/open-mmlab/mmsegmentation/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/open-mmlab/mmsegmentation.svg)](https://github.com/open-mmlab/mmsegmentation/blob/main/LICENSE)
 [![issue resolution](https://isitmaintained.com/badge/resolution/open-mmlab/mmsegmentation.svg)](https://github.com/open-mmlab/mmsegmentation/issues)
 [![open issues](https://isitmaintained.com/badge/open/open-mmlab/mmsegmentation.svg)](https://github.com/open-mmlab/mmsegmentation/issues)
 
-文档: https://mmsegmentation.readthedocs.io/zh_CN/latest
+文档: <https://mmsegmentation.readthedocs.io/zh_CN/main>
 
 [English](README.md) | 简体中文
+
+</div>
+
+<div align="center">
+  <a href="https://openmmlab.medium.com/" style="text-decoration:none;">
+    <img src="https://user-images.githubusercontent.com/25839884/219255827-67c1a27f-f8c5-46a9-811d-5e57448c61d1.png" width="3%" alt="" /></a>
+  <img src="https://user-images.githubusercontent.com/25839884/218346358-56cc8e2f-a2b8-487f-9088-32480cceabcf.png" width="3%" alt="" />
+  <a href="https://discord.gg/raweFPmdzG" style="text-decoration:none;">
+    <img src="https://user-images.githubusercontent.com/25839884/218347213-c080267f-cbb6-443e-8532-8e1ed9a58ea9.png" width="3%" alt="" /></a>
+  <img src="https://user-images.githubusercontent.com/25839884/218346358-56cc8e2f-a2b8-487f-9088-32480cceabcf.png" width="3%" alt="" />
+  <a href="https://twitter.com/OpenMMLab" style="text-decoration:none;">
+    <img src="https://user-images.githubusercontent.com/25839884/218346637-d30c8a0f-3eba-4699-8131-512fb06d46db.png" width="3%" alt="" /></a>
+  <img src="https://user-images.githubusercontent.com/25839884/218346358-56cc8e2f-a2b8-487f-9088-32480cceabcf.png" width="3%" alt="" />
+  <a href="https://www.youtube.com/openmmlab" style="text-decoration:none;">
+    <img src="https://user-images.githubusercontent.com/25839884/218346691-ceb2116a-465a-40af-8424-9f30d2348ca9.png" width="3%" alt="" /></a>
+  <img src="https://user-images.githubusercontent.com/25839884/218346358-56cc8e2f-a2b8-487f-9088-32480cceabcf.png" width="3%" alt="" />
+  <a href="https://space.bilibili.com/1293512903" style="text-decoration:none;">
+    <img src="https://user-images.githubusercontent.com/25839884/219026751-d7d14cce-a7c9-4e82-9942-8375fca65b99.png" width="3%" alt="" /></a>
+  <img src="https://user-images.githubusercontent.com/25839884/218346358-56cc8e2f-a2b8-487f-9088-32480cceabcf.png" width="3%" alt="" />
+  <a href="https://www.zhihu.com/people/openmmlab" style="text-decoration:none;">
+    <img src="https://user-images.githubusercontent.com/25839884/219026120-ba71e48b-6e94-4bd4-b4e9-b7d175b5e362.png" width="3%" alt="" /></a>
+</div>
 
 ## 简介
 
 MMSegmentation 是一个基于 PyTorch 的语义分割开源工具箱。它是 OpenMMLab 项目的一部分。
 
-主分支代码目前支持 PyTorch 1.5 以上的版本。
+[main](https://github.com/open-mmlab/mmsegmentation/tree/main) 分支代码目前支持 PyTorch 1.6 以上的版本。
+
+### 🎉 MMSegmentation v1.0.0 简介 🎉
+
+我们非常高兴地宣布 MMSegmentation 最新版本的正式发布！在这个新版本中，主要分支是 [main](https://github.com/open-mmlab/mmsegmentation/tree/main) 分支，开发分支是 [dev-1.x](https://github.com/open-mmlab/mmsegmentation/tree/dev-1.x)。而之前版本的稳定分支保留为 [0.x](https://github.com/open-mmlab/mmsegmentation/tree/0.x) 分支。请注意，[master](https://github.com/open-mmlab/mmsegmentation/tree/master) 分支将只在有限的时间内维护，然后将被删除。我们鼓励您在使用过程中注意分支选择和更新。感谢您一如既往的支持和热情，让我们共同努力，使 MMSegmentation 变得更加健壮和强大！💪
+
+MMSegmentation v1.x 在 0.x 版本的基础上有了显著的提升，提供了更加灵活和功能丰富的体验。为了更好使用 v1.x 中的新功能，我们诚挚邀请您查阅我们详细的 [📚 迁移指南](https://mmsegmentation.readthedocs.io/zh_CN/main/migration/interface.html)，以帮助您无缝地过渡您的项目。您的支持对我们来说非常宝贵，我们热切期待您的反馈！
 
 ![示例图片](resources/seg_demo.gif)
 
@@ -59,20 +85,36 @@ MMSegmentation 是一个基于 PyTorch 的语义分割开源工具箱。它是 O
 
   训练速度比其他语义分割代码库更快或者相当。
 
-## 开源许可证
-
-该项目采用 [Apache 2.0 开源许可证](LICENSE)。
-
 ## 更新日志
 
+最新版本 v1.0.0 在 2023.04.06 发布。
+如果想了解更多版本更新细节和历史信息，请阅读[更新日志](docs/en/notes/changelog.md)。
+
+## 安装
+
+请参考[快速入门文档](docs/zh_cn/get_started.md#installation)进行安装，参考[数据集准备](docs/zh_cn/user_guides/2_dataset_prepare.md)处理数据。
+
+## 快速入门
+
+请参考[概述](docs/zh_cn/overview.md)对 MMSegmetation 进行初步了解
+
+<<<<<<< HEAD
 最新版本 v0.24.1 在 2022.5.1 发布。
 如果想了解更多版本更新细节和历史信息，请阅读[更新日志](docs/en/changelog.md)。
+=======
+请参考[用户指南](https://mmsegmentation.readthedocs.io/zh_CN/main/user_guides/index.html)了解 mmseg 的基本使用，以及[进阶指南](https://mmsegmentation.readthedocs.io/zh_CN/main/advanced_guides/index.html)深入了解 mmseg 设计和代码实现。
+
+同时，我们提供了 Colab 教程。你可以在[这里](demo/MMSegmentation_Tutorial.ipynb)浏览教程，或者直接在 Colab 上[运行](https://colab.research.google.com/github/open-mmlab/mmsegmentation/blob/main/demo/MMSegmentation_Tutorial.ipynb)。
+
+若需要将 0.x 版本的代码迁移至新版，请参考[迁移文档](docs/zh_cn/migration)。
+>>>>>>> upstream/main
 
 ## 基准测试和模型库
 
 测试结果和模型可以在[模型库](docs/zh_cn/model_zoo.md)中找到。
 
-已支持的骨干网络：
+<details open>
+<summary>已支持的骨干网络：</summary>
 
 - [x] ResNet (CVPR'2016)
 - [x] ResNeXt (CVPR'2017)
@@ -86,8 +128,16 @@ MMSegmentation 是一个基于 PyTorch 的语义分割开源工具箱。它是 O
 - [x] [BEiT (ICLR'2022)](configs/beit)
 - [x] [ConvNeXt (CVPR'2022)](configs/convnext)
 - [x] [MAE (CVPR'2022)](configs/mae)
+<<<<<<< HEAD
+=======
+- [x] [PoolFormer (CVPR'2022)](configs/poolformer)
+- [x] [SegNeXt (NeurIPS'2022)](configs/segnext)
 
-已支持的算法：
+</details>
+>>>>>>> upstream/main
+
+<details open>
+<summary>已支持的算法：</summary>
 
 - [x] [FCN (CVPR'2015/TPAMI'2017)](configs/fcn)
 - [x] [ERFNet (T-ITS'2017)](configs/erfnet)
@@ -123,37 +173,52 @@ MMSegmentation 是一个基于 PyTorch 的语义分割开源工具箱。它是 O
 - [x] [Segmenter (ICCV'2021)](configs/segmenter)
 - [x] [SegFormer (NeurIPS'2021)](configs/segformer)
 - [x] [K-Net (NeurIPS'2021)](configs/knet)
+<<<<<<< HEAD
+=======
+- [x] [MaskFormer (NeurIPS'2021)](configs/maskformer)
+- [x] [Mask2Former (CVPR'2022)](configs/mask2former)
+- [x] [PIDNet (ArXiv'2022)](configs/pidnet)
 
-已支持的数据集：
+</details>
 
-- [x] [Cityscapes](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#cityscapes)
-- [x] [PASCAL VOC](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#pascal-voc)
-- [x] [ADE20K](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#ade20k)
-- [x] [Pascal Context](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#pascal-context)
-- [x] [COCO-Stuff 10k](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#coco-stuff-10k)
-- [x] [COCO-Stuff 164k](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#coco-stuff-164k)
-- [x] [CHASE_DB1](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#chase-db1)
-- [x] [DRIVE](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#drive)
-- [x] [HRF](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#hrf)
-- [x] [STARE](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#stare)
-- [x] [Dark Zurich](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#dark-zurich)
-- [x] [Nighttime Driving](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#nighttime-driving)
-- [x] [LoveDA](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#loveda)
-- [x] [Potsdam](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#isprs-potsdam)
-- [x] [Vaihingen](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#isprs-vaihingen)
-- [x] [iSAID](https://github.com/open-mmlab/mmsegmentation/blob/master/docs/zh_cn/dataset_prepare.md#isaid)
+<details open>
+<summary>已支持的数据集：</summary>
 
-## 安装
+- [x] [Cityscapes](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#cityscapes)
+- [x] [PASCAL VOC](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#pascal-voc)
+- [x] [ADE20K](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#ade20k)
+- [x] [Pascal Context](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#pascal-context)
+- [x] [COCO-Stuff 10k](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#coco-stuff-10k)
+- [x] [COCO-Stuff 164k](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#coco-stuff-164k)
+- [x] [CHASE_DB1](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#chase-db1)
+- [x] [DRIVE](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#drive)
+- [x] [HRF](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#hrf)
+- [x] [STARE](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#stare)
+- [x] [Dark Zurich](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#dark-zurich)
+- [x] [Nighttime Driving](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#nighttime-driving)
+- [x] [LoveDA](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#loveda)
+- [x] [Potsdam](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#isprs-potsdam)
+- [x] [Vaihingen](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#isprs-vaihingen)
+- [x] [iSAID](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/zh_cn/dataset_prepare.md#isaid)
+- [x] [Mapillary Vistas](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/user_guides/2_dataset_prepare.md#mapillary-vistas-datasets)
 
-请参考[快速入门文档](docs/zh_cn/get_started.md#installation)进行安装，参考[数据集准备](docs/zh_cn/dataset_prepare.md)处理数据。
+</details>
 
-## 快速入门
+如果遇到问题，请参考 [常见问题解答](docs/zh_cn/notes/faq.md)。
 
-请参考[训练教程](docs/zh_cn/train.md)和[测试教程](docs/zh_cn/inference.md)学习 MMSegmentation 的基本使用。
-我们也提供了一些进阶教程，内容覆盖了[增加自定义数据集](docs/zh_cn/tutorials/customize_datasets.md)，[设计新的数据预处理流程](docs/zh_cn/tutorials/data_pipeline.md)，[增加自定义模型](docs/zh_cn/tutorials/customize_models.md)，[增加自定义的运行时配置](docs/zh_cn/tutorials/customize_runtime.md)。
-除此之外，我们也提供了很多实用的[训练技巧说明](docs/zh_cn/tutorials/training_tricks.md)和模型部署相关的[有用的工具](docs/zh_cn/useful_tools.md)。
+## 社区项目
 
-同时，我们提供了 Colab 教程。你可以在[这里](demo/MMSegmentation_Tutorial.ipynb)浏览教程，或者直接在 Colab 上[运行](https://colab.research.google.com/github/open-mmlab/mmsegmentation/blob/master/demo/MMSegmentation_Tutorial.ipynb)。
+[这里](projects/README.md)有一些由社区用户支持和维护的基于 MMSegmentation 的 SOTA 模型和解决方案的实现。这些项目展示了基于 MMSegmentation 的研究和产品开发的最佳实践。
+我们欢迎并感谢对 OpenMMLab 生态系统的所有贡献。
+>>>>>>> upstream/main
+
+## 贡献指南
+
+我们感谢所有的贡献者为改进和提升 MMSegmentation 所作出的努力。请参考[贡献指南](.github/CONTRIBUTING.md)来了解参与项目贡献的相关指引。
+
+## 致谢
+
+MMSegmentation 是一个由来自不同高校和企业的研发人员共同参与贡献的开源项目。我们感谢所有为项目提供算法复现和新功能支持的贡献者，以及提供宝贵反馈的用户。我们希望这个工具箱和基准测试可以为社区提供灵活的代码工具，供用户复现已有算法并开发自己的新模型，从而不断为开源社区提供贡献。
 
 如果遇到问题，请参考 [常见问题解答](docs/zh_cn/faq.md)。
 
@@ -170,22 +235,27 @@ MMSegmentation 是一个基于 PyTorch 的语义分割开源工具箱。它是 O
 }
 ```
 
-## 贡献指南
+## 开源许可证
 
-我们感谢所有的贡献者为改进和提升 MMSegmentation 所作出的努力。请参考[贡献指南](.github/CONTRIBUTING.md)来了解参与项目贡献的相关指引。
-
-## 致谢
-
-MMSegmentation 是一个由来自不同高校和企业的研发人员共同参与贡献的开源项目。我们感谢所有为项目提供算法复现和新功能支持的贡献者，以及提供宝贵反馈的用户。 我们希望这个工具箱和基准测试可以为社区提供灵活的代码工具，供用户复现已有算法并开发自己的新模型，从而不断为开源社区提供贡献。
+该项目采用 [Apache 2.0 开源许可证](LICENSE)。
 
 ## OpenMMLab 的其他项目
 
+- [MMEngine](https://github.com/open-mmlab/mmengine): OpenMMLab 深度学习模型训练库
 - [MMCV](https://github.com/open-mmlab/mmcv): OpenMMLab 计算机视觉基础库
 - [MIM](https://github.com/open-mmlab/mim): MIM 是 OpenMMlab 项目、算法、模型的统一入口
+<<<<<<< HEAD
+=======
+- [MMEval](https://github.com/open-mmlab/mmeval): 统一开放的跨框架算法评测库
+>>>>>>> upstream/main
 - [MMClassification](https://github.com/open-mmlab/mmclassification): OpenMMLab 图像分类工具箱
 - [MMDetection](https://github.com/open-mmlab/mmdetection): OpenMMLab 目标检测工具箱
 - [MMDetection3D](https://github.com/open-mmlab/mmdetection3d): OpenMMLab 新一代通用 3D 目标检测平台
 - [MMRotate](https://github.com/open-mmlab/mmrotate): OpenMMLab 旋转框检测工具箱与测试基准
+<<<<<<< HEAD
+=======
+- [MMYOLO](https://github.com/open-mmlab/mmyolo): OpenMMLab YOLO 系列工具箱与测试基准
+>>>>>>> upstream/main
 - [MMSegmentation](https://github.com/open-mmlab/mmsegmentation): OpenMMLab 语义分割工具箱
 - [MMOCR](https://github.com/open-mmlab/mmocr): OpenMMLab 全流程文字检测识别理解工具包
 - [MMPose](https://github.com/open-mmlab/mmpose): OpenMMLab 姿态估计工具箱
@@ -202,13 +272,13 @@ MMSegmentation 是一个由来自不同高校和企业的研发人员共同参�
 
 ## 欢迎加入 OpenMMLab 社区
 
- 扫描下方的二维码可关注 OpenMMLab 团队的 [知乎官方账号](https://www.zhihu.com/people/openmmlab)，加入 [OpenMMLab 团队](https://jq.qq.com/?_wv=1027&k=aCvMxdr3) 以及 [MMSegmentation](https://jq.qq.com/?_wv=1027&k=ukevz6Ie) 的 QQ 群。
+扫描下方的二维码可关注 OpenMMLab 团队的 [知乎官方账号](https://www.zhihu.com/people/openmmlab)，加入 [OpenMMLab 团队](https://jq.qq.com/?_wv=1027&k=aCvMxdr3) 以及 [MMSegmentation](https://jq.qq.com/?_wv=1027&k=ukevz6Ie) 的 QQ 群。
 
- <div align="center">
+<div align="center">
  <img src="docs/zh_cn/imgs/zhihu_qrcode.jpg" height="400" />  <img src="docs/zh_cn/imgs/qq_group_qrcode.jpg" height="400" />  <img src="docs/zh_cn/imgs/seggroup_qrcode.jpg" height="400" />
  </div>
 
- 我们会在 OpenMMLab 社区为大家
+我们会在 OpenMMLab 社区为大家
 
 - 📢 分享 AI 框架的前沿核心技术
 - 💻 解读 PyTorch 常用模块源码
@@ -217,4 +287,4 @@ MMSegmentation 是一个由来自不同高校和企业的研发人员共同参�
 - 🏃 获取更高效的问题答疑和意见反馈
 - 🔥 提供与各行各业开发者充分交流的平台
 
- 干货满满 📘，等你来撩 💗，OpenMMLab 社区期待您的加入 👬
+干货满满 📘，等你来撩 💗，OpenMMLab 社区期待您的加入 👬

@@ -434,23 +434,23 @@ class HRNet(BaseModule):
         if 'multi' in kwargs:
             self.multi = kwargs["multi"]
         self.num_stages = 4
-        if self.multi:
-            self.Dsm = DsmDownsample(
-                1,
-                embed_dims=self.embed_dims,
-                num_heads=self.num_heads,
-                overlap=self.overlap,
-                pretrained=kwargs["pretrained"]
-                if "pretrained" in kwargs.keys() else None)
-            self.attention_type = kwargs["attention"] if "attention" in kwargs.keys() else None
-            self.dfms = ModuleList()
-            for i in range(self.num_stages):
-                embed_dims_i = self.embed_dims * self.num_heads[i]
-                if self.attention_type == 'LKA':
-                    self.dfms.append(
-                        DsmFusionModule(embed_dims_i, self.num_heads[i], weight=self.weight))
-                else:
-                    pass  # self.attention_type == 'none'  just add
+        # if self.multi:
+        #     self.Dsm = DsmDownsample(
+        #         1,
+        #         embed_dims=self.embed_dims,
+        #         num_heads=self.num_heads,
+        #         overlap=self.overlap,
+        #         pretrained=kwargs["pretrained"]
+        #         if "pretrained" in kwargs.keys() else None)
+        #     self.attention_type = kwargs["attention"] if "attention" in kwargs.keys() else None
+        #     self.dfms = ModuleList()
+        #     for i in range(self.num_stages):
+        #         embed_dims_i = self.embed_dims * self.num_heads[i]
+        #         if self.attention_type == 'LKA':
+        #             self.dfms.append(
+        #                 DsmFusionModule(embed_dims_i, self.num_heads[i], weight=self.weight))
+        #         else:
+        #             pass  # self.attention_type == 'none'  just add
  
 
     @property
@@ -689,6 +689,8 @@ class HRNet(BaseModule):
                 # trick: eval have effect on BatchNorm only
                 if isinstance(m, _BatchNorm):
                     m.eval()
+'''
+
 
 from ...utils import get_root_logger
 from ..utils import PatchEmbedOld as PatchEmbed
@@ -786,3 +788,6 @@ class DsmFusionModule(SelfAttentionBlock):
 
         out = self.gamma(out) + x
         return self.norm(out)
+
+
+'''

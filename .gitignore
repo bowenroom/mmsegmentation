@@ -141,3 +141,6 @@ transfer/
 .learn
 ddsbVisual/
 configs/swp
+mmclassification/
+*.tar
+codeLib/

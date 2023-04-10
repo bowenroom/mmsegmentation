@@ -7,7 +7,8 @@ from torch.nn import functional as F
 # from mmcv.cnn import (Conv2d, Scale, build_activation_layer, build_norm_layer,
 #                       constant_init, normal_init, trunc_normal_init)
 
-from mmcv.runner import BaseModule, ModuleList, Sequential, _load_checkpoint
+# from mmcv.runner import BaseModule, ModuleList, Sequential, _load_checkpoint
+from mmengine.model import BaseModule, ModuleList, Sequential
 
 from ..builder import BACKBONES
 from mmcls.models import ConvNeXt

@@ -2,66 +2,13 @@
 
 ## Prerequisites
 
-<<<<<<< HEAD
-- Linux or macOS (Windows is in experimental support)
-- Python 3.6+
-- PyTorch 1.3+
-- CUDA 9.2+ (If you build PyTorch from source, CUDA 9.0 is also compatible)
-- GCC 5+
-- [MMCV](https://mmcv.readthedocs.io/en/latest/#installation)
-
-The compatible MMSegmentation and MMCV versions are as below. Please install the correct version of MMCV to avoid installation issues.
-
-| MMSegmentation version |        MMCV version        | MMClassification version |
-|:----------------------:|:--------------------------:|:------------------------:|
-|         master         |  mmcv-full>=1.4.4, <=1.6.0  | mmcls>=0.20.1, <=1.0.0   |
-|         0.24.1         |  mmcv-full>=1.4.4, <=1.6.0  | mmcls>=0.20.1, <=1.0.0   |
-|         0.23.0         |  mmcv-full>=1.4.4, <=1.6.0  | mmcls>=0.20.1, <=1.0.0   |
-|         0.22.0         |  mmcv-full>=1.4.4, <=1.6.0  | mmcls>=0.20.1, <=1.0.0   |
-|         0.21.1         |  mmcv-full>=1.4.4, <=1.6.0  | Not required             |
-|         0.20.2         | mmcv-full>=1.3.13, <=1.6.0  | Not required             |
-|         0.19.0         | mmcv-full>=1.3.13, <1.3.17 | Not required             |
-|         0.18.0         | mmcv-full>=1.3.13, <1.3.17 | Not required             |
-|         0.17.0         | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|         0.16.0         | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|         0.15.0         | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|         0.14.1         | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|         0.14.0         |  mmcv-full>=1.3.1, <1.3.2  | Not required             |
-|         0.13.0         |  mmcv-full>=1.3.1, <1.3.2  | Not required             |
-|         0.12.0         |  mmcv-full>=1.1.4, <1.3.2  | Not required             |
-|         0.11.0         |  mmcv-full>=1.1.4, <1.3.0  | Not required             |
-|         0.10.0         |  mmcv-full>=1.1.4, <1.3.0  | Not required             |
-|         0.9.0          |  mmcv-full>=1.1.4, <1.3.0  | Not required             |
-|         0.8.0          |  mmcv-full>=1.1.4, <1.2.0  | Not required             |
-|         0.7.0          |  mmcv-full>=1.1.2, <1.2.0  | Not required             |
-|         0.6.0          |  mmcv-full>=1.1.2, <1.2.0  | Not required             |
-
-:::{note}
-You need to run `pip uninstall mmcv` first if you have mmcv installed.
-If mmcv and mmcv-full are both installed, there will be `ModuleNotFoundError`.
-:::
-=======
 In this section we demonstrate how to prepare an environment with PyTorch.
->>>>>>> upstream/main
 
 MMSegmentation works on Linux, Windows and macOS. It requires Python 3.6+, CUDA 9.2+ and PyTorch 1.5+.
 
 **Note:**
 If you are experienced with PyTorch and have already installed it, just skip this part and jump to the [next section](##installation). Otherwise, you can follow these steps for the preparation.
 
-<<<<<<< HEAD
-```shell
-conda create -n open-mmlab python=3.10 -y
-conda activate open-mmlab
-```
-
-b. Install PyTorch and torchvision following the [official instructions](https://pytorch.org/).
-Here we use PyTorch 1.11.0 and CUDA 11.3.
-You may also switch to other version by specifying the version number.
-
-```shell
-conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
-=======
 **Step 0.** Download and install Miniconda from the [official website](https://docs.conda.io/en/latest/miniconda.html).
 
 **Step 1.** Create a conda environment and activate it.
@@ -69,25 +16,14 @@ conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
 ```shell
 conda create --name openmmlab python=3.8 -y
 conda activate openmmlab
->>>>>>> upstream/main
 ```
 
 **Step 2.** Install PyTorch following [official instructions](https://pytorch.org/get-started/locally/), e.g.
 
-<<<<<<< HEAD
-Please replace ``{cu_version}`` and ``{torch_version}`` in the url to your desired one. mmcv-full is only compiled on
-PyTorch 1.x.0 because the compatibility usually holds between 1.x.0 and 1.x.1. If your PyTorch version is 1.x.1,
-you can install mmcv-full compiled with PyTorch 1.x.0 and it usually works well.
-For example, to install the ``mmcv-full`` with ``CUDA 11.3`` and ``PyTorch 1.11.0``, use the following command:
-
-```shell
-pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11/index.html
-=======
 On GPU platforms:
 
 ```shell
 conda install pytorch torchvision -c pytorch
->>>>>>> upstream/main
 ```
 
 On CPU platforms:
@@ -163,17 +99,6 @@ checkpoint_file = 'pspnet_r50-d8_512x1024_40k_cityscapes_20200605_003338-2966598
 # build the model from a config file and a checkpoint file
 model = init_model(config_file, checkpoint_file, device='cuda:0')
 
-<<<<<<< HEAD
-```shell
-conda create -n open-mmlab python=3.10 -y
-conda activate open-mmlab
-
-conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
-pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11.0/index.html
-git clone https://github.com/open-mmlab/mmsegmentation.git
-cd mmsegmentation
-pip install -e .  # or "python setup.py develop"
-=======
 # test a single image and show the results
 img = 'demo/demo.png'  # or img = mmcv.imread(img), which will only load it once
 result = inference_model(model, img)
@@ -190,7 +115,6 @@ for frame in video:
 ```
 
 You can modify the code above to test a single image or a video, both of these options can verify that the installation was successful.
->>>>>>> upstream/main
 
 ### Customize Installation
 
@@ -198,20 +122,10 @@ You can modify the code above to test a single image or a video, both of these o
 
 When installing PyTorch, you need to specify the version of CUDA. If you are not clear on which to choose, follow our recommendations:
 
-<<<<<<< HEAD
-```shell
-conda create -n open-mmlab python=3.10 -y
-conda activate open-mmlab
-
-conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
-set PATH=full\path\to\your\cpp\compiler;%PATH%
-pip install mmcv
-=======
 - For Ampere-based NVIDIA GPUs, such as GeForce 30 series and NVIDIA A100, CUDA 11 is a must.
 - For older NVIDIA GPUs, CUDA 11 is backward compatible, but CUDA 10.2 offers better compatibility and is more lightweight.
 
 Please make sure the GPU driver satisfies the minimum version requirements. See [this table](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#cuda-major-component-versions__table-cuda-toolkit-driver-versions) for more information.
->>>>>>> upstream/main
 
 **Note:**
 Installing CUDA runtime libraries is enough if you follow our best practices, because no CUDA code will be compiled locally. However if you hope to compile MMCV from source or develop other CUDA operators, you need to install the complete CUDA toolkit from NVIDIA's [website](https://developer.nvidia.com/cuda-downloads), and its version should match the CUDA version of PyTorch. i.e., the specified version of cudatoolkit in `conda install` command.

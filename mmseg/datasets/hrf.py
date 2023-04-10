@@ -27,8 +27,4 @@ class HRFDataset(BaseSegDataset):
             seg_map_suffix=seg_map_suffix,
             reduce_zero_label=reduce_zero_label,
             **kwargs)
-<<<<<<< HEAD
-        assert self.file_client.exists(self.img_dir)
-=======
         assert self.file_client.exists(self.data_prefix['img_path'])
->>>>>>> upstream/main

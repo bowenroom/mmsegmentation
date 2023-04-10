@@ -42,16 +42,6 @@ This script convert model from `PRETRAIN_PATH` and store the converted model in 
 
 In our default setting, pretrained models and their corresponding [original models](https://github.com/microsoft/Swin-Transforme) models could be defined below:
 
-<<<<<<< HEAD
-  | pretrained models | original models |
-  | ------ | -------- |
-  |pretrain/swin_tiny_patch4_window7_224.pth | [swin_tiny_patch4_window7_224.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_tiny_patch4_window7_224.pth) |
-  |pretrain/swin_small_patch4_window7_224.pth | [swin_small_patch4_window7_224.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_small_patch4_window7_224.pth) |
-  |pretrain/swin_base_patch4_window7_224.pth | [swin_base_patch4_window7_224.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window7_224.pth) |
-  |pretrain/swin_base_patch4_window7_224_22k.pth | [swin_base_patch4_window7_224_22k.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window7_224_22k.pth) |
-  |pretrain/swin_base_patch4_window12_384.pth | [swin_base_patch4_window12_384.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window12_384.pth) |
-  |pretrain/swin_base_patch4_window12_384_22k.pth | [swin_base_patch4_window12_384_22k.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window12_384_22k.pth) |
-=======
 | pretrained models                              | original models                                                                                                                                    |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | pretrain/swin_tiny_patch4_window7_224.pth      | [swin_tiny_patch4_window7_224.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_tiny_patch4_window7_224.pth)           |
@@ -60,7 +50,6 @@ In our default setting, pretrained models and their corresponding [original mode
 | pretrain/swin_base_patch4_window7_224_22k.pth  | [swin_base_patch4_window7_224_22k.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window7_224_22k.pth)   |
 | pretrain/swin_base_patch4_window12_384.pth     | [swin_base_patch4_window12_384.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window12_384.pth)         |
 | pretrain/swin_base_patch4_window12_384_22k.pth | [swin_base_patch4_window12_384_22k.pth](https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_base_patch4_window12_384_22k.pth) |
->>>>>>> upstream/main
 
 ## Results and models
 

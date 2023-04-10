@@ -1,60 +1,3 @@
-<<<<<<< HEAD
-## 依赖
-
-- Linux or macOS (Windows下支持需要 mmcv-full，但运行时可能会有一些问题。)
-- Python 3.6+
-- PyTorch 1.3+
-- CUDA 9.2+ (如果您基于源文件编译 PyTorch, CUDA 9.0也可以使用)
-- GCC 5+
-- [MMCV](https://mmcv.readthedocs.io/en/latest/#installation)
-
-可编译的 MMSegmentation 和 MMCV 版本如下所示，请对照对应版本安装以避免安装问题。
-
-| MMSegmentation 版本 |          MMCV 版本         | MMClassification 版本    |
-|:-----------------:|:--------------------------:|:------------------------:|
-|      master       |  mmcv-full>=1.4.4, <=1.6.0 | mmcls>=0.20.1, <=1.0.0   |
-|      0.24.1       |  mmcv-full>=1.4.4, <=1.6.0 | mmcls>=0.20.1, <=1.0.0   |
-|      0.23.0       |  mmcv-full>=1.4.4, <=1.6.0 | mmcls>=0.20.1, <=1.0.0   |
-|      0.22.0       |  mmcv-full>=1.4.4, <=1.6.0 | mmcls>=0.20.1, <=1.0.0   |
-|      0.21.1       |  mmcv-full>=1.4.4, <=1.6.0 | Not required             |
-|      0.20.2       | mmcv-full>=1.3.13, <=1.6.0 | Not required             |
-|      0.19.0       | mmcv-full>=1.3.13, <1.3.17 | Not required             |
-|      0.18.0       | mmcv-full>=1.3.13, <1.3.17 | Not required             |
-|      0.17.0       | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|      0.16.0       | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|      0.15.0       | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|      0.14.1       | mmcv-full>=1.3.7, <1.3.17  | Not required             |
-|      0.14.0       |  mmcv-full>=1.3.1, <1.3.2  | Not required             |
-|      0.13.0       |  mmcv-full>=1.3.1, <1.3.2  | Not required             |
-|      0.12.0       |  mmcv-full>=1.1.4, <1.3.2  | Not required             |
-|      0.11.0       |  mmcv-full>=1.1.4, <1.3.0  | Not required             |
-|      0.10.0       |  mmcv-full>=1.1.4, <1.3.0  | Not required             |
-|       0.9.0       |  mmcv-full>=1.1.4, <1.3.0  | Not required             |
-|       0.8.0       |  mmcv-full>=1.1.4, <1.2.0  | Not required             |
-|       0.7.0       |  mmcv-full>=1.1.2, <1.2.0  | Not required             |
-|       0.6.0       |  mmcv-full>=1.1.2, <1.2.0  | Not required             |
-
-注意: 如果您已经安装好 mmcv， 您首先需要运行 `pip uninstall mmcv`。
-如果 mmcv 和 mmcv-full 同时被安装，会报错 `ModuleNotFoundError`。
-
-## 安装
-
-a. 创建一个 conda 虚拟环境并激活它
-
-```shell
-conda create -n open-mmlab python=3.10 -y
-conda activate open-mmlab
-
-```
-
-b. 按照[官方教程](https://pytorch.org/) 安装 PyTorch 和 totchvision，
-这里我们使用 PyTorch1.11.0 和 CUDA11.3，
-您也可以切换至其他版本
-
-```shell
-conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
-```
-=======
 # 开始：安装和运行 MMSeg
 
 ## 预备知识
@@ -62,7 +5,6 @@ conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
 本教程中，我们将会演示如何使用 PyTorch 准备环境。
 
 MMSegmentation 可以在 Linux, Windows 和 macOS 系统上运行，并且需要安装 Python 3.6+, CUDA 9.2+ 和 PyTorch 1.5+
->>>>>>> upstream/main
 
 **注意:**
 如果您已经安装了 PyTorch, 可以跳过该部分，直接到[下一小节](##安装)。否则，您可以按照以下步骤操作。
@@ -76,22 +18,12 @@ conda create --name openmmlab python=3.8 -y
 conda activate openmmlab
 ```
 
-<<<<<<< HEAD
-请替换 url 里面的 ``{cu_version}`` 和 ``{torch_version}`` 为您想要使用的版本. mmcv-full 仅在
-PyTorch 1.x.0 上面编译, 因为在 1.x.0 和 1.x.1 之间通常是兼容的. 如果您的 PyTorch 版本是 1.x.1,
-您可以安装用 PyTorch 1.x.0 编译的 mmcv-full 而它通常是可以正常使用的.
-例如, 用 ``CUDA 11.1`` and ``PyTorch 1.11.0`` 安装使用 ``mmcv-full``, 使用如下命令:
-
-```shell
-pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11/index.html
-=======
 **Step 2.** 参考 [official instructions](https://pytorch.org/get-started/locally/) 安装 PyTorch
 
 在 GPU 平台上：
 
 ```shell
 conda install pytorch torchvision -c pytorch
->>>>>>> upstream/main
 ```
 
 在 CPU 平台上
@@ -161,17 +93,6 @@ python demo/image_demo.py demo/demo.png configs/pspnet/pspnet_r50-d8_4xb2-40k_ci
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 import mmcv
 
-<<<<<<< HEAD
-```shell
-conda create -n open-mmlab python=3.10 -y
-conda activate open-mmlab
-
-conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
-pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11.0/index.html
-git clone https://github.com/open-mmlab/mmsegmentation.git
-cd mmsegmentation
-pip install -e .  # 或者 "python setup.py develop"
-=======
 config_file = 'pspnet_r50-d8_4xb2-40k_cityscapes-512x1024.py'
 checkpoint_file = 'pspnet_r50-d8_512x1024_40k_cityscapes_20200605_003338-2966598c.pth'
 
@@ -194,7 +115,6 @@ for frame in video:
 ```
 
 您可以修改上面的代码来测试单个图像或视频，这两个选项都可以验证安装是否成功。
->>>>>>> upstream/main
 
 ### 自定义安装
 
@@ -202,20 +122,10 @@ for frame in video:
 
 当安装 PyTorch 的时候，您需要指定 CUDA 的版本， 如果您不确定选择哪个版本，请遵循我们的建议：
 
-<<<<<<< HEAD
-```shell
-conda create -n open-mmlab python=3.10 -y
-conda activate open-mmlab
-
-conda install pytorch=1.11.0 torchvision cudatoolkit=11.3 -c pytorch
-set PATH=full\path\to\your\cpp\compiler;%PATH%
-pip install mmcv
-=======
 - 对于基于 Ampere 的 NVIDIA GPUs, 例如 GeForce 30 系列和 NVIDIA A100, 必须要求是 CUDA 11.
 - 对于更老的 NVIDIA GPUs, CUDA 11 is backward compatible, but CUDA 10.2 提供了更好的兼容性，以及更加的轻量化
 
 请确保 GPU 驱动满足最小的版本需求。详情请参考这个[表格](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#cuda-major-component-versions__table-cuda-toolkit-driver-versions)
->>>>>>> upstream/main
 
 **注意:**
 如果您按照我们的最佳实践，安装 CUDA 运行库就足够了，因为不需要 CUDA 代码在本地编译。 但是如果您希望从源码编译 MMCV 或者需要开发其他的 CUDA 算子，您需要从 NVIDIA 的[官网](https://developer.nvidia.com/cuda-downloads)安装完整的 CUDA 工具，同时它的版本需要与 PyTorch 的 CUDA 版本匹配。即 `conda install` 命令中指定的 cudatoolkit 版本。

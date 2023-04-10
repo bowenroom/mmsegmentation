@@ -146,8 +146,6 @@ def stare_classes():
     return ['background', 'vessel']
 
 
-<<<<<<< HEAD:mmseg/core/evaluation/class_names.py
-=======
 def mapillary_v1_classes():
     """mapillary_v1 class names for external use."""
     return [
@@ -268,7 +266,6 @@ def mapillary_v2_palette():
             [111, 111, 0], [0, 0, 0]]
 
 
->>>>>>> upstream/main:mmseg/utils/class_names.py
 def cityscapes_palette():
     """Cityscapes palette for external use."""
     return [[128, 64, 128], [244, 35, 232], [70, 70, 70], [102, 102, 156],
@@ -412,7 +409,6 @@ def stare_palette():
     return [[120, 120, 120], [6, 230, 230]]
 
 
-<<<<<<< HEAD:mmseg/core/evaluation/class_names.py
 def ddsb_palette():
     """DDSB palette for external use."""
     return [
@@ -421,8 +417,8 @@ def ddsb_palette():
         [60, 180, 75],
         [245, 130, 48],
         [255, 255, 255],
-        [0, 130, 200]
-=======
+        [0, 130, 200] ]
+
 def synapse_palette():
     """Synapse palette for external use."""
     return [[0, 0, 0], [0, 0, 255], [0, 255, 0], [255, 0, 0], [0, 255, 255],
@@ -454,7 +450,6 @@ def lip_palette():
         'Dress', 'Coat', 'Socks', 'Pants', 'Jumpsuits', 'Scarf', 'Skirt',
         'Face', 'Left-arm', 'Right-arm', 'Left-leg', 'Right-leg', 'Left-shoe',
         'Right-shoe'
->>>>>>> upstream/main:mmseg/utils/class_names.py
     ]
 
 
@@ -472,13 +467,10 @@ dataset_aliases = {
     ],
     'isaid': ['isaid', 'iSAID'],
     'stare': ['stare', 'STARE'],
-<<<<<<< HEAD:mmseg/core/evaluation/class_names.py
-    'ddsb': ['DDSB', 'ddsb']
-=======
+    'ddsb': ['DDSB', 'ddsb'],
     'lip': ['LIP', 'lip'],
     'mapillary_v1': ['mapillary_v1'],
     'mapillary_v2': ['mapillary_v2']
->>>>>>> upstream/main:mmseg/utils/class_names.py
 }
 
 

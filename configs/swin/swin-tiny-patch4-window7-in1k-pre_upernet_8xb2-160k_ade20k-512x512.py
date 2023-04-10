@@ -2,16 +2,11 @@ _base_ = [
     '../_base_/models/upernet_swin.py', '../_base_/datasets/ade20k.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_160k.py'
 ]
-<<<<<<< HEAD:configs/swin/upernet_swin_tiny_patch4_window7_512x512_160k_ade20k_pretrain_224x224_1K.py
-checkpoint_file = 'https://download.openmmlab.com/mmsegmentation/v0.5/pretrain/swin/swin_tiny_patch4_window7_224_20220317-1cdeb081.pth'  # noqa
-model = dict(
-=======
 crop_size = (512, 512)
 data_preprocessor = dict(size=crop_size)
 checkpoint_file = 'https://download.openmmlab.com/mmsegmentation/v0.5/pretrain/swin/swin_tiny_patch4_window7_224_20220317-1cdeb081.pth'  # noqa
 model = dict(
     data_preprocessor=data_preprocessor,
->>>>>>> upstream/main:configs/swin/swin-tiny-patch4-window7-in1k-pre_upernet_8xb2-160k_ade20k-512x512.py
     backbone=dict(
         init_cfg=dict(type='Pretrained', checkpoint=checkpoint_file),
         embed_dims=96,

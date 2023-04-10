@@ -2,12 +2,8 @@ _base_ = [
     '../_base_/models/twins_pcpvt-s_fpn.py', '../_base_/datasets/ade20k.py',
     '../_base_/default_runtime.py', '../_base_/schedules/schedule_80k.py'
 ]
-<<<<<<< HEAD:configs/twins/twins_svt-s_fpn_fpnhead_8x4_512x512_80k_ade20k.py
-
-=======
 crop_size = (512, 512)
 data_preprocessor = dict(size=crop_size)
->>>>>>> upstream/main:configs/twins/twins_svt-s_fpn_fpnhead_8xb4-80k_ade20k-512x512.py
 checkpoint = 'https://download.openmmlab.com/mmsegmentation/v0.5/pretrain/twins/alt_gvt_small_20220308-7e1c3695.pth'  # noqa
 
 model = dict(

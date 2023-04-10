@@ -3,15 +3,6 @@ import math
 
 import torch
 import torch.nn as nn
-<<<<<<< HEAD
-from mmcv.cnn.utils.weight_init import (constant_init, kaiming_init,
-                                        trunc_normal_)
-from mmcv.runner import ModuleList, _load_checkpoint
-from torch.nn.modules.batchnorm import _BatchNorm
-
-from mmseg.utils import get_root_logger
-from ..builder import BACKBONES
-=======
 from mmengine.model import ModuleList
 from mmengine.model.weight_init import (constant_init, kaiming_init,
                                         trunc_normal_)
@@ -19,7 +10,6 @@ from mmengine.runner.checkpoint import _load_checkpoint
 from torch.nn.modules.batchnorm import _BatchNorm
 
 from mmseg.registry import MODELS
->>>>>>> upstream/main
 from .beit import BEiT, BEiTAttention, BEiTTransformerEncoderLayer
 
 
@@ -52,11 +42,7 @@ class MAETransformerEncoderLayer(BEiTTransformerEncoderLayer):
         self.attn = MAEAttention(**attn_cfg)
 
 
-<<<<<<< HEAD
-@BACKBONES.register_module()
-=======
 @MODELS.register_module()
->>>>>>> upstream/main
 class MAE(BEiT):
     """VisionTransformer with support for patch.
 
@@ -114,11 +100,7 @@ class MAE(BEiT):
                  pretrained=None,
                  init_values=0.1,
                  init_cfg=None):
-<<<<<<< HEAD
-        super(MAE, self).__init__(
-=======
         super().__init__(
->>>>>>> upstream/main
             img_size=img_size,
             patch_size=patch_size,
             in_channels=in_channels,
@@ -198,23 +180,13 @@ class MAE(BEiT):
 
         if (isinstance(self.init_cfg, dict)
                 and self.init_cfg.get('type') == 'Pretrained'):
-<<<<<<< HEAD
-            logger = get_root_logger()
-            checkpoint = _load_checkpoint(
-                self.init_cfg['checkpoint'], logger=logger, map_location='cpu')
-=======
             checkpoint = _load_checkpoint(
                 self.init_cfg['checkpoint'], logger=None, map_location='cpu')
->>>>>>> upstream/main
             state_dict = self.resize_rel_pos_embed(checkpoint)
             state_dict = self.resize_abs_pos_embed(state_dict)
             self.load_state_dict(state_dict, False)
         elif self.init_cfg is not None:
-<<<<<<< HEAD
-            super(MAE, self).init_weights()
-=======
             super().init_weights()
->>>>>>> upstream/main
         else:
             # We only implement the 'jax_impl' initialization implemented at
             # https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py#L353  # noqa: E501

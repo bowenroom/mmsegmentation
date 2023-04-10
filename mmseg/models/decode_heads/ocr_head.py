@@ -94,13 +94,8 @@ class OCRHead(BaseCascadeDecodeHead):
             Default: 1.
     """
 
-<<<<<<< HEAD
     def __init__(self, ocr_channels, scale=1, use_sre = False, use_sra = False,  **kwargs):
         super(OCRHead, self).__init__(**kwargs)
-=======
-    def __init__(self, ocr_channels, scale=1, **kwargs):
-        super().__init__(**kwargs)
->>>>>>> upstream/main
         self.ocr_channels = ocr_channels
         self.scale = scale
         self.object_context_block = ObjectAttentionBlock(

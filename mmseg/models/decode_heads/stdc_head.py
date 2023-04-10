@@ -42,12 +42,8 @@ class STDCHead(FCNHead):
         # parameters. However, it is a constant in original repo and other
         # codebase because it would not be added into computation graph
         # after threshold operation.
-<<<<<<< HEAD
-        seg_label = seg_label.to(self.laplacian_kernel)
-=======
         seg_label = self._stack_batch_gt(batch_data_samples).to(
             self.laplacian_kernel)
->>>>>>> upstream/main
         boundary_targets = F.conv2d(
             seg_label, self.laplacian_kernel, padding=1)
         boundary_targets = boundary_targets.clamp(min=0)

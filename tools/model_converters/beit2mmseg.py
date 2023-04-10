@@ -3,15 +3,9 @@ import argparse
 import os.path as osp
 from collections import OrderedDict
 
-<<<<<<< HEAD
-import mmcv
-import torch
-from mmcv.runner import CheckpointLoader
-=======
 import mmengine
 import torch
 from mmengine.runner import CheckpointLoader
->>>>>>> upstream/main
 
 
 def convert_beit(ckpt):
@@ -54,11 +48,7 @@ def main():
     else:
         state_dict = checkpoint
     weight = convert_beit(state_dict)
-<<<<<<< HEAD
-    mmcv.mkdir_or_exist(osp.dirname(args.dst))
-=======
     mmengine.mkdir_or_exist(osp.dirname(args.dst))
->>>>>>> upstream/main
     torch.save(weight, args.dst)
 
 

@@ -308,14 +308,9 @@ class HRNet(BaseModule):
                  zero_init_residual=False,
                  multiscale_output=True,
                  pretrained=None,
-<<<<<<< HEAD
                  init_cfg=None,
                  **kwargs):
         super(HRNet, self).__init__(init_cfg)
-=======
-                 init_cfg=None):
-        super().__init__(init_cfg)
->>>>>>> upstream/main
 
         self.pretrained = pretrained
         self.zero_init_residual = zero_init_residual

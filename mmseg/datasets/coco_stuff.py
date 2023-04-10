@@ -1,11 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-<<<<<<< HEAD
-from .builder import DATASETS
-from .custom import CustomDataset
-=======
 from mmseg.registry import DATASETS
 from .basesegdataset import BaseSegDataset
->>>>>>> upstream/main
 
 
 @DATASETS.register_module()

@@ -97,10 +97,6 @@ Please refer to [changelog.md](docs/en/notes/changelog.md) for details and relea
 
 ## Installation
 
-<<<<<<< HEAD
-v0.24.1 was released in 5/1/2022.
-Please refer to [changelog.md](docs/en/changelog.md) for details and release history.
-=======
 Please refer to [get_started.md](docs/en/get_started.md#installation) for installation and [dataset_prepare.md](docs/en/user_guides/2_dataset_prepare.md#prepare-datasets) for dataset preparation.
 
 ## Get Started
@@ -113,7 +109,6 @@ There are also [advanced tutorials](https://mmsegmentation.readthedocs.io/en/mai
 A Colab tutorial is also provided. You may preview the notebook [here](demo/MMSegmentation_Tutorial.ipynb) or directly [run](https://colab.research.google.com/github/open-mmlab/mmsegmentation/blob/main/demo/MMSegmentation_Tutorial.ipynb) on Colab.
 
 To migrate from MMSegmentation 0.x, please refer to [migration](docs/en/migration).
->>>>>>> upstream/main
 
 ## Benchmark and model zoo
 
@@ -134,11 +129,8 @@ Results and models are available in the [model zoo](docs/en/model_zoo.md).
 - [x] [BEiT (ICLR'2022)](configs/beit)
 - [x] [ConvNeXt (CVPR'2022)](configs/convnext)
 - [x] [MAE (CVPR'2022)](configs/mae)
-<<<<<<< HEAD
-=======
 - [x] [PoolFormer (CVPR'2022)](configs/poolformer)
 - [x] [SegNeXt (NeurIPS'2022)](configs/segnext)
->>>>>>> upstream/main
 
 </details>
 
@@ -179,8 +171,6 @@ Results and models are available in the [model zoo](docs/en/model_zoo.md).
 - [x] [Segmenter (ICCV'2021)](configs/segmenter)
 - [x] [SegFormer (NeurIPS'2021)](configs/segformer)
 - [x] [K-Net (NeurIPS'2021)](configs/knet)
-<<<<<<< HEAD
-=======
 - [x] [MaskFormer (NeurIPS'2021)](configs/maskformer)
 - [x] [Mask2Former (CVPR'2022)](configs/mask2former)
 - [x] [PIDNet (ArXiv'2022)](configs/pidnet)
@@ -215,7 +205,6 @@ Please refer to [FAQ](docs/en/notes/faq.md) for frequently asked questions.
 ## Projects
 
 [Here](projects/README.md) are some implementations of SOTA models and solutions built on MMSegmentation, which are supported and maintained by community users. These projects demonstrate the best practices based on MMSegmentation for research and product development. We welcome and appreciate all the contributions to OpenMMLab ecosystem.
->>>>>>> upstream/main
 
 ## Contributing
 
@@ -252,18 +241,12 @@ This project is released under the [Apache 2.0 license](LICENSE).
 - [MMEngine](https://github.com/open-mmlab/mmengine): OpenMMLab foundational library for training deep learning models
 - [MMCV](https://github.com/open-mmlab/mmcv): OpenMMLab foundational library for computer vision.
 - [MIM](https://github.com/open-mmlab/mim): MIM installs OpenMMLab packages.
-<<<<<<< HEAD
-=======
 - [MMEval](https://github.com/open-mmlab/mmeval): A unified evaluation library for multiple machine learning libraries.
->>>>>>> upstream/main
 - [MMClassification](https://github.com/open-mmlab/mmclassification): OpenMMLab image classification toolbox and benchmark.
 - [MMDetection](https://github.com/open-mmlab/mmdetection): OpenMMLab detection toolbox and benchmark.
 - [MMDetection3D](https://github.com/open-mmlab/mmdetection3d): OpenMMLab's next-generation platform for general 3D object detection.
 - [MMRotate](https://github.com/open-mmlab/mmrotate): OpenMMLab rotated object detection toolbox and benchmark.
-<<<<<<< HEAD
-=======
 - [MMYOLO](https://github.com/open-mmlab/mmyolo): OpenMMLab YOLO series toolbox and benchmark.
->>>>>>> upstream/main
 - [MMSegmentation](https://github.com/open-mmlab/mmsegmentation): OpenMMLab semantic segmentation toolbox and benchmark.
 - [MMOCR](https://github.com/open-mmlab/mmocr): OpenMMLab text detection, recognition, and understanding toolbox.
 - [MMPose](https://github.com/open-mmlab/mmpose): OpenMMLab pose estimation toolbox and benchmark.

@@ -37,15 +37,6 @@ from .ddsb import DDSBDataset
 
 # yapf: enable
 __all__ = [
-<<<<<<< HEAD
-    'CustomDataset', 'build_dataloader', 'ConcatDataset', 'RepeatDataset',
-    'DATASETS', 'build_dataset', 'PIPELINES', 'CityscapesDataset',
-    'PascalVOCDataset', 'ADE20KDataset', 'PascalContextDataset',
-    'PascalContextDataset59', 'ChaseDB1Dataset', 'DRIVEDataset', 'HRFDataset',
-    'STAREDataset', 'DarkZurichDataset', 'NightDrivingDataset',
-    'COCOStuffDataset', 'LoveDADataset', 'MultiImageMixDataset',
-    'iSAIDDataset', 'ISPRSDataset', 'PotsdamDataset','DDSBDataset'
-=======
     'BaseSegDataset', 'BioMedical3DRandomCrop', 'BioMedical3DRandomFlip',
     'CityscapesDataset', 'PascalVOCDataset', 'ADE20KDataset',
     'PascalContextDataset', 'PascalContextDataset59', 'ChaseDB1Dataset',
@@ -61,6 +52,5 @@ __all__ = [
     'BioMedicalGaussianNoise', 'BioMedicalGaussianBlur',
     'BioMedicalRandomGamma', 'BioMedical3DPad', 'RandomRotFlip',
     'SynapseDataset', 'REFUGEDataset', 'MapillaryDataset_v1',
-    'MapillaryDataset_v2'
->>>>>>> upstream/main
+    'MapillaryDataset_v2','DDSBDataset'
 ]

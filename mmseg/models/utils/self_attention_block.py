@@ -1,11 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-<<<<<<< HEAD
-from mmcv.cnn import ConvModule, constant_init,Scale
-=======
 from mmcv.cnn import ConvModule
 from mmengine.model.weight_init import constant_init
->>>>>>> upstream/main
 from torch import nn as nn
 from torch.nn import functional as F
 

@@ -90,20 +90,6 @@ class BaseSegmentor(BaseModel, metaclass=ABCMeta):
             - If ``mode="predict"``, return a list of :obj:`DetDataSample`.
             - If ``mode="loss"``, return a dict of tensor.
         """
-<<<<<<< HEAD
-        losses = self(**data_batch)
-        loss, log_vars = self._parse_losses(losses)
-
-        log_vars_ = dict()
-        for loss_name, loss_value in log_vars.items():
-            k = loss_name + '_val'
-            log_vars_[k] = loss_value
-
-        outputs = dict(
-            loss=loss,
-            log_vars=log_vars_,
-            num_samples=len(data_batch['img_metas']))
-=======
         if mode == 'loss':
             return self.loss(inputs, data_samples)
         elif mode == 'predict':
@@ -113,7 +99,6 @@ class BaseSegmentor(BaseModel, metaclass=ABCMeta):
         else:
             raise RuntimeError(f'Invalid mode "{mode}". '
                                'Only supports loss, predict and tensor mode')
->>>>>>> upstream/main
 
     @abstractmethod
     def loss(self, inputs: Tensor, data_samples: SampleList) -> dict:

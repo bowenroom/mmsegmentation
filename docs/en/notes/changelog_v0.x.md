@@ -15,15 +15,9 @@
 
 **New Features**
 
-<<<<<<< HEAD:docs/en/changelog.md
-- Support MAE: Masked Autoencoders Are Scalable Vision Learners ([1307](https://github.com/open-mmlab/mmsegmentation/pull/1307), [1523](https://github.com/open-mmlab/mmsegmentation/pull/1523))
-- Support Resnet strikes back ([1390](https://github.com/open-mmlab/mmsegmentation/pull/1390))
-- Support extra dataloader settings in configs ([1435](https://github.com/open-mmlab/mmsegmentation/pull/1435))
-=======
 - Support MAE: Masked Autoencoders Are Scalable Vision Learners ([#1307](https://github.com/open-mmlab/mmsegmentation/pull/1307), [#1523](https://github.com/open-mmlab/mmsegmentation/pull/1523))
 - Support Resnet strikes back ([#1390](https://github.com/open-mmlab/mmsegmentation/pull/1390))
 - Support extra dataloader settings in configs ([#1435](https://github.com/open-mmlab/mmsegmentation/pull/1435))
->>>>>>> upstream/main:docs/en/notes/changelog_v0.x.md
 
 **Bug Fixes**
 
@@ -61,21 +55,6 @@
 
 **Contributors**
 
-<<<<<<< HEAD:docs/en/changelog.md
-* @jiangyitong made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1431
-* @kahkeng made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1447
-* @Nourollah made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1446
-* @androbaza made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1452
-* @Yzichen made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1445
-* @whu-pzhang made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1423
-* @panfeng-hover made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1417
-* @Johnson-Wang made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1496
-* @jere357 made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1460
-* @mfernezir made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1494
-* @donglixp made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1503
-* @YuanLiuuuuuu made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1307
-* @Dawn-bin made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1527
-=======
 - @jiangyitong made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1431
 - @kahkeng made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1447
 - @Nourollah made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1446
@@ -89,7 +68,6 @@
 - @donglixp made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1503
 - @YuanLiuuuuuu made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1307
 - @Dawn-bin made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1527
->>>>>>> upstream/main:docs/en/notes/changelog_v0.x.md
 
 ### V0.23.0 (4/1/2022)
 
@@ -129,19 +107,11 @@
 
 **Contributors**
 
-<<<<<<< HEAD:docs/en/changelog.md
-* @kinglintianxia made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1371
-* @CCODING04 made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1376
-* @mob5566 made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1401
-* @xiongnemo made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1392
-* @Xiangxu-0103 made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1405
-=======
 - @kinglintianxia made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1371
 - @CCODING04 made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1376
 - @mob5566 made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1401
 - @xiongnemo made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1392
 - @Xiangxu-0103 made their first contribution in https://github.com/open-mmlab/mmsegmentation/pull/1405
->>>>>>> upstream/main:docs/en/notes/changelog_v0.x.md
 
 ### V0.22.1 (3/9/2022)
 
@@ -153,10 +123,6 @@
 
 - Provide URLs of STDC, Segmenter and Twins pretrained models ([#1272](https://github.com/open-mmlab/mmsegmentation/pull/1357))
 
-<<<<<<< HEAD:docs/en/changelog.md
-
-=======
->>>>>>> upstream/main:docs/en/notes/changelog_v0.x.md
 ### V0.22 (3/04/2022)
 
 **Highlights**

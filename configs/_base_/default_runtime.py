@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-# yapf:disable
-log_config = dict(
-    interval=50,
-    hooks=[
-        dict(type='TextLoggerHook', by_epoch=False),
-        dict(type='TensorboardLoggerHook')
-    ])
-# yapf:enable
-dist_params = dict(backend='nccl')
-=======
 default_scope = 'mmseg'
 env_cfg = dict(
     cudnn_benchmark=True,
@@ -19,7 +8,6 @@ vis_backends = [dict(type='LocalVisBackend')]
 visualizer = dict(
     type='SegLocalVisualizer', vis_backends=vis_backends, name='visualizer')
 log_processor = dict(by_epoch=False)
->>>>>>> upstream/main
 log_level = 'INFO'
 load_from = None
 resume = False

@@ -1,9 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-<<<<<<< HEAD
-from .builder import DATASETS
-=======
 from mmseg.registry import DATASETS
->>>>>>> upstream/main
 from .cityscapes import CityscapesDataset
 
 

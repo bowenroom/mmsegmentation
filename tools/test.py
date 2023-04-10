@@ -97,35 +97,7 @@ def main():
         cfg.work_dir = osp.join('./work_dirs',
                                 osp.splitext(osp.basename(args.config))[0])
 
-<<<<<<< HEAD
-    # build the dataloader
-    # TODO: support multiple images per gpu (only minor changes are needed)
-    dataset = build_dataset(cfg.data.test)
-    # The default loader config
-    loader_cfg = dict(
-        # cfg.gpus will be ignored if distributed
-        num_gpus=len(cfg.gpu_ids),
-        dist=distributed,
-        shuffle=False)
-    # The overall dataloader settings
-    loader_cfg.update({
-        k: v
-        for k, v in cfg.data.items() if k not in [
-            'train', 'val', 'test', 'train_dataloader', 'val_dataloader',
-            'test_dataloader'
-        ]
-    })
-    test_loader_cfg = {
-        **loader_cfg,
-        'samples_per_gpu': 1,
-        'shuffle': False,  # Not shuffle by default
-        **cfg.data.get('test_dataloader', {})
-    }
-    # build the dataloader
-    data_loader = build_dataloader(dataset, **test_loader_cfg)
-=======
     cfg.load_from = args.checkpoint
->>>>>>> upstream/main
 
     if args.show or args.show_dir:
         cfg = trigger_visualization_hook(cfg, args)

@@ -43,14 +43,8 @@ def plot_curve(log_dicts, args):
                     plot_values.append(epoch_logs[metric][0])
                 else:
                     for idx in range(len(epoch_logs[metric])):
-<<<<<<< HEAD:tools/analyze_logs.py
-                        if epoch_logs['mode'][idx] == 'train':
-                            plot_iters.append(epoch_logs['iter'][idx])
-                            plot_values.append(epoch_logs[metric][idx])
-=======
                         plot_iters.append(epoch_logs['step'][idx])
                         plot_values.append(epoch_logs[metric][idx])
->>>>>>> upstream/main:tools/analysis_tools/analyze_logs.py
             ax = plt.gca()
             label = legend[i * num_metrics + j]
             if metric in ['mIoU', 'mAcc', 'aAcc']:

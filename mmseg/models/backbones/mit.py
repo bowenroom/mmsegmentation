@@ -253,11 +253,7 @@ class TransformerEncoderLayer(BaseModule):
                  batch_first=True,
                  sr_ratio=1,
                  with_cp=False):
-<<<<<<< HEAD
-        super(TransformerEncoderLayer, self).__init__()
-=======
         super().__init__()
->>>>>>> upstream/main
 
         # The ret[0] of build_norm_layer is norm name.
         self.norm1 = build_norm_layer(norm_cfg, embed_dims)[1]
@@ -361,11 +357,7 @@ class MixVisionTransformer(BaseModule):
                  pretrained=None,
                  init_cfg=None,
                  with_cp=False):
-<<<<<<< HEAD
-        super(MixVisionTransformer, self).__init__(init_cfg=init_cfg)
-=======
         super().__init__(init_cfg=init_cfg)
->>>>>>> upstream/main
 
         assert not (init_cfg and pretrained), \
             'init_cfg and pretrained cannot be set at the same time'

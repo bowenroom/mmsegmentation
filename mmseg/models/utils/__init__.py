@@ -1,12 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-<<<<<<< HEAD
-from .embed import PatchEmbed
-from .embed import PatchEmbedOld
-=======
 from .basic_block import BasicBlock, Bottleneck
 from .embed import PatchEmbed
 from .encoding import Encoding
->>>>>>> upstream/main
 from .inverted_residual import InvertedResidual, InvertedResidualV3
 from .make_divisible import make_divisible
 from .ppm import DAPPM, PAPPM
@@ -21,10 +16,6 @@ from .wrappers import Upsample, resize
 __all__ = [
     'ResLayer', 'SelfAttentionBlock', 'make_divisible', 'InvertedResidual',
     'UpConvBlock', 'InvertedResidualV3', 'SELayer', 'PatchEmbed',
-<<<<<<< HEAD
-    'nchw_to_nlc', 'nlc_to_nchw', 'nchw2nlc2nchw', 'nlc2nchw2nlc','PatchEmbedOld'
-=======
-    'nchw_to_nlc', 'nlc_to_nchw', 'nchw2nlc2nchw', 'nlc2nchw2nlc', 'Encoding',
+    'nchw_to_nlc', 'nlc_to_nchw', 'nchw2nlc2nchw', 'nlc2nchw2nlc','PatchEmbedOld', 'Encoding',
     'Upsample', 'resize', 'DAPPM', 'PAPPM', 'BasicBlock', 'Bottleneck'
->>>>>>> upstream/main
 ]

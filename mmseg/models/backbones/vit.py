@@ -60,11 +60,7 @@ class TransformerEncoderLayer(BaseModule):
                  attn_cfg=dict(),
                  ffn_cfg=dict(),
                  with_cp=False):
-<<<<<<< HEAD
-        super(TransformerEncoderLayer, self).__init__()
-=======
         super().__init__()
->>>>>>> upstream/main
 
         self.norm1_name, norm1 = build_norm_layer(
             norm_cfg, embed_dims, postfix=1)

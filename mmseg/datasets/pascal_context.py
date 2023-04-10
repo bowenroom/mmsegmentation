@@ -55,12 +55,8 @@ class PascalContextDataset(BaseSegDataset):
             ann_file=ann_file,
             reduce_zero_label=False,
             **kwargs)
-<<<<<<< HEAD
-        assert self.file_client.exists(self.img_dir) and self.split is not None
-=======
         assert self.file_client.exists(
             self.data_prefix['img_path']) and osp.isfile(self.ann_file)
->>>>>>> upstream/main
 
 
 @DATASETS.register_module()
@@ -114,9 +110,5 @@ class PascalContextDataset59(BaseSegDataset):
             ann_file=ann_file,
             reduce_zero_label=reduce_zero_label,
             **kwargs)
-<<<<<<< HEAD
-        assert self.file_client.exists(self.img_dir) and self.split is not None
-=======
         assert self.file_client.exists(
             self.data_prefix['img_path']) and osp.isfile(self.ann_file)
->>>>>>> upstream/main

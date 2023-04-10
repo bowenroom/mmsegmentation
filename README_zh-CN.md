@@ -98,16 +98,11 @@ MMSegmentation v1.x 在 0.x 版本的基础上有了显著的提升，提供了�
 
 请参考[概述](docs/zh_cn/overview.md)对 MMSegmetation 进行初步了解
 
-<<<<<<< HEAD
-最新版本 v0.24.1 在 2022.5.1 发布。
-如果想了解更多版本更新细节和历史信息，请阅读[更新日志](docs/en/changelog.md)。
-=======
 请参考[用户指南](https://mmsegmentation.readthedocs.io/zh_CN/main/user_guides/index.html)了解 mmseg 的基本使用，以及[进阶指南](https://mmsegmentation.readthedocs.io/zh_CN/main/advanced_guides/index.html)深入了解 mmseg 设计和代码实现。
 
 同时，我们提供了 Colab 教程。你可以在[这里](demo/MMSegmentation_Tutorial.ipynb)浏览教程，或者直接在 Colab 上[运行](https://colab.research.google.com/github/open-mmlab/mmsegmentation/blob/main/demo/MMSegmentation_Tutorial.ipynb)。
 
 若需要将 0.x 版本的代码迁移至新版，请参考[迁移文档](docs/zh_cn/migration)。
->>>>>>> upstream/main
 
 ## 基准测试和模型库
 
@@ -128,13 +123,10 @@ MMSegmentation v1.x 在 0.x 版本的基础上有了显著的提升，提供了�
 - [x] [BEiT (ICLR'2022)](configs/beit)
 - [x] [ConvNeXt (CVPR'2022)](configs/convnext)
 - [x] [MAE (CVPR'2022)](configs/mae)
-<<<<<<< HEAD
-=======
 - [x] [PoolFormer (CVPR'2022)](configs/poolformer)
 - [x] [SegNeXt (NeurIPS'2022)](configs/segnext)
 
 </details>
->>>>>>> upstream/main
 
 <details open>
 <summary>已支持的算法：</summary>
@@ -173,8 +165,6 @@ MMSegmentation v1.x 在 0.x 版本的基础上有了显著的提升，提供了�
 - [x] [Segmenter (ICCV'2021)](configs/segmenter)
 - [x] [SegFormer (NeurIPS'2021)](configs/segformer)
 - [x] [K-Net (NeurIPS'2021)](configs/knet)
-<<<<<<< HEAD
-=======
 - [x] [MaskFormer (NeurIPS'2021)](configs/maskformer)
 - [x] [Mask2Former (CVPR'2022)](configs/mask2former)
 - [x] [PIDNet (ArXiv'2022)](configs/pidnet)
@@ -210,7 +200,6 @@ MMSegmentation v1.x 在 0.x 版本的基础上有了显著的提升，提供了�
 
 [这里](projects/README.md)有一些由社区用户支持和维护的基于 MMSegmentation 的 SOTA 模型和解决方案的实现。这些项目展示了基于 MMSegmentation 的研究和产品开发的最佳实践。
 我们欢迎并感谢对 OpenMMLab 生态系统的所有贡献。
->>>>>>> upstream/main
 
 ## 贡献指南
 
@@ -244,18 +233,12 @@ MMSegmentation 是一个由来自不同高校和企业的研发人员共同参�
 - [MMEngine](https://github.com/open-mmlab/mmengine): OpenMMLab 深度学习模型训练库
 - [MMCV](https://github.com/open-mmlab/mmcv): OpenMMLab 计算机视觉基础库
 - [MIM](https://github.com/open-mmlab/mim): MIM 是 OpenMMlab 项目、算法、模型的统一入口
-<<<<<<< HEAD
-=======
 - [MMEval](https://github.com/open-mmlab/mmeval): 统一开放的跨框架算法评测库
->>>>>>> upstream/main
 - [MMClassification](https://github.com/open-mmlab/mmclassification): OpenMMLab 图像分类工具箱
 - [MMDetection](https://github.com/open-mmlab/mmdetection): OpenMMLab 目标检测工具箱
 - [MMDetection3D](https://github.com/open-mmlab/mmdetection3d): OpenMMLab 新一代通用 3D 目标检测平台
 - [MMRotate](https://github.com/open-mmlab/mmrotate): OpenMMLab 旋转框检测工具箱与测试基准
-<<<<<<< HEAD
-=======
 - [MMYOLO](https://github.com/open-mmlab/mmyolo): OpenMMLab YOLO 系列工具箱与测试基准
->>>>>>> upstream/main
 - [MMSegmentation](https://github.com/open-mmlab/mmsegmentation): OpenMMLab 语义分割工具箱
 - [MMOCR](https://github.com/open-mmlab/mmocr): OpenMMLab 全流程文字检测识别理解工具包
 - [MMPose](https://github.com/open-mmlab/mmpose): OpenMMLab 姿态估计工具箱

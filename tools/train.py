@@ -4,18 +4,9 @@ import logging
 import os
 import os.path as osp
 
-<<<<<<< HEAD
-import mmcv
-import torch
-import torch.distributed as dist
-from mmcv.cnn.utils import revert_sync_batchnorm
-from mmcv.runner import get_dist_info, init_dist
-from mmcv.utils import Config, DictAction, get_git_hash
-=======
 from mmengine.config import Config, DictAction
 from mmengine.logging import print_log
 from mmengine.runner import Runner
->>>>>>> upstream/main
 
 from mmseg.registry import RUNNERS
 
@@ -30,15 +21,7 @@ def parse_args():
         default=False,
         help='resume from the latest checkpoint in the work_dir automatically')
     parser.add_argument(
-<<<<<<< HEAD
-        '--diff_seed',
-        action='store_true',
-        help='Whether or not set different seeds for different ranks')
-    parser.add_argument(
-        '--deterministic',
-=======
         '--amp',
->>>>>>> upstream/main
         action='store_true',
         default=False,
         help='enable automatic-mixed-precision training')
@@ -109,70 +92,9 @@ def main():
         # build the default runner
         runner = Runner.from_cfg(cfg)
     else:
-<<<<<<< HEAD
-        distributed = True
-        init_dist(args.launcher, **cfg.dist_params)
-        # gpu_ids is used to calculate iter when resuming checkpoint
-        _, world_size = get_dist_info()
-        cfg.gpu_ids = range(world_size)
-
-    # create work_dir
-    mmcv.mkdir_or_exist(osp.abspath(cfg.work_dir))
-    # dump config
-    cfg.dump(osp.join(cfg.work_dir, osp.basename(args.config)))
-    # init the logger before other steps
-    timestamp = time.strftime('%Y%m%d_%H%M%S', time.localtime())
-    log_file = osp.join(cfg.work_dir, f'{timestamp}.log')
-    logger = get_root_logger(log_file=log_file, log_level=cfg.log_level)
-
-    # set multi-process settings
-    setup_multi_processes(cfg)
-
-    # init the meta dict to record some important information such as
-    # environment info and seed, which will be logged
-    meta = dict()
-    # log env info
-    env_info_dict = collect_env()
-    env_info = '\n'.join([f'{k}: {v}' for k, v in env_info_dict.items()])
-    dash_line = '-' * 60 + '\n'
-    logger.info('Environment info:\n' + dash_line + env_info + '\n' +
-                dash_line)
-    meta['env_info'] = env_info
-
-    # log some basic info
-    logger.info(f'Distributed training: {distributed}')
-    logger.info(f'Config:\n{cfg.pretty_text}')
-
-    # set random seeds
-    seed = init_random_seed(args.seed)
-    seed = seed + dist.get_rank() if args.diff_seed else seed
-    logger.info(f'Set random seed to {seed}, '
-                f'deterministic: {args.deterministic}')
-    set_random_seed(seed, deterministic=args.deterministic)
-    cfg.seed = seed
-    meta['seed'] = seed
-    meta['exp_name'] = osp.basename(args.config)
-
-    model = build_segmentor(
-        cfg.model,
-        train_cfg=cfg.get('train_cfg'),
-        test_cfg=cfg.get('test_cfg'))
-    model.init_weights()
-
-    # SyncBN is not support for DP
-    if not distributed:
-        warnings.warn(
-            'SyncBN is only supported with DDP. To be compatible with DP, '
-            'we convert SyncBN to BN. Please use dist_train.sh which can '
-            'avoid this error.')
-        model = revert_sync_batchnorm(model)
-
-    logger.info(model)
-=======
         # build customized runner from the registry
         # if 'runner_type' is set in the cfg
         runner = RUNNERS.build(cfg)
->>>>>>> upstream/main
 
     # start training
     runner.train()

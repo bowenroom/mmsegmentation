@@ -22,20 +22,6 @@ Image segmentation is often ambiguous at the level of individual image patches a
 <img src="https://user-images.githubusercontent.com/24582831/148507554-87eb80bd-02c7-4c31-b102-c6141e231ec8.png" width="70%"/>
 </div>
 
-<<<<<<< HEAD
-```bibtex
-@inproceedings{strudel2021segmenter,
-  title={Segmenter: Transformer for semantic segmentation},
-  author={Strudel, Robin and Garcia, Ricardo and Laptev, Ivan and Schmid, Cordelia},
-  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
-  pages={7262--7272},
-  year={2021}
-}
-```
-
-
-=======
->>>>>>> upstream/main
 ## Usage
 
 We have provided pretrained models converted from [ViT-AugReg](https://github.com/rwightman/pytorch-image-models/blob/f55c22bebf9d8afc449d317a723231ef72e0d662/timm/models/vision_transformer.py#L54-L106).
@@ -69,15 +55,6 @@ In our default setting, pretrained models and their corresponding [ViT-AugReg](h
 
 ### ADE20K
 
-<<<<<<< HEAD
-| Method | Backbone | Crop Size | Lr schd | Mem (GB) | Inf time (fps) | mIoU  | mIoU(ms+flip) | config | download |
-| ------ | -------- | --------- | ---------- | ------- | -------- | --- | --- | -------------- | ----- |
-| Segmenter Mask | ViT-T_16 | 512x512 | 160000   | 1.21        | 27.98              | 39.99 | 40.83            | [config](https://github.com/open-mmlab/mmsegmentation/blob/master/configs/segmenter/segmenter_vit-t_mask_8x1_512x512_160k_ade20k.py) | [model](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-t_mask_8x1_512x512_160k_ade20k/segmenter_vit-t_mask_8x1_512x512_160k_ade20k_20220105_151706-ffcf7509.pth) &#124; [log](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-t_mask_8x1_512x512_160k_ade20k/segmenter_vit-t_mask_8x1_512x512_160k_ade20k_20220105_151706.log.json) |
-| Segmenter Linear | ViT-S_16 | 512x512 | 160000   | 1.78        | 28.07              | 45.75 | 46.82            | [config](https://github.com/open-mmlab/mmsegmentation/blob/master/configs/segmenter/segmenter_vit-s_linear_8x1_512x512_160k_ade20k.py) | [model](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-s_linear_8x1_512x512_160k_ade20k/segmenter_vit-s_linear_8x1_512x512_160k_ade20k_20220105_151713-39658c46.pth) &#124; [log](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-s_linear_8x1_512x512_160k_ade20k/segmenter_vit-s_linear_8x1_512x512_160k_ade20k_20220105_151713.log.json) |
-| Segmenter Mask | ViT-S_16 | 512x512 | 160000   | 2.03        | 24.80              | 46.19 | 47.85            | [config](https://github.com/open-mmlab/mmsegmentation/blob/master/configs/segmenter/segmenter_vit-s_mask_8x1_512x512_160k_ade20k.py) | [model](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-s_mask_8x1_512x512_160k_ade20k/segmenter_vit-s_mask_8x1_512x512_160k_ade20k_20220105_151706-511bb103.pth) &#124; [log](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-s_mask_8x1_512x512_160k_ade20k/segmenter_vit-s_mask_8x1_512x512_160k_ade20k_20220105_151706.log.json) |
-| Segmenter Mask | ViT-B_16 |512x512 |  160000   | 4.20        | 13.20              | 49.60 | 51.07            | [config](https://github.com/open-mmlab/mmsegmentation/blob/master/configs/segmenter/segmenter_vit-b_mask_8x1_512x512_160k_ade20k.py)  | [model](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-b_mask_8x1_512x512_160k_ade20k/segmenter_vit-b_mask_8x1_512x512_160k_ade20k_20220105_151706-bc533b08.pth) &#124; [log](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-b_mask_8x1_512x512_160k_ade20k/segmenter_vit-b_mask_8x1_512x512_160k_ade20k_20220105_151706.log.json)     |
-| Segmenter Mask | ViT-L_16 |640x640 |  160000   | 16.56        | 2.62              | 52.16 | 53.65            | [config](https://github.com/open-mmlab/mmsegmentation/blob/master/configs/segmenter/segmenter_vit-l_mask_8x1_512x512_160k_ade20k.py)  | [model](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-l_mask_8x1_512x512_160k_ade20k/segmenter_vit-l_mask_8x1_512x512_160k_ade20k_20220105_162750-7ef345be.pth) &#124; [log](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-l_mask_8x1_512x512_160k_ade20k/segmenter_vit-l_mask_8x1_512x512_160k_ade20k_20220105_162750.log.json)     |
-=======
 | Method           | Backbone | Crop Size | Lr schd | Mem (GB) | Inf time (fps) | Device | mIoU  | mIoU(ms+flip) | config                                                                                                                              | download                                                                                                                                                                                                                                                                                                                                                                                       |
 | ---------------- | -------- | --------- | ------- | -------- | -------------- | ------ | ----- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Segmenter Mask   | ViT-T_16 | 512x512   | 160000  | 1.21     | 27.98          | V100   | 39.99 | 40.83         | [config](https://github.com/open-mmlab/mmsegmentation/blob/main/configs/segmenter/segmenter_vit-t_mask_8xb1-160k_ade20k-512x512.py) | [model](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-t_mask_8x1_512x512_160k_ade20k/segmenter_vit-t_mask_8x1_512x512_160k_ade20k_20220105_151706-ffcf7509.pth) \| [log](https://download.openmmlab.com/mmsegmentation/v0.5/segmenter/segmenter_vit-t_mask_8x1_512x512_160k_ade20k/segmenter_vit-t_mask_8x1_512x512_160k_ade20k_20220105_151706.log.json)         |
@@ -97,4 +74,3 @@ In our default setting, pretrained models and their corresponding [ViT-AugReg](h
   year={2021}
 }
 ```
->>>>>>> upstream/main

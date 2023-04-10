@@ -10,10 +10,7 @@ data_preprocessor = dict(
     seg_pad_val=255)
 model = dict(
     type='EncoderDecoder',
-<<<<<<< HEAD
-=======
     data_preprocessor=data_preprocessor,
->>>>>>> upstream/main
     pretrained=checkpoint,
     backbone=dict(
         type='VisionTransformer',

@@ -1,9 +1,5 @@
 Welcome to MMSegmentation's documentation!
-<<<<<<< HEAD
-=======================================
-=======
 ===========================================
->>>>>>> upstream/main
 
 .. toctree::
    :maxdepth: 1
@@ -46,13 +42,8 @@ Welcome to MMSegmentation's documentation!
    :maxdepth: 1
    :caption: Notes
 
-<<<<<<< HEAD
-   changelog.md
-   faq.md
-=======
    notes/changelog.md
    notes/faq.md
->>>>>>> upstream/main
 
 .. toctree::
    :caption: Device Support

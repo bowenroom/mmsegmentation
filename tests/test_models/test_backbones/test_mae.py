@@ -138,16 +138,11 @@ def test_mae_init():
         }
     }
     model = MAE(img_size=(512, 512))
-<<<<<<< HEAD
-    with pytest.raises(AttributeError):
-        model.resize_rel_pos_embed(ckpt)
-=======
     # If scipy is installed, this AttributeError would not be raised.
     from mmengine.utils import is_installed
     if not is_installed('scipy'):
         with pytest.raises(AttributeError):
             model.resize_rel_pos_embed(ckpt)
->>>>>>> upstream/main
 
     # test resize abs pos embed
     ckpt = model.resize_abs_pos_embed(ckpt['state_dict'])

@@ -51,14 +51,11 @@ repos:
         additional_dependencies: [pyyaml]
         language: python
         require_serial: true
-<<<<<<< HEAD
-=======
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.0.0
     hooks:
       - id: pyupgrade
         args: ["--py36-plus"]
->>>>>>> upstream/main
   - repo: https://github.com/open-mmlab/pre-commit-hooks
     rev: v0.2.0  # Use the rev to fix revision
     hooks:

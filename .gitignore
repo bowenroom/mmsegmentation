@@ -118,3 +118,9 @@ mmseg/.mim
 
 # Pytorch
 *.pth
+
+visual/
+tempDataset/
+learn/
+temp_dir/
+temp_out/

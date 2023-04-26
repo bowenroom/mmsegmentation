@@ -11,19 +11,39 @@ class ISPRSDataset(BaseSegDataset):
     ``reduce_zero_label`` should be set to True. The ``img_suffix`` and
     ``seg_map_suffix`` are both fixed to '.png'.
     """
-    METAINFO = dict(
-        classes=('impervious_surface', 'building', 'low_vegetation', 'tree',
-                 'car', 'clutter'),
-        palette=[[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
-                 [255, 255, 0], [255, 0, 0]])
 
-    def __init__(self,
-                 img_suffix='.png',
-                 seg_map_suffix='.png',
-                 reduce_zero_label=True,
-                 **kwargs) -> None:
+    METAINFO = dict(
+        # classes=('impervious_surface', 'building', 'low_vegetation', 'tree',
+        #          'car', 'clutter'),
+        # palette=[[255, 255, 255], [0, 0, 255], [0, 255, 255], [0, 255, 0],
+        #          [255, 255, 0], [255, 0, 0]]
+        # order of the palette need to be consistent with the order of the label in the tools/convert_datasets/vaihingen.py and potsdam.py
+        classes=(
+            # "background",
+            "impervious_surface",
+            "clutter",
+            "car",
+            "tree",
+            "low_vegetation",
+            "building",
+        ),
+        palette=[
+            # [0, 0, 0],
+            [255, 255, 255],
+            [255, 0, 0],
+            [255, 255, 0],
+            [0, 255, 0],
+            [0, 255, 255],
+            [0, 0, 255],
+        ],
+    )
+
+    def __init__(
+        self, img_suffix=".png", seg_map_suffix=".png", reduce_zero_label=True, **kwargs
+    ) -> None:
         super().__init__(
             img_suffix=img_suffix,
             seg_map_suffix=seg_map_suffix,
             reduce_zero_label=reduce_zero_label,
-            **kwargs)
+            **kwargs
+        )
